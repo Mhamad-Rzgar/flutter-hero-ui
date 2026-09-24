@@ -8,6 +8,7 @@ import 'button_demo.dart';
 import 'button_group_demo.dart';
 import 'chip_demo.dart';
 import 'close_button_demo.dart';
+import 'input_demo.dart';
 import 'kbd_demo.dart';
 import 'link_demo.dart';
 import 'separator_demo.dart';
@@ -23,6 +24,7 @@ final Map<String, ComponentDemo> demoRegistry = <String, ComponentDemo>{
   buttonGroupDemo.slug: buttonGroupDemo,
   chipDemo.slug: chipDemo,
   closeButtonDemo.slug: closeButtonDemo,
+  inputDemo.slug: inputDemo,
   kbdDemo.slug: kbdDemo,
   linkDemo.slug: linkDemo,
   separatorDemo.slug: separatorDemo,
