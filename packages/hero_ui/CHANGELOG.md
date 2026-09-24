@@ -24,3 +24,4 @@
 - `HeroAvatarGroup` (clip and ring overlap, grid layout, max count) and `HeroAvatarGroupCount`.
 - `HeroBadge`, `HeroBadgeAnchor` and `HeroBadgeLabel`.
 - `HeroInput`: single-line text input with field tokens, focus and invalid rings, `Form` integration and browser-style validation, plus the shared field primitives (`HeroFieldScope`, `HeroFieldBox`, `HeroTextInputCore`).
+- `HeroLabel`: required asterisk, disabled and invalid states; tapping it focuses its control.

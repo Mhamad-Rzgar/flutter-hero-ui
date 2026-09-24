@@ -10,6 +10,7 @@ import 'chip_demo.dart';
 import 'close_button_demo.dart';
 import 'input_demo.dart';
 import 'kbd_demo.dart';
+import 'label_demo.dart';
 import 'link_demo.dart';
 import 'separator_demo.dart';
 import 'spinner_demo.dart';
@@ -26,6 +27,7 @@ final Map<String, ComponentDemo> demoRegistry = <String, ComponentDemo>{
   closeButtonDemo.slug: closeButtonDemo,
   inputDemo.slug: inputDemo,
   kbdDemo.slug: kbdDemo,
+  labelDemo.slug: labelDemo,
   linkDemo.slug: linkDemo,
   separatorDemo.slug: separatorDemo,
   spinnerDemo.slug: spinnerDemo,

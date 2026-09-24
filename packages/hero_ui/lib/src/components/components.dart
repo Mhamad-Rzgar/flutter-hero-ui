@@ -9,6 +9,7 @@ export 'chip/chip.dart';
 export 'close_button/close_button.dart';
 export 'input/input.dart';
 export 'kbd/kbd.dart';
+export 'label/label.dart';
 export 'link/link.dart';
 export 'separator/separator.dart';
 export 'spinner/spinner.dart';

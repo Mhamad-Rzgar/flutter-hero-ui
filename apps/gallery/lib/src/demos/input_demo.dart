@@ -133,6 +133,57 @@ SizedBox(
 )''',
     ),
     DemoExample(
+      title: 'Input Types',
+      builder: (BuildContext context) => const _InputTypes(),
+      code: '''
+SizedBox(
+  width: 320,
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    spacing: 16,
+    children: <Widget>[
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        spacing: 4,
+        children: <Widget>[
+          HeroLabel.text('Email', focusNode: emailFocus),
+          HeroInput(
+            focusNode: emailFocus,
+            placeholder: 'jane@example.com',
+            type: HeroInputType.email,
+          ),
+        ],
+      ),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        spacing: 4,
+        children: <Widget>[
+          HeroLabel.text('Age', focusNode: ageFocus),
+          HeroInput(
+            focusNode: ageFocus,
+            placeholder: '30',
+            type: HeroInputType.number,
+            min: 0,
+          ),
+        ],
+      ),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        spacing: 4,
+        children: <Widget>[
+          HeroLabel.text('Password', focusNode: passwordFocus),
+          HeroInput(
+            focusNode: passwordFocus,
+            placeholder: '••••••••',
+            type: HeroInputType.password,
+          ),
+        ],
+      ),
+    ],
+  ),
+)''',
+    ),
+    DemoExample(
       title: 'Controlled',
       builder: (BuildContext context) => const _ControlledInput(),
       code: '''
@@ -244,6 +295,77 @@ class _ControlledInputState extends State<_ControlledInput> {
             child: Text(
               'https://${_value.isEmpty ? 'your-domain' : _value}',
               style: theme.typography.sm.copyWith(color: theme.colors.muted),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _InputTypes extends StatefulWidget {
+  const _InputTypes();
+
+  @override
+  State<_InputTypes> createState() => _InputTypesState();
+}
+
+class _InputTypesState extends State<_InputTypes> {
+  final FocusNode _email = FocusNode();
+  final FocusNode _age = FocusNode();
+  final FocusNode _password = FocusNode();
+
+  @override
+  void dispose() {
+    _email.dispose();
+    _age.dispose();
+    _password.dispose();
+    super.dispose();
+  }
+
+  Widget _field(String label, FocusNode focusNode, Widget input) => Column(
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    spacing: 4,
+    children: <Widget>[
+      HeroLabel.text(label, focusNode: focusNode),
+      input,
+    ],
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 320,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        spacing: 16,
+        children: <Widget>[
+          _field(
+            'Email',
+            _email,
+            HeroInput(
+              focusNode: _email,
+              placeholder: 'jane@example.com',
+              type: HeroInputType.email,
+            ),
+          ),
+          _field(
+            'Age',
+            _age,
+            HeroInput(
+              focusNode: _age,
+              placeholder: '30',
+              type: HeroInputType.number,
+              min: 0,
+            ),
+          ),
+          _field(
+            'Password',
+            _password,
+            HeroInput(
+              focusNode: _password,
+              placeholder: '••••••••',
+              type: HeroInputType.password,
             ),
           ),
         ],
