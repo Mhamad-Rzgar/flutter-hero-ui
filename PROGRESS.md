@@ -9,7 +9,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 ## Summary
 
 <!-- summary:start -->
-**13 of 164 slices done**, 0 in progress.
+**14 of 164 slices done**, 0 in progress.
 <!-- summary:end -->
 
 
@@ -31,7 +31,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 | # | Slice | Flutter API | Status |
 | --- | --- | --- | --- |
 | C01 | Spinner | `HeroSpinner` | ✅ Done |
-| C02 | Typography | `HeroTypographyText` | ⬜ Planned |
+| C02 | Typography | `HeroTypographyText` | ✅ Done |
 | C03 | Label | `HeroLabel` | ⬜ Planned |
 | C04 | Description | `HeroDescription` | ⬜ Planned |
 | C05 | FieldError | `HeroFieldError` | ⬜ Planned |

@@ -32,3 +32,4 @@ All notable changes to this repository. Package changelogs live in
 - `HeroButtonGroup` and `HeroButtonGroupSeparator`: attached horizontal or vertical groups with shared borders, separators, full width and group-wide props.
 - `HeroCloseButton`: the 24 px dismiss button with custom icon and style overrides.
 - `HeroSeparator` (horizontal and vertical; default, secondary and tertiary) and `HeroSeparatorScope`.
+- `HeroText` with `HeroHeading`, `HeroParagraph`, `HeroCode` and `HeroProse` for HeroUI's Typography component.

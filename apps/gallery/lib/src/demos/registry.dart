@@ -6,6 +6,7 @@ import 'button_group_demo.dart';
 import 'close_button_demo.dart';
 import 'separator_demo.dart';
 import 'spinner_demo.dart';
+import 'typography_demo.dart';
 
 /// Every component demo, keyed by catalog slug.
 final Map<String, ComponentDemo> demoRegistry = <String, ComponentDemo>{
@@ -14,4 +15,5 @@ final Map<String, ComponentDemo> demoRegistry = <String, ComponentDemo>{
   closeButtonDemo.slug: closeButtonDemo,
   separatorDemo.slug: separatorDemo,
   spinnerDemo.slug: spinnerDemo,
+  typographyDemo.slug: typographyDemo,
 };
