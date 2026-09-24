@@ -444,6 +444,7 @@ class _HeroToggleButtonBody extends StatelessWidget {
     if (button.separator != null && attached) {
       result = Stack(
         clipBehavior: Clip.none,
+        fit: StackFit.passthrough,
         children: <Widget>[
           result,
           Positioned.fill(

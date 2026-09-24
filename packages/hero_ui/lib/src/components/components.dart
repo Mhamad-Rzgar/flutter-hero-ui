@@ -18,4 +18,5 @@ export 'spinner/spinner.dart';
 export 'surface/surface.dart';
 export 'text_area/text_area.dart';
 export 'toggle_button/toggle_button.dart';
+export 'toggle_button_group/toggle_button_group.dart';
 export 'typography/typography.dart';

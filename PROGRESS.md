@@ -9,7 +9,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 ## Summary
 
 <!-- summary:start -->
-**27 of 164 slices done**, 0 in progress.
+**28 of 164 slices done**, 0 in progress.
 <!-- summary:end -->
 
 
@@ -40,7 +40,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 | C08 | CloseButton | `HeroCloseButton` | ✅ Done |
 | C09 | ButtonGroup | `HeroButtonGroup` | ✅ Done |
 | C10 | ToggleButton | `HeroToggleButton` | ✅ Done |
-| C11 | ToggleButtonGroup | `HeroToggleButtonGroup` | ⬜ Planned |
+| C11 | ToggleButtonGroup | `HeroToggleButtonGroup` | ✅ Done |
 | C12 | Kbd | `HeroKbd` | ✅ Done |
 | C13 | Link | `HeroLink` | ✅ Done |
 
