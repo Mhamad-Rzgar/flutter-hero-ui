@@ -2,6 +2,7 @@ export 'color/color_math.dart';
 export 'theme/hero_breakpoints.dart';
 export 'theme/hero_theme.dart';
 export 'theme/hero_theme_data.dart';
+export 'theme/hero_theme_presets.dart';
 export 'tokens/hero_colors.dart';
 export 'tokens/hero_motion.dart';
 export 'tokens/hero_radii.dart';

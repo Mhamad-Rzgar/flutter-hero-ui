@@ -12,3 +12,5 @@ All notable changes to this repository. Package changelogs live in
 - Design tokens (`HeroColors`, `HeroRadii`, `HeroSpacing`, `HeroTypography`, `HeroShadows`,
   `HeroMotion`) evaluated from HeroUI's OKLCH variables, `HeroThemeData` and
   `HeroTheme.of(context)`.
+- `HeroThemePreset`: HeroUI's named theme presets (Default, Sky, Lavender, Mint, Netflix, Uber,
+  Spotify, Coinbase, Airbnb, Discord, Rabbit) in light and dark.

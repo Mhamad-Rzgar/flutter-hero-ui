@@ -49,7 +49,7 @@ void main() {
       Theme(
         data: ThemeData(
           extensions: <ThemeExtension<dynamic>>[
-            HeroThemeData.dark(),
+            HeroThemeData.dark(preset: HeroThemePreset.mint),
           ],
         ),
         child: Builder(
@@ -60,6 +60,7 @@ void main() {
         ),
       ),
     );
+    expect(data.preset, HeroThemePreset.mint);
     expect(data.isDark, isTrue);
   });
 

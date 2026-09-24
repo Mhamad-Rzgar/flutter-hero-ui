@@ -89,6 +89,60 @@ void main() {
     expect(map.length, 74);
   });
 
+  group('presets', () {
+    for (final HeroThemePreset preset in HeroThemePreset.values) {
+      test('${preset.label} builds light and dark themes', () {
+        final HeroThemeData light = HeroThemeData.light(preset: preset);
+        final HeroThemeData dark = HeroThemeData.dark(preset: preset);
+        expect(light.brightness, Brightness.light);
+        expect(dark.brightness, Brightness.dark);
+        expect(light.colors.accent.a, 1);
+        expect(
+          relativeLuminance(light.colors.background),
+          greaterThan(relativeLuminance(dark.colors.background)),
+        );
+      });
+    }
+
+    test('radius overrides come from the preset CSS', () {
+      expect(
+        HeroThemeData.light(preset: HeroThemePreset.netflix).radii.radius,
+        2,
+      );
+      expect(
+        HeroThemeData.light(preset: HeroThemePreset.netflix).radii.field,
+        2,
+      );
+      expect(
+        HeroThemeData.light(preset: HeroThemePreset.spotify).radii.radius,
+        8,
+      );
+      expect(
+        HeroThemeData.light(preset: HeroThemePreset.spotify).radii.field,
+        2,
+      );
+      expect(
+        HeroThemeData.light(preset: HeroThemePreset.rabbit).radii.field,
+        16,
+      );
+      expect(
+        HeroThemeData.light(preset: HeroThemePreset.discord).radii.radius,
+        4,
+      );
+      expect(
+        HeroThemeData.light(preset: HeroThemePreset.discord).radii.field,
+        12,
+      );
+    });
+
+    test('sky accent differs from default accent', () {
+      expect(
+        HeroThemeData.light(preset: HeroThemePreset.sky).colors.accent,
+        isNot(HeroThemeData.light().colors.accent),
+      );
+    });
+  });
+
   group('radii', () {
     test('scale follows theme.css', () {
       const HeroRadii r = HeroRadii();

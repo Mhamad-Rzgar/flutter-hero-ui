@@ -11,6 +11,7 @@ import '../tokens/hero_shadows.dart';
 import '../tokens/hero_spacing.dart';
 import '../tokens/hero_typography.dart';
 import 'hero_breakpoints.dart';
+import 'hero_theme_presets.dart';
 
 /// How rounded corners are drawn.
 enum HeroCornerStyle {
@@ -47,6 +48,7 @@ class HeroThemeData extends ThemeExtension<HeroThemeData> with Diagnosticable {
   const HeroThemeData({
     required this.brightness,
     required this.colors,
+    this.preset,
     this.radii = const HeroRadii(),
     this.spacing = const HeroSpacing(),
     this.typography = const HeroTypography(),
@@ -69,34 +71,69 @@ class HeroThemeData extends ThemeExtension<HeroThemeData> with Diagnosticable {
                ? HeroShadows.dark
                : HeroShadows.light);
 
-  /// HeroUI's default light theme.
-  factory HeroThemeData.light({bool vibrantPalette = false}) => HeroThemeData(
+  /// Creates a theme from a named [preset] (defaults to HeroUI's default
+  /// theme) for the given [brightness].
+  factory HeroThemeData.fromPreset(
+    HeroThemePreset preset, {
+    Brightness brightness = Brightness.light,
+    bool vibrantPalette = false,
+    HeroTypography typography = const HeroTypography(),
+    HeroCornerStyle cornerStyle = HeroCornerStyle.continuous,
+    HeroDensity density = HeroDensity.adaptive,
+    HeroMotion motion = const HeroMotion(),
+  }) {
+    final HeroColors colors = _colorCache.putIfAbsent(
+      (preset, brightness, vibrantPalette),
+      () => HeroColors.derive(
+        brightness == Brightness.dark ? preset.darkSource : preset.lightSource,
+        brightness: brightness,
+        vibrantPalette: vibrantPalette,
+      ),
+    );
+    return HeroThemeData(
+      brightness: brightness,
+      colors: colors,
+      preset: preset,
+      radii: HeroRadii(
+        radius: preset.radius ?? 8,
+        field: preset.fieldRadius ?? 12,
+      ),
+      typography: typography,
+      cornerStyle: cornerStyle,
+      density: density,
+      motion: motion,
+      vibrantPalette: vibrantPalette,
+    );
+  }
+
+  /// HeroUI's light theme, optionally for another [preset].
+  factory HeroThemeData.light({
+    HeroThemePreset preset = HeroThemePreset.standard,
+    bool vibrantPalette = false,
+  }) => HeroThemeData.fromPreset(
+    preset,
     brightness: Brightness.light,
-    colors: vibrantPalette
-        ? HeroColors.derive(
-            HeroColorSource.light,
-            brightness: Brightness.light,
-            vibrantPalette: true,
-          )
-        : HeroColors.light,
     vibrantPalette: vibrantPalette,
   );
 
-  /// HeroUI's default dark theme.
-  factory HeroThemeData.dark({bool vibrantPalette = false}) => HeroThemeData(
+  /// HeroUI's dark theme, optionally for another [preset].
+  factory HeroThemeData.dark({
+    HeroThemePreset preset = HeroThemePreset.standard,
+    bool vibrantPalette = false,
+  }) => HeroThemeData.fromPreset(
+    preset,
     brightness: Brightness.dark,
-    colors: vibrantPalette
-        ? HeroColors.derive(
-            HeroColorSource.dark,
-            brightness: Brightness.dark,
-            vibrantPalette: true,
-          )
-        : HeroColors.dark,
     vibrantPalette: vibrantPalette,
   );
+
+  static final Map<(HeroThemePreset, Brightness, bool), HeroColors>
+  _colorCache = <(HeroThemePreset, Brightness, bool), HeroColors>{};
 
   /// Whether this is a light or dark theme.
   final Brightness brightness;
+
+  /// The preset this theme was built from, if any.
+  final HeroThemePreset? preset;
 
   /// Color tokens.
   final HeroColors colors;
@@ -190,6 +227,7 @@ class HeroThemeData extends ThemeExtension<HeroThemeData> with Diagnosticable {
   @override
   HeroThemeData copyWith({
     Brightness? brightness,
+    HeroThemePreset? preset,
     HeroColors? colors,
     HeroRadii? radii,
     HeroSpacing? spacing,
@@ -210,6 +248,7 @@ class HeroThemeData extends ThemeExtension<HeroThemeData> with Diagnosticable {
   }) {
     return HeroThemeData(
       brightness: brightness ?? this.brightness,
+      preset: preset ?? this.preset,
       colors: colors ?? this.colors,
       radii: radii ?? this.radii,
       spacing: spacing ?? this.spacing,
@@ -236,6 +275,7 @@ class HeroThemeData extends ThemeExtension<HeroThemeData> with Diagnosticable {
     final bool first = t < 0.5;
     return HeroThemeData(
       brightness: first ? brightness : other.brightness,
+      preset: first ? preset : other.preset,
       colors: HeroColors.lerp(colors, other.colors, t),
       radii: HeroRadii.lerp(radii, other.radii, t),
       spacing: HeroSpacing.lerp(spacing, other.spacing, t),
@@ -265,6 +305,7 @@ class HeroThemeData extends ThemeExtension<HeroThemeData> with Diagnosticable {
     if (identical(this, other)) return true;
     return other is HeroThemeData &&
         other.brightness == brightness &&
+        other.preset == preset &&
         other.colors == colors &&
         other.radii == radii &&
         other.spacing == spacing &&
@@ -287,6 +328,7 @@ class HeroThemeData extends ThemeExtension<HeroThemeData> with Diagnosticable {
   @override
   int get hashCode => Object.hash(
     brightness,
+    preset,
     colors,
     radii,
     spacing,
@@ -311,6 +353,7 @@ class HeroThemeData extends ThemeExtension<HeroThemeData> with Diagnosticable {
     super.debugFillProperties(properties);
     properties
       ..add(EnumProperty<Brightness>('brightness', brightness))
+      ..add(EnumProperty<HeroThemePreset>('preset', preset))
       ..add(DiagnosticsProperty<HeroColors>('colors', colors))
       ..add(DiagnosticsProperty<HeroRadii>('radii', radii))
       ..add(EnumProperty<HeroCornerStyle>('cornerStyle', cornerStyle))

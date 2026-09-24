@@ -5,3 +5,4 @@
 - Initial package skeleton.
 - Design tokens and `HeroThemeData` / `HeroTheme` with HeroUI's default light and dark
   themes, OKLCH color math and CSS `color-mix()` evaluation.
+- `HeroThemePreset` with every HeroUI theme-builder preset in light and dark.

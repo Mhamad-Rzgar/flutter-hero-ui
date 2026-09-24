@@ -38,6 +38,32 @@ ThemeData(extensions: <ThemeExtension<dynamic>>[HeroThemeData.light()]);
 
 `AnimatedHeroTheme` interpolates between two themes.
 
+## Presets
+
+Every preset of the HeroUI theme builder is available in light and dark:
+
+```dart
+HeroThemeData.light(preset: HeroThemePreset.lavender);
+HeroThemeData.dark(preset: HeroThemePreset.spotify);
+HeroThemeData.fromPreset(HeroThemePreset.mint, brightness: Brightness.dark);
+```
+
+| Preset | Accent | Radius / field radius |
+| --- | --- | --- |
+| `standard` (Default) | blue | 8 / 12 |
+| `sky` | light blue | 8 / 12 |
+| `lavender` | violet | 8 / 12 |
+| `mint` | green | 8 / 12 |
+| `netflix` | red | 2 / 2 |
+| `uber` | black | 4 / 4 |
+| `spotify` | green | 8 / 2 |
+| `coinbase` | blue | 8 / 2 |
+| `airbnb` | coral | 8 / 12 |
+| `discord` | blurple | 4 / 12 |
+| `rabbit` | orange | 8 / 16 |
+
+Pass `vibrantPalette: true` for HeroUI's more saturated soft foregrounds.
+
 ## Color tokens
 
 | Group | Tokens |
