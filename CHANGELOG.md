@@ -14,3 +14,5 @@ All notable changes to this repository. Package changelogs live in
   `HeroTheme.of(context)`.
 - `HeroThemePreset`: HeroUI's named theme presets (Default, Sky, Lavender, Mint, Netflix, Uber,
   Spotify, Coinbase, Airbnb, Discord, Rabbit) in light and dark.
+- `HeroApp` application shell (WidgetsApp based, iOS page transitions, bouncing scroll) and
+  `loadHeroFonts()` for golden tests.

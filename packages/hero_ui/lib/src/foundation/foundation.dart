@@ -1,3 +1,4 @@
+export 'app/hero_app.dart';
 export 'color/color_math.dart';
 export 'theme/hero_breakpoints.dart';
 export 'theme/hero_theme.dart';
