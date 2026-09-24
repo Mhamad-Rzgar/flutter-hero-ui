@@ -1,4 +1,5 @@
 import 'package:flutter/gestures.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -160,6 +161,26 @@ void main() {
         hasTapAction: true,
       ),
     );
+    handle.dispose();
+  });
+
+  testWidgets('exposes link semantics with a url', (WidgetTester tester) async {
+    final SemanticsHandle handle = tester.ensureSemantics();
+    await pumpHero(
+      tester,
+      HeroInteractable(
+        onPressed: () {},
+        isLink: true,
+        linkUrl: Uri.parse('https://heroui.com'),
+        builder: (BuildContext context, HeroInteractionState state, _) =>
+            const Text('Docs'),
+      ),
+    );
+    final SemanticsData data = tester
+        .getSemantics(find.byType(HeroInteractable))
+        .getSemanticsData();
+    expect(data.flagsCollection.isLink, isTrue);
+    expect(data.linkUrl, Uri.parse('https://heroui.com'));
     handle.dispose();
   });
 

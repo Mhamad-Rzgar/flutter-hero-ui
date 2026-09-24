@@ -158,6 +158,7 @@ class HeroInteractable extends StatefulWidget {
     this.isButton = true,
     this.isToggle = false,
     this.isLink = false,
+    this.linkUrl,
     this.excludeSemantics = false,
     this.minimumPressDuration = const Duration(milliseconds: 100),
     this.pressOnKeyboardActivate = true,
@@ -235,6 +236,9 @@ class HeroInteractable extends StatefulWidget {
 
   /// Whether to expose link semantics instead of button semantics.
   final bool isLink;
+
+  /// Destination exposed with link semantics (only used when [isLink]).
+  final Uri? linkUrl;
 
   /// Whether to drop the subtree's own semantics.
   final bool excludeSemantics;
@@ -429,6 +433,7 @@ class _HeroInteractableState extends State<HeroInteractable> {
       container: true,
       button: widget.isButton && !widget.isLink,
       link: widget.isLink,
+      linkUrl: widget.isLink ? widget.linkUrl : null,
       // Pending components stay focusable but are announced as unavailable
       // (React Aria sets `aria-disabled` while pending).
       enabled: !widget.isDisabled && !widget.isPending,
