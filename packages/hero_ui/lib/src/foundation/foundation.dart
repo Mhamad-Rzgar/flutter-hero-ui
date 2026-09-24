@@ -1,5 +1,8 @@
 export 'app/hero_app.dart';
 export 'color/color_math.dart';
+export 'interaction/hero_focus_ring.dart';
+export 'interaction/hero_interactable.dart';
+export 'interaction/hero_press_scale.dart';
 export 'theme/hero_breakpoints.dart';
 export 'theme/hero_theme.dart';
 export 'theme/hero_theme_data.dart';

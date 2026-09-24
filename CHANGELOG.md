@@ -16,3 +16,5 @@ All notable changes to this repository. Package changelogs live in
   Spotify, Coinbase, Airbnb, Discord, Rabbit) in light and dark.
 - `HeroApp` application shell (WidgetsApp based, iOS page transitions, bouncing scroll) and
   `loadHeroFonts()` for golden tests.
+- Interaction layer: `HeroInteractable` (press, hover, focus-visible, keyboard activation,
+  semantics), `HeroFocusRing`, `HeroPressScale` and `HeroDisabledOpacity`.

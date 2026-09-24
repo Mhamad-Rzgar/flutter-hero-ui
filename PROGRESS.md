@@ -9,7 +9,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 ## Summary
 
 <!-- summary:start -->
-**3 of 164 slices done**, 0 in progress.
+**4 of 164 slices done**, 0 in progress.
 <!-- summary:end -->
 
 
@@ -20,7 +20,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 | F1 | Design tokens & HeroTheme | `HeroThemeData, HeroTheme, HeroColors, HeroRadii, HeroSpacing, HeroTypography, HeroShadows, HeroMotion` | ✅ Done |
 | F2 | Theme presets (light/dark + named presets) | `HeroThemePreset` | ✅ Done |
 | F3 | App shell & test harness | `HeroApp, HeroPageRoute, HeroScrollBehavior, loadHeroFonts` | ✅ Done |
-| F4 | Interaction layer | `HeroInteractable, HeroFocusRing, HeroPressScale, HeroDisabledOpacity` | ⬜ Planned |
+| F4 | Interaction layer | `HeroInteractable, HeroFocusRing, HeroPressScale, HeroDisabledOpacity` | ✅ Done |
 | F5 | Variant system | `HeroColor, HeroSize, HeroVariant, HeroVariants, HeroSizeValues` | ⬜ Planned |
 | F6 | Icon set | `HeroIcon, HeroIconData, HeroIcons` | ⬜ Planned |
 | F7 | Overlay & positioning layer | `HeroAnchoredOverlay, HeroPlacement, HeroOverlayTransition` | ⬜ Planned |
