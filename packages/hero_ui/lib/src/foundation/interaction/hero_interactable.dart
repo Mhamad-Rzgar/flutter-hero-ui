@@ -429,9 +429,12 @@ class _HeroInteractableState extends State<HeroInteractable> {
       container: true,
       button: widget.isButton && !widget.isLink,
       link: widget.isLink,
-      enabled: !widget.isDisabled,
+      // Pending components stay focusable but are announced as unavailable
+      // (React Aria sets `aria-disabled` while pending).
+      enabled: !widget.isDisabled && !widget.isPending,
       focusable: !widget.isDisabled && widget.canRequestFocus,
-      focused: _focused,
+      // A null `focused` marks the node as not focusable.
+      focused: !widget.isDisabled && widget.canRequestFocus ? _focused : null,
       selected: widget.isToggle ? null : (widget.isSelected ? true : null),
       toggled: widget.isToggle ? widget.isSelected : null,
       label: widget.semanticsLabel,

@@ -117,7 +117,7 @@ DecoratedBox(
 
 Inside buttons and other colored content, use
 `HeroSpinner(size: HeroSpinnerSize.sm, color: HeroSpinnerColor.current)` so the spinner takes
-the surrounding foreground color.
+the surrounding foreground color; `HeroButton(isPending: true)` shows exactly that spinner.
 
 ## Accessibility
 

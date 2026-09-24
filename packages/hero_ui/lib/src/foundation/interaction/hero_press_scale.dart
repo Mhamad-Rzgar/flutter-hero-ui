@@ -61,9 +61,10 @@ class HeroDisabledOpacity extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (!disabled) return child;
+    // Always wrap in Opacity so toggling [disabled] keeps the subtree (and
+    // its state); an opacity of 1 paints the child directly.
     return Opacity(
-      opacity: HeroTheme.of(context).disabledOpacity,
+      opacity: disabled ? HeroTheme.of(context).disabledOpacity : 1,
       child: child,
     );
   }

@@ -28,3 +28,4 @@ All notable changes to this repository. Package changelogs live in
   split view on wide screens, component pages with playground and code sheet, templates
   section and theme switcher (mode, preset, text direction).
 - `HeroSpinner`: two-arc gradient ring in four sizes and five colors, static under reduced motion.
+- `HeroButton`: seven variants (including `dangerSoft`), three sizes with touch and desktop heights, icon-only, full width, pending spinner, disabled state and `HeroButtonStyle` overrides.

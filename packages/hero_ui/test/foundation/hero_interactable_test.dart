@@ -186,6 +186,43 @@ void main() {
     expect(last!.isHovered, isFalse);
   });
 
+  testWidgets('pending stays focusable, disabled does not, both unavailable', (
+    WidgetTester tester,
+  ) async {
+    final SemanticsHandle handle = tester.ensureSemantics();
+    await pumpHero(tester, target(onPressed: () {}, isPending: true));
+    expect(
+      tester.getSemantics(find.byType(HeroInteractable)),
+      matchesSemantics(
+        label: 'Target',
+        isButton: true,
+        hasEnabledState: true,
+        isEnabled: false,
+        isFocusable: true,
+      ),
+    );
+    await pumpHero(tester, target(onPressed: () {}, isDisabled: true));
+    expect(
+      tester.getSemantics(find.byType(HeroInteractable)),
+      matchesSemantics(label: 'Target', isButton: true, hasEnabledState: true),
+    );
+    handle.dispose();
+  });
+
+  testWidgets('disabled opacity keeps the subtree when toggled', (
+    WidgetTester tester,
+  ) async {
+    _InitCounter.inits = 0;
+    Widget build(bool disabled) =>
+        HeroDisabledOpacity(disabled: disabled, child: const _InitCounter());
+    await pumpHero(tester, build(false));
+    expect(tester.widget<Opacity>(find.byType(Opacity)).opacity, 1);
+    await pumpHero(tester, build(true));
+    expect(tester.widget<Opacity>(find.byType(Opacity)).opacity, 0.5);
+    await pumpHero(tester, build(false));
+    expect(_InitCounter.inits, 1);
+  });
+
   testWidgets('focus ring paints outside the child', (
     WidgetTester tester,
   ) async {
@@ -200,4 +237,24 @@ void main() {
     expect(find.byType(CustomPaint), findsWidgets);
     expect(tester.getSize(find.byType(HeroFocusRing)), const Size(80, 40));
   });
+}
+
+class _InitCounter extends StatefulWidget {
+  const _InitCounter();
+
+  static int inits = 0;
+
+  @override
+  State<_InitCounter> createState() => _InitCounterState();
+}
+
+class _InitCounterState extends State<_InitCounter> {
+  @override
+  void initState() {
+    super.initState();
+    _InitCounter.inits++;
+  }
+
+  @override
+  Widget build(BuildContext context) => const SizedBox(width: 10);
 }
