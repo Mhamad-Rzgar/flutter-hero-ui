@@ -1,0 +1,23 @@
+name: hero_ui_gallery
+description: Gallery app showcasing every hero_ui component, template and theme.
+publish_to: none
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.9.0
+
+resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+  hero_ui: ^0.1.0
+  hero_ui_pro: ^0.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: false

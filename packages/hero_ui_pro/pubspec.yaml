@@ -1,0 +1,24 @@
+name: hero_ui_pro
+description: >-
+  Pro-tier components, full-screen templates and premium design systems built
+  on top of hero_ui.
+version: 0.1.0
+publish_to: none
+repository: https://github.com/Mhamad-Rzgar/flutter-hero-ui
+
+environment:
+  sdk: ^3.9.0
+  flutter: ">=3.35.0"
+
+resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+  hero_ui: ^0.1.0
+  intl: ^0.20.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0

@@ -1,0 +1,31 @@
+name: hero_ui_workspace
+description: Flutter port of the HeroUI v3 design system (workspace root).
+publish_to: none
+
+environment:
+  sdk: ^3.9.0
+
+workspace:
+  - packages/hero_ui
+  - packages/hero_ui_pro
+  - apps/gallery
+
+dev_dependencies:
+  melos: ^8.9.0
+
+melos:
+  name: hero_ui
+  repository: https://github.com/Mhamad-Rzgar/flutter-hero-ui
+  scripts:
+    analyze:
+      description: Run static analysis in every package.
+      run: melos exec -- flutter analyze --no-fatal-infos .
+    test:
+      description: Run the tests of every package that has a test directory.
+      run: melos exec --dir-exists=test -- flutter test
+    test:update-goldens:
+      description: Regenerate golden images.
+      run: melos exec --dir-exists=test -- flutter test --update-goldens
+    format:
+      description: Format all Dart sources.
+      run: dart format .

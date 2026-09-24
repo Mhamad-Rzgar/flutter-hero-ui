@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  analyze-and-test:
+    name: Analyze and test
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: 3.47.5
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Analyze
+        run: flutter analyze --fatal-infos --fatal-warnings
+
+      - name: Test hero_ui
+        working-directory: packages/hero_ui
+        run: flutter test
+
+      - name: Test hero_ui_pro
+        working-directory: packages/hero_ui_pro
+        run: |
+          if [ -d test ]; then flutter test; else echo "no tests yet"; fi
+
+      - name: Test gallery
+        working-directory: apps/gallery
+        run: |
+          if [ -d test ]; then flutter test; else echo "no tests yet"; fi
+
+      - name: Upload golden failures
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: golden-failures
+          path: |
+            **/test/**/failures/
+          if-no-files-found: ignore
