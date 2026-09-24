@@ -29,3 +29,4 @@
 - `HeroTextArea`: rows, explicit height and an optional vertical resize grip.
 - `HeroSurface` and `HeroSurfaceScope` with the four surface variants.
 - `HeroSkeleton` and `HeroSkeletonGroup`: shimmer, pulse or no animation, with a synchronised group shimmer.
+- `HeroToggleButton` (standard and ghost, three sizes, icon-only, controlled or uncontrolled, style overrides) and the shared `HeroSelectionMode`.

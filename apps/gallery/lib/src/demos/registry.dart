@@ -18,6 +18,7 @@ import 'skeleton_demo.dart';
 import 'spinner_demo.dart';
 import 'surface_demo.dart';
 import 'text_area_demo.dart';
+import 'toggle_button_demo.dart';
 import 'typography_demo.dart';
 
 /// Every component demo, keyed by catalog slug.
@@ -39,5 +40,6 @@ final Map<String, ComponentDemo> demoRegistry = <String, ComponentDemo>{
   spinnerDemo.slug: spinnerDemo,
   surfaceDemo.slug: surfaceDemo,
   textAreaDemo.slug: textAreaDemo,
+  toggleButtonDemo.slug: toggleButtonDemo,
   typographyDemo.slug: typographyDemo,
 };
