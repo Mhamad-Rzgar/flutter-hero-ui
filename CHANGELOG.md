@@ -33,3 +33,4 @@ All notable changes to this repository. Package changelogs live in
 - `HeroCloseButton`: the 24 px dismiss button with custom icon and style overrides.
 - `HeroSeparator` (horizontal and vertical; default, secondary and tertiary) and `HeroSeparatorScope`.
 - `HeroText` with `HeroHeading`, `HeroParagraph`, `HeroCode` and `HeroProse` for HeroUI's Typography component.
+- `HeroKbd`, `HeroKbdAbbr`, `HeroKbdContent` and the `HeroKbdKey` symbol map.
