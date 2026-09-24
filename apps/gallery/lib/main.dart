@@ -1,10 +1,7 @@
 import 'package:flutter/widgets.dart';
 
+import 'src/app.dart';
+
 void main() {
-  runApp(
-    const Directionality(
-      textDirection: TextDirection.ltr,
-      child: Center(child: Text('hero_ui gallery')),
-    ),
-  );
+  runApp(const GalleryApp());
 }
