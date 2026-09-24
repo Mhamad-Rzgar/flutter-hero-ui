@@ -4,4 +4,5 @@ One page per component, mirroring the structure of the HeroUI docs: overview, us
 variants and an API table. Pages are added as components land; see
 [PROGRESS.md](../PROGRESS.md).
 
+- [Theming](theming.md)
 - Components: [docs/components](components)

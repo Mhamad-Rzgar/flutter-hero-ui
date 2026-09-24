@@ -9,7 +9,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 ## Summary
 
 <!-- summary:start -->
-**0 of 164 slices done**, 0 in progress.
+**1 of 164 slices done**, 0 in progress.
 <!-- summary:end -->
 
 
@@ -17,7 +17,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 
 | # | Slice | Flutter API | Status |
 | --- | --- | --- | --- |
-| F1 | Design tokens & HeroTheme | `HeroThemeData, HeroTheme, HeroColors, HeroRadii, HeroSpacing, HeroTypography, HeroShadows, HeroMotion` | ⬜ Planned |
+| F1 | Design tokens & HeroTheme | `HeroThemeData, HeroTheme, HeroColors, HeroRadii, HeroSpacing, HeroTypography, HeroShadows, HeroMotion` | ✅ Done |
 | F2 | Theme presets (light/dark + named presets) | `HeroThemePreset` | ⬜ Planned |
 | F3 | App shell & test harness | `HeroApp, HeroPageRoute, HeroScrollBehavior, loadHeroFonts` | ⬜ Planned |
 | F4 | Interaction layer | `HeroInteractable, HeroFocusRing, HeroPressScale, HeroDisabledOpacity` | ⬜ Planned |

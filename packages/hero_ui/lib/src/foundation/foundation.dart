@@ -1,1 +1,10 @@
-// Foundation exports are added as each foundation slice lands.
+export 'color/color_math.dart';
+export 'theme/hero_breakpoints.dart';
+export 'theme/hero_theme.dart';
+export 'theme/hero_theme_data.dart';
+export 'tokens/hero_colors.dart';
+export 'tokens/hero_motion.dart';
+export 'tokens/hero_radii.dart';
+export 'tokens/hero_shadows.dart';
+export 'tokens/hero_spacing.dart';
+export 'tokens/hero_typography.dart';
