@@ -18,3 +18,5 @@ All notable changes to this repository. Package changelogs live in
   `loadHeroFonts()` for golden tests.
 - Interaction layer: `HeroInteractable` (press, hover, focus-visible, keyboard activation,
   semantics), `HeroFocusRing`, `HeroPressScale` and `HeroDisabledOpacity`.
+- Variant system: `HeroColor`, `HeroSize`, `HeroVariant`, `HeroVariants.resolve` and
+  `HeroSizeValues`.

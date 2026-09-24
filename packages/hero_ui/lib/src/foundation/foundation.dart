@@ -13,3 +13,4 @@ export 'tokens/hero_radii.dart';
 export 'tokens/hero_shadows.dart';
 export 'tokens/hero_spacing.dart';
 export 'tokens/hero_typography.dart';
+export 'variants/hero_variants.dart';

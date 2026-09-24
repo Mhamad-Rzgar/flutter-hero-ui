@@ -8,3 +8,4 @@
 - `HeroThemePreset` with every HeroUI theme-builder preset in light and dark.
 - `HeroApp`, `HeroPageRoute`, `HeroScrollBehavior` and `package:hero_ui/hero_ui_testing.dart`.
 - Interaction layer: `HeroInteractable`, `HeroFocusRing`, `HeroPressScale`, `HeroDisabledOpacity`.
+- Variant system: `HeroColor`, `HeroSize`, `HeroVariant`, `HeroVariants`, `HeroSizeValues`.
