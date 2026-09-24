@@ -22,3 +22,5 @@ All notable changes to this repository. Package changelogs live in
   `HeroSizeValues`.
 - Icon set: `HeroIcon`, `HeroIconData` and `HeroIcons` (HeroUI's built-in icons plus Gravity UI
   icons) rendered from SVG path data.
+- Overlay layer: `HeroAnchoredOverlay` with React Aria placement, flipping and shifting,
+  outside-press and Escape dismissal, modal barrier and HeroUI's popover motion.

@@ -6,6 +6,8 @@ export 'icons/svg_path.dart';
 export 'interaction/hero_focus_ring.dart';
 export 'interaction/hero_interactable.dart';
 export 'interaction/hero_press_scale.dart';
+export 'overlay/hero_anchored_overlay.dart';
+export 'overlay/hero_placement.dart';
 export 'theme/hero_breakpoints.dart';
 export 'theme/hero_theme.dart';
 export 'theme/hero_theme_data.dart';

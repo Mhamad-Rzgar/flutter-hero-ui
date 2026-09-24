@@ -5,4 +5,5 @@ variants and an API table. Pages are added as components land; see
 [PROGRESS.md](../PROGRESS.md).
 
 - [Theming](theming.md)
+- [Foundations](foundations.md)
 - Components: [docs/components](components)

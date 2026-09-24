@@ -9,7 +9,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 ## Summary
 
 <!-- summary:start -->
-**6 of 164 slices done**, 0 in progress.
+**7 of 164 slices done**, 0 in progress.
 <!-- summary:end -->
 
 
@@ -23,7 +23,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 | F4 | Interaction layer | `HeroInteractable, HeroFocusRing, HeroPressScale, HeroDisabledOpacity` | ✅ Done |
 | F5 | Variant system | `HeroColor, HeroSize, HeroVariant, HeroVariants, HeroSizeValues` | ✅ Done |
 | F6 | Icon set | `HeroIcon, HeroIconData, HeroIcons` | ✅ Done |
-| F7 | Overlay & positioning layer | `HeroAnchoredOverlay, HeroPlacement, HeroOverlayTransition` | ⬜ Planned |
+| F7 | Overlay & positioning layer | `HeroAnchoredOverlay, HeroPlacement, HeroOverlayTransition` | ✅ Done |
 | F8 | Gallery skeleton | apps/gallery | ⬜ Planned |
 
 ## Buttons & typography
