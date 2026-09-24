@@ -27,3 +27,4 @@ All notable changes to this repository. Package changelogs live in
 - Gallery app skeleton: searchable component index grouped like the HeroUI docs, adaptive
   split view on wide screens, component pages with playground and code sheet, templates
   section and theme switcher (mode, preset, text direction).
+- `HeroSpinner`: two-arc gradient ring in four sizes and five colors, static under reduced motion.

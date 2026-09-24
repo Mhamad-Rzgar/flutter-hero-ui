@@ -11,3 +11,4 @@
 - Variant system: `HeroColor`, `HeroSize`, `HeroVariant`, `HeroVariants`, `HeroSizeValues`.
 - `HeroIcon`, `HeroIconData`, `HeroIcons` and an SVG path-data parser.
 - Overlay layer: `HeroAnchoredOverlay`, `HeroPlacement`, `computeHeroOverlayGeometry`, `HeroOverlayTransition`.
+- `HeroSpinner`: two-arc gradient ring in four sizes and five colors, static under reduced motion.
