@@ -20,3 +20,5 @@ All notable changes to this repository. Package changelogs live in
   semantics), `HeroFocusRing`, `HeroPressScale` and `HeroDisabledOpacity`.
 - Variant system: `HeroColor`, `HeroSize`, `HeroVariant`, `HeroVariants.resolve` and
   `HeroSizeValues`.
+- Icon set: `HeroIcon`, `HeroIconData` and `HeroIcons` (HeroUI's built-in icons plus Gravity UI
+  icons) rendered from SVG path data.
