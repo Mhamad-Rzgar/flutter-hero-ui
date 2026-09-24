@@ -3,4 +3,5 @@
 export 'button/button.dart';
 export 'button_group/button_group.dart';
 export 'close_button/close_button.dart';
+export 'separator/separator.dart';
 export 'spinner/spinner.dart';

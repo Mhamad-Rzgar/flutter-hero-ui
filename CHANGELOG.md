@@ -31,3 +31,4 @@ All notable changes to this repository. Package changelogs live in
 - `HeroButton`: seven variants (including `dangerSoft`), three sizes with touch and desktop heights, icon-only, full width, pending spinner, disabled state and `HeroButtonStyle` overrides.
 - `HeroButtonGroup` and `HeroButtonGroupSeparator`: attached horizontal or vertical groups with shared borders, separators, full width and group-wide props.
 - `HeroCloseButton`: the 24 px dismiss button with custom icon and style overrides.
+- `HeroSeparator` (horizontal and vertical; default, secondary and tertiary) and `HeroSeparatorScope`.

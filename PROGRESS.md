@@ -9,7 +9,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 ## Summary
 
 <!-- summary:start -->
-**12 of 164 slices done**, 0 in progress.
+**13 of 164 slices done**, 0 in progress.
 <!-- summary:end -->
 
 
@@ -56,7 +56,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 | C19 | ProgressBar | `HeroProgressBar` | ⬜ Planned |
 | C20 | ProgressCircle | `HeroProgressCircle` | ⬜ Planned |
 | C21 | Meter | `HeroMeter` | ⬜ Planned |
-| C22 | Separator | `HeroSeparator` | ⬜ Planned |
+| C22 | Separator | `HeroSeparator` | ✅ Done |
 | C23 | Surface | `HeroSurface` | ⬜ Planned |
 | C24 | Card | `HeroCard` | ⬜ Planned |
 | C25 | Alert | `HeroAlert` | ⬜ Planned |
