@@ -194,3 +194,17 @@ Newest entries are appended at the end of each section.
 - **Toggle button groups** draw the focus ring inset so attached neighbours do not cover it.
 - **Per-component style objects** (`HeroButtonStyle`, `HeroToggleButtonStyle`, ...) stand in
   for HeroUI's `className` overrides in the "Customization" examples.
+- **FieldError** appears and disappears without a transition (HeroUI's fade and height
+  transitions have no visible effect in the browser) and accepts an `isInvalid` override for
+  use next to a standalone input.
+- **Form submission.** `HeroForm` wraps Flutter's `Form`. A `focusInvalidField` flag replaces
+  `preventDefault()` in `onInvalid`; the semantics label sits on a group around the form.
+  Enter (or the keyboard's done/go/send/search action) in a single-line input submits the
+  form even without a submit button; fields sharing a `name` submit as a list and disabled
+  fields are omitted. `HeroButton.type` provides submit and reset buttons.
+- **TextField validation.** Native mode shows errors on blur after an edit or on submit.
+  Server errors clear on the first edit (docs behaviour) rather than on blur (source
+  behaviour), because pressing a Flutter button does not move focus out of the field. A custom
+  `validator` runs before the built-in rules; in aria mode built-in rules only affect
+  accessibility. `isInvalid` true/false overrides the displayed state. The field is as wide as
+  its widest part and hidden parts take no gap, like a CSS flex column.
