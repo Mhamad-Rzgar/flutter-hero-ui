@@ -51,7 +51,7 @@ class ComponentPage extends StatelessWidget {
               ),
               const SizedBox(height: 4),
               Text(
-                '${entry.category.label} · Hero${entry.name}',
+                '${entry.group ?? entry.category.label} · ${entry.widgetName}',
                 style: theme.typography.sm.copyWith(color: theme.colors.muted),
               ),
               const SizedBox(height: 32),

@@ -7,16 +7,40 @@ class ComponentDemo {
     required this.slug,
     required this.examples,
     this.playground,
+    this.pro,
   });
 
-  /// Catalog slug this demo belongs to (e.g. `button`).
+  /// Catalog slug this demo belongs to (e.g. `button`, or `pro-kpi` for a Pro
+  /// component).
   final String slug;
+
+  /// Index metadata for Pro components, which are not part of the open-source
+  /// catalog. Null for open-source components.
+  final ProComponentInfo? pro;
 
   /// Interactive playground with variant / color / size / state toggles.
   final Playground? playground;
 
   /// Examples in the order of the HeroUI docs page.
   final List<DemoExample> examples;
+}
+
+/// How a Pro component appears in the gallery index.
+class ProComponentInfo {
+  const ProComponentInfo({
+    required this.name,
+    required this.category,
+    required this.description,
+  });
+
+  /// HeroUI Pro component name without the `HeroPro` prefix (e.g. `KPI`).
+  final String name;
+
+  /// Pro index group (e.g. `Charts`, `Data Display`).
+  final String category;
+
+  /// One-line description shown in the index.
+  final String description;
 }
 
 /// One example from a docs page.

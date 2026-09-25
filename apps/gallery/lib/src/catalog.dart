@@ -16,7 +16,8 @@ enum ComponentCategory {
   overlays('Overlays'),
   pickers('Pickers'),
   typography('Typography'),
-  utilities('Utilities');
+  utilities('Utilities'),
+  pro('Pro');
 
   const ComponentCategory(this.label);
 
@@ -30,6 +31,7 @@ class CatalogEntry {
     required this.name,
     required this.category,
     required this.description,
+    this.group,
   });
 
   /// Docs slug, e.g. `button-group`.
@@ -42,8 +44,19 @@ class CatalogEntry {
 
   final String description;
 
+  /// Sub-group inside [category] (used by Pro components, e.g. `Charts`).
+  final String? group;
+
+  /// Whether this is a Pro component.
+  bool get isPro => category == ComponentCategory.pro;
+
+  /// Widget name prefix used in the gallery (`HeroPro` for Pro components).
+  String get widgetName => isPro ? 'HeroPro$name' : 'Hero$name';
+
   /// Link to the HeroUI documentation page.
-  String get docsUrl => 'https://heroui.com/en/docs/react/components/$slug';
+  String get docsUrl => isPro
+      ? 'https://heroui.pro/docs/react/components/${slug.replaceFirst('pro-', '')}'
+      : 'https://heroui.com/en/docs/react/components/$slug';
 }
 
 const List<CatalogEntry> catalog = <CatalogEntry>[

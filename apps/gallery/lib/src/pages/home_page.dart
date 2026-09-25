@@ -3,6 +3,7 @@ import 'package:hero_ui/hero_ui.dart';
 
 import '../catalog.dart';
 import '../demos/registry.dart';
+import '../gallery_index.dart';
 import '../templates.dart';
 import '../widgets/gallery_widgets.dart';
 import '../widgets/theme_sheet.dart';
@@ -117,15 +118,17 @@ class _ComponentIndex extends StatelessWidget {
   Widget build(BuildContext context) {
     final HeroThemeData theme = HeroTheme.of(context);
     final String q = query.trim().toLowerCase();
-    final List<CatalogEntry> matches = catalog
+    final List<CatalogEntry> matches = galleryIndex
         .where(
           (CatalogEntry e) =>
               q.isEmpty ||
               e.name.toLowerCase().contains(q) ||
               e.description.toLowerCase().contains(q) ||
-              e.category.label.toLowerCase().contains(q),
+              e.category.label.toLowerCase().contains(q) ||
+              (e.group?.toLowerCase().contains(q) ?? false),
         )
         .toList();
+    final int proCount = proCatalog.length;
     final int available = catalog
         .where((CatalogEntry e) => demoRegistry.containsKey(e.slug))
         .length;
@@ -144,7 +147,8 @@ class _ComponentIndex extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
           child: Text(
-            '$available of ${catalog.length} components available',
+            '$available of ${catalog.length} components available'
+            '${proCount > 0 ? ' · $proCount Pro' : ''}',
             style: theme.typography.xs.copyWith(color: theme.colors.muted),
           ),
         ),
@@ -161,36 +165,29 @@ class _ComponentIndex extends StatelessWidget {
                   enabled: true,
                   onPressed: onOpenTemplates,
                 ),
-              for (final ComponentCategory category in ComponentCategory.values)
-                if (matches.any(
-                  (CatalogEntry e) => e.category == category,
-                )) ...<Widget>[
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 6),
-                    child: Text(
-                      category.label.toUpperCase(),
-                      style: theme.typography
-                          .style(
-                            HeroFontSize.xs,
-                            weight: HeroTypography.semibold,
-                          )
-                          .copyWith(
-                            color: theme.colors.muted,
-                            letterSpacing: 0.6,
-                          ),
-                    ),
+              for (final (String heading, List<CatalogEntry> entries)
+                  in _groups(matches)) ...<Widget>[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 6),
+                  child: Text(
+                    heading.toUpperCase(),
+                    style: theme.typography
+                        .style(HeroFontSize.xs, weight: HeroTypography.semibold)
+                        .copyWith(
+                          color: theme.colors.muted,
+                          letterSpacing: 0.6,
+                        ),
                   ),
-                  for (final CatalogEntry entry in matches.where(
-                    (CatalogEntry e) => e.category == category,
-                  ))
-                    _IndexTile(
-                      title: entry.name,
-                      subtitle: entry.description,
-                      selected: selected == entry,
-                      enabled: demoRegistry.containsKey(entry.slug),
-                      onPressed: () => onOpen(entry),
-                    ),
-                ],
+                ),
+                for (final CatalogEntry entry in entries)
+                  _IndexTile(
+                    title: entry.name,
+                    subtitle: entry.description,
+                    selected: selected == entry,
+                    enabled: demoRegistry.containsKey(entry.slug),
+                    onPressed: () => onOpen(entry),
+                  ),
+              ],
               if (matches.isEmpty)
                 Padding(
                   padding: const EdgeInsets.all(32),
@@ -208,6 +205,30 @@ class _ComponentIndex extends StatelessWidget {
       ],
     );
   }
+}
+
+/// Groups index entries by category, and Pro entries by their Pro group.
+List<(String, List<CatalogEntry>)> _groups(List<CatalogEntry> entries) {
+  final List<(String, List<CatalogEntry>)> groups =
+      <(String, List<CatalogEntry>)>[];
+  for (final ComponentCategory category in ComponentCategory.values) {
+    final List<CatalogEntry> inCategory = entries
+        .where((CatalogEntry e) => e.category == category)
+        .toList();
+    if (inCategory.isEmpty) continue;
+    if (category != ComponentCategory.pro) {
+      groups.add((category.label, inCategory));
+      continue;
+    }
+    for (final String group
+        in inCategory.map((CatalogEntry e) => e.group!).toSet()) {
+      groups.add((
+        'Pro · $group',
+        inCategory.where((CatalogEntry e) => e.group == group).toList(),
+      ));
+    }
+  }
+  return groups;
 }
 
 class _IndexTile extends StatelessWidget {
