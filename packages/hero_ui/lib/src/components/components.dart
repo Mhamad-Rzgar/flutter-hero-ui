@@ -10,6 +10,7 @@ export 'breadcrumbs/breadcrumbs.dart';
 export 'button/button.dart';
 export 'button_group/button_group.dart';
 export 'card/card.dart';
+export 'checkbox/checkbox.dart';
 export 'chip/chip.dart';
 export 'close_button/close_button.dart';
 export 'color/color.dart';

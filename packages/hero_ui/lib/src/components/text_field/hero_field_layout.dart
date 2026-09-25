@@ -8,12 +8,16 @@ import 'package:flutter/widgets.dart';
 ///
 /// Given a tight width (or [fullWidth] and a bounded width) the layout fills
 /// it; otherwise it is as wide as its widest part, like a CSS flex item.
+///
+/// With [stretch] false the parts keep their own width and are aligned to
+/// the start edge (`items-start`, used by Checkbox, Radio and Switch roots).
 class HeroFieldLayout extends MultiChildRenderObjectWidget {
   /// Lays out [children] as a field column.
   const HeroFieldLayout({
     super.key,
     required this.spacing,
     this.fullWidth = false,
+    this.stretch = true,
     super.children,
   });
 
@@ -23,9 +27,18 @@ class HeroFieldLayout extends MultiChildRenderObjectWidget {
   /// Whether to fill a bounded width.
   final bool fullWidth;
 
+  /// Whether every part is stretched to the layout's width; otherwise the
+  /// parts are start-aligned at their own width.
+  final bool stretch;
+
   @override
   RenderHeroFieldLayout createRenderObject(BuildContext context) =>
-      RenderHeroFieldLayout(spacing: spacing, fullWidth: fullWidth);
+      RenderHeroFieldLayout(
+        spacing: spacing,
+        fullWidth: fullWidth,
+        stretch: stretch,
+        textDirection: Directionality.maybeOf(context) ?? TextDirection.ltr,
+      );
 
   @override
   void updateRenderObject(
@@ -34,7 +47,9 @@ class HeroFieldLayout extends MultiChildRenderObjectWidget {
   ) {
     renderObject
       ..spacing = spacing
-      ..fullWidth = fullWidth;
+      ..fullWidth = fullWidth
+      ..stretch = stretch
+      ..textDirection = Directionality.maybeOf(context) ?? TextDirection.ltr;
   }
 }
 
@@ -47,9 +62,15 @@ class RenderHeroFieldLayout extends RenderBox
         ContainerRenderObjectMixin<RenderBox, HeroFieldLayoutParentData>,
         RenderBoxContainerDefaultsMixin<RenderBox, HeroFieldLayoutParentData> {
   /// Creates a field layout render object.
-  RenderHeroFieldLayout({required double spacing, bool fullWidth = false})
-    : _spacing = spacing,
-      _fullWidth = fullWidth;
+  RenderHeroFieldLayout({
+    required double spacing,
+    bool fullWidth = false,
+    bool stretch = true,
+    TextDirection textDirection = TextDirection.ltr,
+  }) : _spacing = spacing,
+       _fullWidth = fullWidth,
+       _stretch = stretch,
+       _textDirection = textDirection;
 
   /// Gap between rendered parts.
   double get spacing => _spacing;
@@ -68,6 +89,28 @@ class RenderHeroFieldLayout extends RenderBox
     _fullWidth = value;
     markNeedsLayout();
   }
+
+  /// Whether every part is stretched to the layout's width.
+  bool get stretch => _stretch;
+  bool _stretch;
+  set stretch(bool value) {
+    if (value == _stretch) return;
+    _stretch = value;
+    markNeedsLayout();
+  }
+
+  /// The direction that decides the start edge of unstretched parts.
+  TextDirection get textDirection => _textDirection;
+  TextDirection _textDirection;
+  set textDirection(TextDirection value) {
+    if (value == _textDirection) return;
+    _textDirection = value;
+    markNeedsLayout();
+  }
+
+  BoxConstraints _childConstraints(double width) => _stretch
+      ? BoxConstraints.tightFor(width: width)
+      : BoxConstraints(maxWidth: width);
 
   @override
   void setupParentData(RenderBox child) {
@@ -137,9 +180,7 @@ class RenderHeroFieldLayout extends RenderBox
   @override
   Size computeDryLayout(covariant BoxConstraints constraints) {
     final double width = _width(constraints);
-    final BoxConstraints childConstraints = BoxConstraints.tightFor(
-      width: width,
-    );
+    final BoxConstraints childConstraints = _childConstraints(width);
     final double height = _stackedHeight(
       (RenderBox child) => child.getDryLayout(childConstraints).height,
     );
@@ -149,9 +190,7 @@ class RenderHeroFieldLayout extends RenderBox
   @override
   void performLayout() {
     final double width = _width(constraints);
-    final BoxConstraints childConstraints = BoxConstraints.tightFor(
-      width: width,
-    );
+    final BoxConstraints childConstraints = _childConstraints(width);
     double y = 0;
     bool first = true;
     RenderBox? child = firstChild;
@@ -163,7 +202,10 @@ class RenderHeroFieldLayout extends RenderBox
         if (!first) y += _spacing;
         first = false;
       }
-      parentData.offset = Offset(0, y);
+      final double x = _stretch || _textDirection == TextDirection.ltr
+          ? 0
+          : width - child.size.width;
+      parentData.offset = Offset(x, y);
       y += child.size.height;
       child = parentData.nextSibling;
     }

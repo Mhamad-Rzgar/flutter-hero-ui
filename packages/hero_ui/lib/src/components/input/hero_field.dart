@@ -186,6 +186,36 @@ class HeroFieldScope extends InheritedWidget {
       onInputConstraintsChanged != oldWidget.onInputConstraintsChanged;
 }
 
+/// Places the help text of a toggle field: the `HeroDescription` and
+/// `HeroFieldError` that sit directly in a Checkbox, Radio or Switch root.
+///
+/// HeroUI indents that help text under the label
+/// (`.checkbox > [data-slot="description"] { padding-inline-start: 28px }`)
+/// and shows the error in `--muted` without the error's own padding. The
+/// field root wraps its direct help text parts in this scope; parts nested
+/// deeper (inside the pressable content, for example) keep their own style,
+/// like the CSS child combinator.
+class HeroFieldHelpTextScope extends InheritedWidget {
+  /// Indents the help text in [child] by [indent].
+  const HeroFieldHelpTextScope({
+    super.key,
+    required this.indent,
+    required super.child,
+  });
+
+  /// Start padding of the help text: the control width plus the gap to the
+  /// label (28 for checkboxes and radios, 44 / 52 / 60 for switches).
+  final double indent;
+
+  /// The closest help text scope, or null.
+  static HeroFieldHelpTextScope? maybeOf(BuildContext context) =>
+      context.dependOnInheritedWidgetOfExactType<HeroFieldHelpTextScope>();
+
+  @override
+  bool updateShouldNotify(HeroFieldHelpTextScope oldWidget) =>
+      indent != oldWidget.indent;
+}
+
 /// Per-instance visual overrides of a field (the Flutter counterpart of the
 /// Tailwind classes HeroUI's "custom styles" examples pass in `className`).
 ///

@@ -11,6 +11,7 @@ import 'breadcrumbs_demo.dart';
 import 'button_demo.dart';
 import 'button_group_demo.dart';
 import 'card_demo.dart';
+import 'checkbox_demo.dart';
 import 'chip_demo.dart';
 import 'close_button_demo.dart';
 import 'color_area_demo.dart';
@@ -65,6 +66,7 @@ final Map<String, ComponentDemo> demoRegistry = <String, ComponentDemo>{
   buttonDemo.slug: buttonDemo,
   buttonGroupDemo.slug: buttonGroupDemo,
   cardDemo.slug: cardDemo,
+  checkboxDemo.slug: checkboxDemo,
   chipDemo.slug: chipDemo,
   closeButtonDemo.slug: closeButtonDemo,
   colorAreaDemo.slug: colorAreaDemo,

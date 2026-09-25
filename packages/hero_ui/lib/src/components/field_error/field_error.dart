@@ -19,6 +19,9 @@ typedef HeroFieldErrorBuilder =
 /// state; [isInvalid] overrides it, which also lets the error be used next to
 /// a standalone control.
 ///
+/// Directly inside a Checkbox, Radio or Switch ([HeroFieldHelpTextScope])
+/// the error is `--muted` and indented under the label, as in HeroUI.
+///
 /// The content is, in order of precedence, the text of [HeroFieldError.text],
 /// [builder] (called with the field's [HeroValidationResult]), [child], or
 /// the field's validation messages joined with spaces. When there is nothing
@@ -85,8 +88,15 @@ class HeroFieldError extends StatelessWidget {
       scope?.validationErrors ?? const <String>[],
     );
     final HeroThemeData theme = HeroTheme.of(context);
+    // Directly inside a Checkbox, Radio or Switch the error is muted and
+    // indented under the label instead of padded.
+    final HeroFieldHelpTextScope? help = HeroFieldHelpTextScope.maybeOf(
+      context,
+    );
     final TextStyle textStyle = theme.typography.xs
-        .copyWith(color: theme.colors.danger)
+        .copyWith(
+          color: help != null ? theme.colors.muted : theme.colors.danger,
+        )
         .merge(style?.copyWith(inherit: true));
 
     final Widget content;
@@ -114,7 +124,9 @@ class HeroFieldError extends StatelessWidget {
       container: true,
       liveRegion: true,
       child: Padding(
-        padding: EdgeInsetsDirectional.symmetric(horizontal: theme.spacing(1)),
+        padding: help != null
+            ? EdgeInsetsDirectional.only(start: help.indent)
+            : EdgeInsetsDirectional.symmetric(horizontal: theme.spacing(1)),
         child: content,
       ),
     );

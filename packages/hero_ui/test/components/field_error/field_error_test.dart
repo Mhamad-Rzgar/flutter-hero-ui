@@ -341,4 +341,24 @@ void main() {
       );
     });
   });
+
+  testWidgets('a help text scope mutes and indents it', (
+    WidgetTester tester,
+  ) async {
+    await pumpHero(
+      tester,
+      const SizedBox(
+        width: 300,
+        child: HeroFieldHelpTextScope(
+          indent: 28,
+          child: HeroFieldError.text('Muted', isInvalid: true),
+        ),
+      ),
+    );
+    expect(styleOf(tester, 'Muted').color, light.colors.muted);
+    final Rect error = tester.getRect(find.byType(HeroFieldError));
+    expect(tester.getTopLeft(find.text('Muted')).dx - error.left, 28);
+    // No end padding: the text may use the whole remaining width.
+    expect(tester.getSize(find.text('Muted')).width, lessThanOrEqualTo(272));
+  });
 }

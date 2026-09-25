@@ -63,3 +63,4 @@
 - `HeroPopover` with dialog, heading, arrow and placements.
 - `HeroCard` with `HeroCardHeader`, `HeroCardTitle`, `HeroCardDescription`, `HeroCardContent`, `HeroCardFooter` and `HeroCardStyle`: four variants, surface scope, row layouts, background and overlay layers, pressable and link cards.
 - `HeroScrollShadow` with continuous scroll-driven fades, size, offset, controlled visibility, hidden scrollbar and a list-view builder.
+- `HeroCheckbox` with content, control and indicator parts, checkmark-draw and indeterminate animations, variants, invalid, read-only and form validation.

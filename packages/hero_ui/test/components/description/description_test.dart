@@ -132,4 +132,24 @@ void main() {
     );
     expect(tester.takeException(), isNull);
   });
+
+  testWidgets('a help text scope indents it under the label', (
+    WidgetTester tester,
+  ) async {
+    await pumpHero(
+      tester,
+      const SizedBox(
+        width: 300,
+        child: HeroFieldHelpTextScope(
+          indent: 28,
+          child: HeroDescription.text('Indented'),
+        ),
+      ),
+    );
+    expect(
+      tester.getTopLeft(find.text('Indented')).dx -
+          tester.getTopLeft(find.byType(HeroDescription)).dx,
+      28,
+    );
+  });
 }

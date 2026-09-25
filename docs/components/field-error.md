@@ -53,6 +53,7 @@ When there is nothing to show, nothing is rendered.
 | Text | `text-xs` (12/16), `--danger`, wraps and breaks long words |
 | Padding | 4 px on both horizontal sides (`px-1`) |
 | Visibility | instant; HeroUI declares opacity/height transitions but mounts the error already visible |
+| Directly in a Checkbox / Radio / Switch | `--muted`, no padding except the indent under the label (`HeroFieldHelpTextScope`) |
 
 ## Examples
 

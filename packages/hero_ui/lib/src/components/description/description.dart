@@ -11,7 +11,9 @@ import '../input/hero_field.dart';
 ///
 /// Inside a field whose [HeroFieldScope.hideDescriptionWhenInvalid] is set
 /// (TextField, SearchField, NumberField) the description is not rendered
-/// while the field is invalid, so the error message takes its place.
+/// while the field is invalid, so the error message takes its place. Directly
+/// inside a Checkbox, Radio or Switch ([HeroFieldHelpTextScope]) it is
+/// indented under the label.
 ///
 /// ```dart
 /// Column(
@@ -54,9 +56,18 @@ class HeroDescription extends StatelessWidget {
         .copyWith(color: theme.colors.muted)
         .merge(style?.copyWith(inherit: true));
     final String? data = this.data;
-    final Widget content = data != null
+    Widget content = data != null
         ? Text(data, style: textStyle, softWrap: true)
         : DefaultTextStyle.merge(style: textStyle, child: child!);
+    final HeroFieldHelpTextScope? help = HeroFieldHelpTextScope.maybeOf(
+      context,
+    );
+    if (help != null) {
+      content = Padding(
+        padding: EdgeInsetsDirectional.only(start: help.indent),
+        child: content,
+      );
+    }
     // Inside a field that describes its control through the semantics hint,
     // the description is announced with the control instead.
     return Semantics(

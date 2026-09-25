@@ -40,6 +40,7 @@ placed after the control of a field.
 | --- | --- |
 | Text | `text-xs` (12/16), `--muted`, wraps and breaks long words |
 | In an invalid TextField / SearchField / NumberField | not rendered (the error replaces it), through `HeroFieldScope.hideDescriptionWhenInvalid` |
+| Directly in a Checkbox / Radio / Switch | indented under the label (28 px; 44 / 52 / 60 px for switches) through `HeroFieldHelpTextScope`, dimmed once more while the field is disabled |
 
 ## Examples
 

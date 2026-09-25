@@ -92,6 +92,15 @@ class HeroValidationMessages {
   /// A required field is empty (`valueMissing`).
   String get valueMissing => 'Please fill out this field.';
 
+  /// A required checkbox (or switch, or checkbox group) is not checked
+  /// (`valueMissing` of a checkbox input).
+  String get checkboxValueMissing =>
+      'Please check this box if you want to proceed.';
+
+  /// A required radio group has no selection (`valueMissing` of a radio
+  /// input).
+  String get radioValueMissing => 'Please select one of these options.';
+
   /// The value does not match [type] (`typeMismatch` / `badInput`).
   String typeMismatch(HeroInputType type) => switch (type) {
     HeroInputType.email => 'Please enter an email address.',
