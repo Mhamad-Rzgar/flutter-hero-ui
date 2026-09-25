@@ -2,6 +2,7 @@
 
 export 'button/button.dart';
 export 'button_group/button_group.dart';
+export 'chip/chip.dart';
 export 'close_button/close_button.dart';
 export 'kbd/kbd.dart';
 export 'link/link.dart';

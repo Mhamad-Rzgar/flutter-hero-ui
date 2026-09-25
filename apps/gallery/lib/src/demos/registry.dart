@@ -3,6 +3,7 @@
 import '../demo.dart';
 import 'button_demo.dart';
 import 'button_group_demo.dart';
+import 'chip_demo.dart';
 import 'close_button_demo.dart';
 import 'kbd_demo.dart';
 import 'link_demo.dart';
@@ -14,6 +15,7 @@ import 'typography_demo.dart';
 final Map<String, ComponentDemo> demoRegistry = <String, ComponentDemo>{
   buttonDemo.slug: buttonDemo,
   buttonGroupDemo.slug: buttonGroupDemo,
+  chipDemo.slug: chipDemo,
   closeButtonDemo.slug: closeButtonDemo,
   kbdDemo.slug: kbdDemo,
   linkDemo.slug: linkDemo,
