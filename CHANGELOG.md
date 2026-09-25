@@ -59,3 +59,4 @@ All notable changes to this repository. Package changelogs live in
 - `HeroAlert`: status alerts with default icons, indicator, content, title, description, actions and a live-region option.
 - `HeroToolbar`: a single Tab stop with arrow, Home and End navigation and the attached pill style; button and toggle groups follow the toolbar orientation.
 - `HeroColorSwatch` (five sizes, circle and square, alpha checkerboard) and the shared color model (`HeroColorValue`, channels and ranges, parsing and formatting, `heroColorName`).
+- `HeroColorSwatchPicker` with sizes, shapes, grid and stack layouts, selection indicator and roving keyboard focus.

@@ -11,6 +11,7 @@ import 'button_group_demo.dart';
 import 'chip_demo.dart';
 import 'close_button_demo.dart';
 import 'color_swatch_demo.dart';
+import 'color_swatch_picker_demo.dart';
 import 'description_demo.dart';
 import 'field_error_demo.dart';
 import 'form_demo.dart';
@@ -46,6 +47,7 @@ final Map<String, ComponentDemo> demoRegistry = <String, ComponentDemo>{
   chipDemo.slug: chipDemo,
   closeButtonDemo.slug: closeButtonDemo,
   colorSwatchDemo.slug: colorSwatchDemo,
+  colorSwatchPickerDemo.slug: colorSwatchPickerDemo,
   descriptionDemo.slug: descriptionDemo,
   fieldErrorDemo.slug: fieldErrorDemo,
   formDemo.slug: formDemo,
