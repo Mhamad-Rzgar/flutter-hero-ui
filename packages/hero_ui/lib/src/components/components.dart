@@ -7,6 +7,7 @@ export 'button/button.dart';
 export 'button_group/button_group.dart';
 export 'chip/chip.dart';
 export 'close_button/close_button.dart';
+export 'description/description.dart';
 export 'input/input.dart';
 export 'kbd/kbd.dart';
 export 'label/label.dart';

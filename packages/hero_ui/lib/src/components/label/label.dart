@@ -95,7 +95,7 @@ class HeroLabel extends StatelessWidget {
         .copyWith(
           color: invalid ? theme.colors.danger : theme.colors.foreground,
         )
-        .merge(style);
+        .merge(style?.copyWith(inherit: true));
     final TextStyle asteriskStyle = textStyle.copyWith(
       color: theme.colors.danger,
     );

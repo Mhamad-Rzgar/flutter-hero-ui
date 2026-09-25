@@ -296,10 +296,10 @@ class HeroEditableTextState extends State<HeroEditableText>
     final bool enabled = !widget.isDisabled;
     final TextStyle style = HeroFieldMetrics.textStyle(
       context,
-    ).merge(widget.style);
+    ).merge(widget.style?.copyWith(inherit: true));
     final TextStyle placeholderStyle = style
         .copyWith(color: theme.colors.fieldPlaceholder)
-        .merge(widget.placeholderStyle);
+        .merge(widget.placeholderStyle?.copyWith(inherit: true));
     final Color cursorColor =
         widget.cursorColor ?? style.color ?? theme.colors.fieldForeground;
     final Color selectionColor =
