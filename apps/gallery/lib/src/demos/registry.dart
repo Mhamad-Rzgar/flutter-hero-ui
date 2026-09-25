@@ -30,6 +30,7 @@ import 'field_error_demo.dart';
 import 'fieldset_demo.dart';
 import 'form_demo.dart';
 import 'input_demo.dart';
+import 'input_group_demo.dart';
 import 'kbd_demo.dart';
 import 'label_demo.dart';
 import 'link_demo.dart';
@@ -89,6 +90,7 @@ final Map<String, ComponentDemo> demoRegistry = <String, ComponentDemo>{
   fieldsetDemo.slug: fieldsetDemo,
   formDemo.slug: formDemo,
   inputDemo.slug: inputDemo,
+  inputGroupDemo.slug: inputGroupDemo,
   kbdDemo.slug: kbdDemo,
   labelDemo.slug: labelDemo,
   linkDemo.slug: linkDemo,

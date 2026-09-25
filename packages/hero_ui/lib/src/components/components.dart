@@ -31,6 +31,7 @@ export 'field_error/field_error.dart';
 export 'fieldset/fieldset.dart';
 export 'form/form.dart';
 export 'input/input.dart';
+export 'input_group/input_group.dart';
 export 'kbd/kbd.dart';
 export 'label/label.dart';
 export 'link/link.dart';

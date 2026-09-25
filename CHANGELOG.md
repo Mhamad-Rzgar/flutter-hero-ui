@@ -84,3 +84,4 @@ All notable changes to this repository. Package changelogs live in
 - `HeroRadioGroup` and `HeroRadio`: one Tab stop, arrow keys that select and wrap, orientation and `FormField<String>` validation.
 - `HeroSwitch` (three sizes, thumb icons, label position, drag to toggle, `FormField<bool>`) and `HeroSwitchGroup`.
 - `HeroFieldset` with legend, description, field groups, actions and disabled propagation through the new `HeroDisabledScope`.
+- `HeroInputGroup` with prefix and suffix addons, text-area and vertical layouts; `HeroTextAreaResizeGrip` is public.

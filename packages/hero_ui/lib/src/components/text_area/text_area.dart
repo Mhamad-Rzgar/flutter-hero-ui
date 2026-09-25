@@ -276,17 +276,24 @@ class _HeroTextAreaState extends State<HeroTextArea> {
         PositionedDirectional(
           end: 0,
           bottom: 0,
-          child: _HeroResizeGrip(onDrag: _handleDrag),
+          child: HeroTextAreaResizeGrip(onDrag: _handleDrag),
         ),
       ],
     );
   }
 }
 
-/// The resize handle of a vertically resizable text area.
-class _HeroResizeGrip extends StatelessWidget {
-  const _HeroResizeGrip({required this.onDrag});
+/// The resize handle of a vertically resizable text area: two diagonal
+/// strokes in `--muted` at the bottom-end corner (the browser's `resize`
+/// grip), with a vertical resize cursor.
+///
+/// [HeroTextArea] and the text area of an input group place it over their
+/// bottom-end corner.
+class HeroTextAreaResizeGrip extends StatelessWidget {
+  /// Creates a resize grip that reports vertical drags to [onDrag].
+  const HeroTextAreaResizeGrip({super.key, required this.onDrag});
 
+  /// Called with each vertical drag update.
   final GestureDragUpdateCallback onDrag;
 
   @override

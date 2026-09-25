@@ -9,7 +9,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 ## Summary
 
 <!-- summary:start -->
-**65 of 164 slices done**, 0 in progress.
+**66 of 164 slices done**, 0 in progress.
 <!-- summary:end -->
 
 
@@ -70,7 +70,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 | --- | --- | --- | --- |
 | C29 | Input | `HeroInput` | ✅ Done |
 | C30 | TextArea | `HeroTextArea` | ✅ Done |
-| C31 | InputGroup | `HeroInputGroup` | ⬜ Planned |
+| C31 | InputGroup | `HeroInputGroup` | ✅ Done |
 | C32 | TextField | `HeroTextField` | ✅ Done |
 | C33 | SearchField | `HeroSearchField` | ⬜ Planned |
 | C34 | NumberField | `HeroNumberField` | ⬜ Planned |
