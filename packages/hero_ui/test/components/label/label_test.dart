@@ -32,7 +32,12 @@ void main() {
     expect(style.fontSize, 14);
     expect(style.fontWeight, FontWeight.w500);
     expect(style.color, colors.foreground);
-    expect(find.byType(Opacity), findsNothing);
+    expect(
+      tester
+          .widgetList<Opacity>(find.byType(Opacity))
+          .where((Opacity o) => o.opacity < 1),
+      isEmpty,
+    );
   });
 
   testWidgets('required shows a danger asterisk', (WidgetTester tester) async {
