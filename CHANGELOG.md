@@ -76,3 +76,4 @@ All notable changes to this repository. Package changelogs live in
 - `HeroDrawer` with placements (swapped in RTL) and drag to dismiss.
 - `HeroToast` with queue, placements, stacking with expand on hover, timeouts and promise toasts.
 - `HeroTooltip` with warm-up delays, arrow, placements and long press on touch.
+- `HeroPopover` with dialog, heading, arrow and placements.
