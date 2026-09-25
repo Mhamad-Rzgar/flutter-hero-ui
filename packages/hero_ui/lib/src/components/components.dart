@@ -12,6 +12,7 @@ export 'input/input.dart';
 export 'kbd/kbd.dart';
 export 'label/label.dart';
 export 'link/link.dart';
+export 'pagination/pagination.dart';
 export 'separator/separator.dart';
 export 'skeleton/skeleton.dart';
 export 'spinner/spinner.dart';

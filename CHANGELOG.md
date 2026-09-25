@@ -48,3 +48,4 @@ All notable changes to this repository. Package changelogs live in
 - `HeroToggleButton` (standard and ghost, three sizes, icon-only, controlled or uncontrolled, style overrides) and the shared `HeroSelectionMode`.
 - `HeroToggleButtonGroup` and `HeroToggleButtonGroupSeparator`: single or multiple selection, attached or detached, orientation and roving arrow-key focus.
 - `HeroTabs` with `HeroTabListContainer`, `HeroTabList`, `HeroTab`, `HeroTabIndicator`, `HeroTabSeparator` and `HeroTabPanel`: sliding indicator, overflow scrolling with fades and chevrons, variants, alignment, orientation and keyboard navigation.
+- `HeroPagination` with its parts and the `heroPaginationRange` helper.
