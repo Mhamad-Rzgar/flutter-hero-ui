@@ -220,3 +220,11 @@ Newest entries are appended at the end of each section.
 - **Toolbar focus.** A toolbar is a single Tab stop with arrow, Home and End navigation; in a
   horizontal toolbar Up/Down fall through to Flutter's directional focus. Button and toggle
   groups inside a toolbar inherit its orientation and leave arrow keys to it.
+- **Color values.** Color widgets report `Color` but keep a `HeroColorValue` (HSB/HSL with
+  alpha) internally so the hue survives when saturation or brightness reaches zero.
+  `heroColorName` is an English approximation of React Aria's OKLCH-based color names.
+- **Alpha checkerboard** uses HeroUI's CSS colors (#EFEFEF / #F7F7F7); the swatch inset ring is
+  the `black` token at 10%.
+- **ColorArea** defaults to HSB saturation × brightness and claims pointer gestures so dragging
+  never scrolls the page. A controlled `HeroColorField` set to null is cleared; channel mode
+  shows plain numbers.
