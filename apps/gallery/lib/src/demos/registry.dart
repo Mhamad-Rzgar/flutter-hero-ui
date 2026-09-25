@@ -36,6 +36,7 @@ import 'modal_demo.dart';
 import 'pagination_demo.dart';
 import 'popover_demo.dart';
 import 'progress_circle_demo.dart';
+import 'scroll_shadow_demo.dart';
 import 'separator_demo.dart';
 import 'skeleton_demo.dart';
 import 'slider_demo.dart';
@@ -89,6 +90,7 @@ final Map<String, ComponentDemo> demoRegistry = <String, ComponentDemo>{
   paginationDemo.slug: paginationDemo,
   popoverDemo.slug: popoverDemo,
   progressCircleDemo.slug: progressCircleDemo,
+  scrollShadowDemo.slug: scrollShadowDemo,
   separatorDemo.slug: separatorDemo,
   skeletonDemo.slug: skeletonDemo,
   sliderDemo.slug: sliderDemo,

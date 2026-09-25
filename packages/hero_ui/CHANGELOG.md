@@ -62,3 +62,4 @@
 - `HeroTooltip` with warm-up delays, arrow, placements and long press on touch.
 - `HeroPopover` with dialog, heading, arrow and placements.
 - `HeroCard` with `HeroCardHeader`, `HeroCardTitle`, `HeroCardDescription`, `HeroCardContent`, `HeroCardFooter` and `HeroCardStyle`: four variants, surface scope, row layouts, background and overlay layers, pressable and link cards.
+- `HeroScrollShadow` with continuous scroll-driven fades, size, offset, controlled visibility, hidden scrollbar and a list-view builder.

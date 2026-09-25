@@ -37,6 +37,7 @@ export 'modal/modal.dart';
 export 'pagination/pagination.dart';
 export 'popover/popover.dart';
 export 'progress_circle/progress_circle.dart';
+export 'scroll_shadow/scroll_shadow.dart';
 export 'separator/separator.dart';
 export 'skeleton/skeleton.dart';
 export 'slider/slider.dart';
