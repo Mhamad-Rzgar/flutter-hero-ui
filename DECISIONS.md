@@ -208,3 +208,15 @@ Newest entries are appended at the end of each section.
   `validator` runs before the built-in rules; in aria mode built-in rules only affect
   accessibility. `isInvalid` true/false overrides the displayed state. The field is as wide as
   its widest part and hidden parts take no gap, like a CSS flex column.
+- **ProgressCircle** exposes `HeroProgressCircleState` (not a shared progress state) so it
+  does not clash with ProgressBar. Its customization example uses a 56 px circle: the CSS
+  `size-14` on the root would leave a 28 px circle inside a 56 px box.
+- **Number formatting.** Slider and Meter take an intl `NumberFormat`; hero_ui re-exports
+  `NumberFormat` for convenience.
+- **Slider RTL** is implemented (a TODO in HeroUI's source). Presses on the track map to the
+  usable length between the end caps.
+- **Alert `isLive`** uses a live region; Flutter cannot combine the alert role with a live
+  region, so the live region wins.
+- **Toolbar focus.** A toolbar is a single Tab stop with arrow, Home and End navigation; in a
+  horizontal toolbar Up/Down fall through to Flutter's directional focus. Button and toggle
+  groups inside a toolbar inherit its orientation and leave arrow keys to it.
