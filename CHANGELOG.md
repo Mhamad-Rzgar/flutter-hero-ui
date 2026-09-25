@@ -87,3 +87,4 @@ All notable changes to this repository. Package changelogs live in
 - `HeroInputGroup` with prefix and suffix addons, text-area and vertical layouts; `HeroTextAreaResizeGrip` is public.
 - `HeroSearchField` with search icon, clear button, Escape to clear and `onSubmitted`.
 - `HeroNumberField` with steppers, min/max/step, keyboard and wheel stepping, and intl currency, percent and unit formatting.
+- `HeroInputOTP` with slots, groups, separators, pattern filtering, paste, auto-advance, caret blink and `onCompleted`.

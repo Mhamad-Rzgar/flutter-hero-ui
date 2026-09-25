@@ -32,6 +32,7 @@ export 'fieldset/fieldset.dart';
 export 'form/form.dart';
 export 'input/input.dart';
 export 'input_group/input_group.dart';
+export 'input_otp/input_otp.dart';
 export 'kbd/kbd.dart';
 export 'label/label.dart';
 export 'link/link.dart';
