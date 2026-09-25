@@ -1,3 +1,4 @@
+export 'animation/hero_collapsible.dart';
 export 'app/hero_app.dart';
 export 'collections/hero_collection.dart';
 export 'collections/hero_selection.dart';
