@@ -1,5 +1,8 @@
 export 'app/hero_app.dart';
+export 'collections/hero_collection.dart';
 export 'collections/hero_selection.dart';
+export 'collections/hero_selection_manager.dart';
+export 'collections/hero_typeahead.dart';
 export 'color/color_math.dart';
 export 'icons/hero_icon.dart';
 export 'icons/hero_icons.dart';

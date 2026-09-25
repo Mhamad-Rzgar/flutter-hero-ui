@@ -24,6 +24,7 @@ export 'input/input.dart';
 export 'kbd/kbd.dart';
 export 'label/label.dart';
 export 'link/link.dart';
+export 'list_box/list_box.dart';
 export 'meter/meter.dart';
 export 'pagination/pagination.dart';
 export 'progress_circle/progress_circle.dart';

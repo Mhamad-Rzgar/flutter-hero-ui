@@ -49,3 +49,4 @@
 - `HeroColorField` and the color input group: hex or channel entry with stepping and form validation.
 - `HeroColorPicker` with trigger and popover; bound children share one color value.
 - `HeroEmptyState`: the "No results found" placeholder for empty collections.
+- `HeroListBox` with `HeroListBoxItem`, `HeroListBoxSection`, `HeroHeader` and a load-more item: selection, keyboard navigation, typeahead, virtual focus and virtualised rendering, on the shared `HeroSelectionManager`, `HeroTypeahead` and `HeroCollection`.

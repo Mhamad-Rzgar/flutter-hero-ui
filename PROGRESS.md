@@ -9,7 +9,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 ## Summary
 
 <!-- summary:start -->
-**46 of 164 slices done**, 0 in progress.
+**47 of 164 slices done**, 0 in progress.
 <!-- summary:end -->
 
 
@@ -98,7 +98,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 
 | # | Slice | Flutter API | Status |
 | --- | --- | --- | --- |
-| C49 | ListBox | `HeroListBox, HeroHeader` | ⬜ Planned |
+| C49 | ListBox | `HeroListBox, HeroHeader` | ✅ Done |
 | C50 | Dropdown | `HeroDropdown, HeroMenu` | ⬜ Planned |
 | C51 | Select | `HeroSelect` | ⬜ Planned |
 | C52 | ComboBox | `HeroComboBox` | ⬜ Planned |
