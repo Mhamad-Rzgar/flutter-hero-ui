@@ -158,3 +158,16 @@ Newest entries are appended at the end of each section.
   drops its side borders exactly as HeroUI's CSS does.
 - **Pending and disabled semantics.** Pending controls are announced as not enabled;
   disabled controls are not announced as focusable.
+- **Typography is `HeroText`.** `HeroTypography` is the token class, so HeroUI's Typography
+  component is `HeroText` (`HeroTextType`, `HeroTextColor`) with `HeroHeading`,
+  `HeroParagraph`, `HeroCode` and `HeroProse`. Prose uses Flutter's underline position and does
+  not collapse margins.
+- **Vertical separators** fill the bounded height of their parent (minimum 8); Flutter rows
+  need a bounded height or `IntrinsicHeight`, unlike CSS stretch.
+- **Link underline** is painted by the link itself (1.5 px, 4 px below the baseline) because
+  Flutter cannot offset text decorations. Space does not activate links (browser behaviour).
+- **Avatar images** use `BoxFit.cover`; the 250 ms fade-in is skipped for images already in
+  the cache.
+- **Badge placement is physical** (`topRight` stays top-right in RTL), as in HeroUI's CSS.
+- **Gallery titles.** The untitled first docs example is titled "Usage" and the
+  custom-styles example "Customization".
