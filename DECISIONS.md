@@ -183,3 +183,14 @@ Newest entries are appended at the end of each section.
   capitalises sentences.
 - **Skeleton group shimmer** is painted on the skeletons only, not on the gaps; the docs'
   `shadow-panel` class is undefined in HeroUI's CSS, so those examples have no shadow.
+- **Selection mode** is a shared foundation enum, `HeroSelectionMode {none, single,
+  multiple}`, reused by toggle groups, list boxes, tags and tables.
+- **Tabs parts** follow HeroUI's named exports (`HeroTabList`, `HeroTab`, `HeroTabPanel`,
+  `HeroTabListContainer`, `HeroTabIndicator`, `HeroTabSeparator`). Indicators and separators
+  are named slots; `HeroTab` shows the default indicator unless `indicator: null`.
+- **Breadcrumbs** make the last item the current page (source behaviour; the docs say "no
+  href") and wrap instead of overflowing. The customization example shows the intended accent
+  hover color.
+- **Toggle button groups** draw the focus ring inset so attached neighbours do not cover it.
+- **Per-component style objects** (`HeroButtonStyle`, `HeroToggleButtonStyle`, ...) stand in
+  for HeroUI's `className` overrides in the "Customization" examples.
