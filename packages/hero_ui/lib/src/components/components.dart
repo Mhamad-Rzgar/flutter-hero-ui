@@ -3,6 +3,7 @@
 export 'avatar/avatar.dart';
 export 'avatar_group/avatar_group.dart';
 export 'badge/badge.dart';
+export 'breadcrumbs/breadcrumbs.dart';
 export 'button/button.dart';
 export 'button_group/button_group.dart';
 export 'chip/chip.dart';
