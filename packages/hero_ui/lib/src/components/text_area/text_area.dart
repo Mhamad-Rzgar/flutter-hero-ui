@@ -228,7 +228,8 @@ class _HeroTextAreaState extends State<HeroTextArea> {
     final double? height = _draggedHeight ?? widget.height;
     final bool disabled =
         widget.isDisabled ||
-        (HeroFieldScope.maybeOf(context)?.isDisabled ?? false);
+        (HeroFieldScope.maybeOf(context)?.isDisabled ?? false) ||
+        HeroDisabledScope.of(context);
 
     final Widget field = HeroTextInputCore(
       controller: widget.controller,

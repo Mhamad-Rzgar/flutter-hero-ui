@@ -234,6 +234,7 @@ class _HeroTextInputCoreState extends State<HeroTextInputCore> {
   TextEditingController? _listenedController;
   FocusNode? _listenedFocusNode;
   HeroFieldScope? _scope;
+  bool _scopeDisabled = false;
   final GlobalKey<_HeroTextFormFieldState> _fieldKey =
       GlobalKey<_HeroTextFormFieldState>();
   late String _initialText;
@@ -249,7 +250,8 @@ class _HeroTextInputCoreState extends State<HeroTextInputCore> {
       _scope?.focusNode ??
       (_ownFocusNode ??= FocusNode(debugLabel: widget.debugLabel));
 
-  bool get _isDisabled => widget.isDisabled || (_scope?.isDisabled ?? false);
+  bool get _isDisabled =>
+      widget.isDisabled || (_scope?.isDisabled ?? false) || _scopeDisabled;
 
   bool get _ownsFormField => _scope?.controller == null;
 
@@ -280,6 +282,7 @@ class _HeroTextInputCoreState extends State<HeroTextInputCore> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     _scope = HeroFieldScope.maybeOf(context);
+    _scopeDisabled = HeroDisabledScope.of(context);
     _attach();
   }
 

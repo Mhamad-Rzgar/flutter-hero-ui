@@ -388,6 +388,7 @@ class _HeroTextFieldState extends State<HeroTextField> {
   HeroValidationResult _committed = HeroValidationResult.valid;
 
   HeroValidationBehavior _behavior = HeroValidationBehavior.native;
+  bool _scopeDisabled = false;
   List<String> _serverErrors = const <String>[];
   Object? _serverSource;
   bool _serverErrorsCleared = false;
@@ -400,6 +401,10 @@ class _HeroTextFieldState extends State<HeroTextField> {
   FocusNode get _focusNode =>
       widget.focusNode ??
       (_ownFocusNode ??= FocusNode(debugLabel: 'HeroTextField'));
+
+  /// Whether the field is disabled, by itself or by an enclosing
+  /// [HeroDisabledScope] (a disabled `HeroFieldset`).
+  bool get _isDisabled => widget.isDisabled || _scopeDisabled;
 
   List<String> get _activeServerErrors =>
       _serverErrorsCleared ? const <String>[] : _serverErrors;
@@ -421,6 +426,7 @@ class _HeroTextFieldState extends State<HeroTextField> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    _scopeDisabled = HeroDisabledScope.of(context);
     if (widget.autofocus && !_autofocused) {
       _autofocused = true;
       FocusScope.of(context).autofocus(_focusNode);
@@ -530,7 +536,7 @@ class _HeroTextFieldState extends State<HeroTextField> {
 
   /// The form field validator: whether the value blocks submission.
   String? _validate(String? value) {
-    if (widget.isDisabled) return null;
+    if (_isDisabled) return null;
     if (widget.isInvalid ?? false) {
       return widget.errorMessage ?? widget.validationMessages.invalidValue;
     }
@@ -550,7 +556,7 @@ class _HeroTextFieldState extends State<HeroTextField> {
   void _handleSaved(String? value) {
     widget.onSaved?.call(value);
     final String? name = widget.name;
-    if (name == null || widget.isDisabled) return;
+    if (name == null || _isDisabled) return;
     context.findAncestorStateOfType<HeroFormState>()?.addValue(
       name,
       value ?? '',
@@ -624,7 +630,7 @@ class _HeroTextFieldState extends State<HeroTextField> {
       autovalidateMode: _behavior == HeroValidationBehavior.aria
           ? AutovalidateMode.always
           : widget.autovalidateMode,
-      enabled: !widget.isDisabled,
+      enabled: !_isDisabled,
       builder: _buildField,
     );
   }
@@ -642,7 +648,7 @@ class _HeroTextFieldState extends State<HeroTextField> {
       children = builder(
         context,
         HeroTextFieldState(
-          isDisabled: widget.isDisabled,
+          isDisabled: _isDisabled,
           isInvalid: invalid,
           isReadOnly: widget.isReadOnly,
           isRequired: widget.isRequired,
@@ -660,7 +666,7 @@ class _HeroTextFieldState extends State<HeroTextField> {
 
     return HeroFieldScope(
       variant: widget.variant,
-      isDisabled: widget.isDisabled,
+      isDisabled: _isDisabled,
       isInvalid: invalid,
       validationErrors: validation.validationErrors,
       isRequired: widget.isRequired,

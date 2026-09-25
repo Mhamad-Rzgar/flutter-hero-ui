@@ -388,7 +388,10 @@ class HeroButton extends StatelessWidget {
           child: HeroFocusRing(
             visible: state.isFocusVisible,
             shape: shape,
-            child: HeroDisabledOpacity(disabled: disabled, child: content),
+            child: HeroDisabledOpacity(
+              disabled: state.isDisabled,
+              child: content,
+            ),
           ),
         );
       },

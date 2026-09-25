@@ -87,7 +87,9 @@ class HeroLabel extends StatelessWidget {
     final HeroFieldScope? scope = HeroFieldScope.maybeOf(context);
     final bool required =
         isRequired ?? scope?.requiredIndicatorVisible ?? false;
-    final bool disabled = isDisabled ?? scope?.isDisabled ?? false;
+    final bool disabled =
+        isDisabled ??
+        ((scope?.isDisabled ?? false) || HeroDisabledScope.of(context));
     final bool invalid = isInvalid ?? scope?.isInvalid ?? false;
 
     final TextStyle textStyle = theme.typography

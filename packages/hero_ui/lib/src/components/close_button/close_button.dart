@@ -117,7 +117,7 @@ class HeroCloseButton extends StatelessWidget {
             visible: state.isFocusVisible,
             shape: shape,
             child: HeroDisabledOpacity(
-              disabled: isDisabled,
+              disabled: state.isDisabled,
               child: HeroButtonSurface(
                 color: background,
                 shape: shape,

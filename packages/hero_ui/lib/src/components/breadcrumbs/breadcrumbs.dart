@@ -253,6 +253,7 @@ class _BreadcrumbLink extends StatelessWidget {
   Widget build(BuildContext context) {
     final HeroThemeData theme = HeroTheme.of(context);
     final HeroColors colors = theme.colors;
+    final bool isDisabled = this.isDisabled || HeroDisabledScope.of(context);
     final Uri? url = item.href == null ? null : Uri.tryParse(item.href!);
     final OutlinedBorder shape = theme.shapeAll(theme.radii.xl);
 

@@ -27,6 +27,7 @@ import 'disclosure_group_demo.dart';
 import 'drawer_demo.dart';
 import 'error_message_demo.dart';
 import 'field_error_demo.dart';
+import 'fieldset_demo.dart';
 import 'form_demo.dart';
 import 'input_demo.dart';
 import 'kbd_demo.dart';
@@ -85,6 +86,7 @@ final Map<String, ComponentDemo> demoRegistry = <String, ComponentDemo>{
   drawerDemo.slug: drawerDemo,
   errorMessageDemo.slug: errorMessageDemo,
   fieldErrorDemo.slug: fieldErrorDemo,
+  fieldsetDemo.slug: fieldsetDemo,
   formDemo.slug: formDemo,
   inputDemo.slug: inputDemo,
   kbdDemo.slug: kbdDemo,

@@ -28,6 +28,7 @@ export 'drawer/drawer.dart';
 export 'empty_state/empty_state.dart';
 export 'error_message/error_message.dart';
 export 'field_error/field_error.dart';
+export 'fieldset/fieldset.dart';
 export 'form/form.dart';
 export 'input/input.dart';
 export 'kbd/kbd.dart';

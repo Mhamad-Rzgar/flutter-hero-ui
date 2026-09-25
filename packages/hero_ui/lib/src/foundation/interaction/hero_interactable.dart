@@ -6,6 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
+import 'hero_disabled_scope.dart';
 import 'hero_press_responder.dart';
 
 /// A snapshot of the interaction state of a [HeroInteractable].
@@ -192,6 +193,8 @@ class HeroInteractable extends StatefulWidget {
   final ValueChanged<bool>? onFocusChanged;
 
   /// Disables all interaction and removes the region from focus traversal.
+  /// An enclosing [HeroDisabledScope] (a disabled `HeroFieldset`) disables
+  /// the region as well.
   final bool isDisabled;
 
   /// Ignores interaction while keeping focusability (`isPending`).
@@ -263,8 +266,11 @@ class _HeroInteractableState extends State<HeroInteractable> {
   DateTime? _pressStartedAt;
   Timer? _releaseTimer;
   HeroPressResponder? _responder;
+  bool _scopeDisabled = false;
 
-  bool get _interactive => !widget.isDisabled && !widget.isPending;
+  bool get _disabled => widget.isDisabled || _scopeDisabled;
+
+  bool get _interactive => !_disabled && !widget.isPending;
 
   late final Map<Type, Action<Intent>> _defaultActions = <Type, Action<Intent>>{
     ActivateIntent: CallbackAction<ActivateIntent>(
@@ -276,8 +282,19 @@ class _HeroInteractableState extends State<HeroInteractable> {
   };
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _scopeDisabled = HeroDisabledScope.of(context);
+    _resetWhenInactive();
+  }
+
+  @override
   void didUpdateWidget(HeroInteractable oldWidget) {
     super.didUpdateWidget(oldWidget);
+    _resetWhenInactive();
+  }
+
+  void _resetWhenInactive() {
     if (!_interactive) {
       _releaseTimer?.cancel();
       if (_pressed || _hovered) {
@@ -386,7 +403,7 @@ class _HeroInteractableState extends State<HeroInteractable> {
       isPressed: _pressed && _interactive,
       isFocused: _focused,
       isFocusVisible: _focusVisible && _focused,
-      isDisabled: widget.isDisabled,
+      isDisabled: _disabled,
       isPending: widget.isPending,
       isSelected: widget.isSelected,
     );
@@ -413,12 +430,12 @@ class _HeroInteractableState extends State<HeroInteractable> {
     result = FocusableActionDetector(
       focusNode: widget.focusNode,
       autofocus: widget.autofocus,
-      enabled: !widget.isDisabled,
+      enabled: !_disabled,
       descendantsAreFocusable: true,
       descendantsAreTraversable: true,
       shortcuts: widget.shortcuts,
       actions: <Type, Action<Intent>>{..._defaultActions, ...?widget.actions},
-      mouseCursor: widget.isDisabled
+      mouseCursor: _disabled
           ? SystemMouseCursors.basic
           : widget.isPending
           ? SystemMouseCursors.basic
@@ -449,10 +466,10 @@ class _HeroInteractableState extends State<HeroInteractable> {
       linkUrl: widget.isLink ? widget.linkUrl : null,
       // Pending components stay focusable but are announced as unavailable
       // (React Aria sets `aria-disabled` while pending).
-      enabled: !widget.isDisabled && !widget.isPending,
-      focusable: !widget.isDisabled && widget.canRequestFocus,
+      enabled: !_disabled && !widget.isPending,
+      focusable: !_disabled && widget.canRequestFocus,
       // A null `focused` marks the node as not focusable.
-      focused: !widget.isDisabled && widget.canRequestFocus ? _focused : null,
+      focused: !_disabled && widget.canRequestFocus ? _focused : null,
       selected: widget.isToggle ? null : (widget.isSelected ? true : null),
       toggled: widget.isToggle ? widget.isSelected : null,
       expanded: responder?.isExpanded,

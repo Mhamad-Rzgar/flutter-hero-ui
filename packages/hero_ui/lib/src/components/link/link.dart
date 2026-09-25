@@ -253,7 +253,7 @@ class _HeroLinkState extends State<HeroLink> {
           child: content,
         );
         return AnimatedOpacity(
-          opacity: widget.isDisabled ? theme.disabledOpacity : 1,
+          opacity: state.isDisabled ? theme.disabledOpacity : 1,
           duration: theme.motion.resolve(context, HeroMotion.fast),
           curve: HeroMotion.easeOut,
           child: content,
