@@ -37,6 +37,7 @@ import 'link_demo.dart';
 import 'list_box_demo.dart';
 import 'meter_demo.dart';
 import 'modal_demo.dart';
+import 'number_field_demo.dart';
 import 'pagination_demo.dart';
 import 'popover_demo.dart';
 import 'progress_circle_demo.dart';
@@ -98,6 +99,7 @@ final Map<String, ComponentDemo> demoRegistry = <String, ComponentDemo>{
   listBoxDemo.slug: listBoxDemo,
   meterDemo.slug: meterDemo,
   modalDemo.slug: modalDemo,
+  numberFieldDemo.slug: numberFieldDemo,
   paginationDemo.slug: paginationDemo,
   popoverDemo.slug: popoverDemo,
   progressCircleDemo.slug: progressCircleDemo,

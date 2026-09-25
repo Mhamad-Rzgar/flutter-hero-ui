@@ -168,6 +168,7 @@ class HeroTextField extends StatefulWidget {
     this.validationBehavior,
     this.validationErrors,
     this.onSaved,
+    this.onReset,
     this.autovalidateMode,
     this.minLength,
     this.maxLength,
@@ -280,6 +281,9 @@ class HeroTextField extends StatefulWidget {
 
   /// Called with the value when the enclosing form is saved.
   final FormFieldSetter<String>? onSaved;
+
+  /// Called after the enclosing form reset the field to its initial value.
+  final VoidCallback? onReset;
 
   /// When the native behaviour shows errors without a commit.
   final AutovalidateMode? autovalidateMode;
@@ -568,11 +572,13 @@ class _HeroTextFieldState extends State<HeroTextField> {
     _committed = HeroValidationResult.valid;
     _serverErrorsCleared = true;
     final String text = _initialText;
-    if (_controller.text == text) return;
-    _syncing = true;
-    _controller.text = text;
-    _syncing = false;
-    widget.onChanged?.call(text);
+    if (_controller.text != text) {
+      _syncing = true;
+      _controller.text = text;
+      _syncing = false;
+      widget.onChanged?.call(text);
+    }
+    widget.onReset?.call();
   }
 
   bool _autovalidates(FormFieldState<String> field) {

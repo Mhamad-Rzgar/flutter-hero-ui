@@ -38,6 +38,7 @@ export 'link/link.dart';
 export 'list_box/list_box.dart';
 export 'meter/meter.dart';
 export 'modal/modal.dart';
+export 'number_field/number_field.dart';
 export 'pagination/pagination.dart';
 export 'popover/popover.dart';
 export 'progress_circle/progress_circle.dart';

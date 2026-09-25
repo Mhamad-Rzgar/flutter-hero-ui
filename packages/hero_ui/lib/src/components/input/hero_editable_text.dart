@@ -59,6 +59,10 @@ class HeroEditableText extends StatefulWidget {
     this.semanticLabel,
     this.semanticHint,
     this.semanticsInputType = SemanticsInputType.text,
+    this.onSemanticsIncrease,
+    this.onSemanticsDecrease,
+    this.semanticsIncreasedValue,
+    this.semanticsDecreasedValue,
   });
 
   /// The edited text.
@@ -178,6 +182,21 @@ class HeroEditableText extends StatefulWidget {
 
   /// Input type reported to assistive technologies.
   final SemanticsInputType semanticsInputType;
+
+  /// Increases the value from assistive technologies (for example a swipe
+  /// up on iOS), for adjustable fields such as a number field.
+  final VoidCallback? onSemanticsIncrease;
+
+  /// Decreases the value from assistive technologies.
+  final VoidCallback? onSemanticsDecrease;
+
+  /// The text the field would show after [onSemanticsIncrease]. Only
+  /// reported while the field has text.
+  final String? semanticsIncreasedValue;
+
+  /// The text the field would show after [onSemanticsDecrease]. Only
+  /// reported while the field has text.
+  final String? semanticsDecreasedValue;
 
   @override
   State<HeroEditableText> createState() => HeroEditableTextState();
@@ -405,6 +424,19 @@ class HeroEditableTextState extends State<HeroEditableText>
           : SemanticsValidationResult.none,
       onTap: enabled && !widget.isReadOnly ? _handleSemanticsTap : null,
       onFocus: enabled ? _handleSemanticsFocus : null,
+      // An adjusted value is only valid next to a current value.
+      increasedValue: widget.controller.text.isEmpty
+          ? null
+          : widget.semanticsIncreasedValue,
+      decreasedValue: widget.controller.text.isEmpty
+          ? null
+          : widget.semanticsDecreasedValue,
+      onIncrease: enabled && !widget.isReadOnly
+          ? widget.onSemanticsIncrease
+          : null,
+      onDecrease: enabled && !widget.isReadOnly
+          ? widget.onSemanticsDecrease
+          : null,
       child: TextFieldTapRegion(
         child: MouseRegion(
           cursor: enabled ? SystemMouseCursors.text : MouseCursor.defer,

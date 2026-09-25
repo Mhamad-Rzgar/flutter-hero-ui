@@ -70,3 +70,4 @@
 - `HeroFieldset` with legend, description, field groups, actions and disabled propagation through the new `HeroDisabledScope`.
 - `HeroInputGroup` with prefix and suffix addons, text-area and vertical layouts; `HeroTextAreaResizeGrip` is public.
 - `HeroSearchField` with search icon, clear button, Escape to clear and `onSubmitted`.
+- `HeroNumberField` with steppers, min/max/step, keyboard and wheel stepping, and intl currency, percent and unit formatting.
