@@ -222,9 +222,10 @@ DecoratedBox(
 | `defaultSelectedKeys` | `Set<Object>?` | `null` | Initial selection when uncontrolled. |
 | `onSelectionChanged` | `ValueChanged<Set<Object>>?` | `null` | Called with the new selection. |
 | `disallowEmptySelection` | `bool` | `false` | Keeps at least one button selected. |
-| `orientation` | `Axis` | `Axis.horizontal` | Row or column. |
+| `orientation` | `Axis?` | toolbar's, then `horizontal` | Row or column; inside a `HeroToolbar` it follows the toolbar. |
 | `size` | `HeroSize` | `HeroSize.md` | Size of buttons without their own. |
 | `isDetached` | `bool` | `false` | Gap between buttons instead of attaching them. |
+| `gap` | `double?` | 4 detached, else 0 | Space between the buttons (`gap-*`). |
 | `fullWidth` | `bool` | `false` | Fill the available width. |
 | `isDisabled` | `bool` | `false` | Disable every button that does not opt out. |
 | `semanticLabel` | `String?` | `null` | Group label (`aria-label`). |

@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import '../../foundation/foundation.dart';
 import '../toggle_button/toggle_button.dart';
 import '../toggle_button/toggle_button_group_scope.dart';
+import '../toolbar/toolbar_scope.dart';
 
 /// HeroUI's ToggleButtonGroup: groups [HeroToggleButton]s into one control
 /// with single (radio-like) or multiple selection.
@@ -50,9 +51,10 @@ class HeroToggleButtonGroup extends StatefulWidget {
     this.defaultSelectedKeys,
     this.onSelectionChanged,
     this.disallowEmptySelection = false,
-    this.orientation = Axis.horizontal,
+    this.orientation,
     this.size = HeroSize.md,
     this.isDetached = false,
+    this.gap,
     this.fullWidth = false,
     this.isDisabled = false,
     this.semanticLabel,
@@ -80,14 +82,19 @@ class HeroToggleButtonGroup extends StatefulWidget {
   /// Prevents deselecting the last selected button.
   final bool disallowEmptySelection;
 
-  /// Lays the buttons out in a row or a column.
-  final Axis orientation;
+  /// Lays the buttons out in a row or a column; defaults to the
+  /// orientation of the enclosing `HeroToolbar`, then horizontal.
+  final Axis? orientation;
 
   /// Size of buttons that do not set their own.
   final HeroSize size;
 
   /// Separates the buttons with a gap and rounds all their corners.
   final bool isDetached;
+
+  /// Space between the buttons (a `gap-*` class); defaults to 4 when
+  /// [isDetached], else 0.
+  final double? gap;
 
   /// Stretches the group to the available width and the buttons to fill it.
   final bool fullWidth;
@@ -162,13 +169,21 @@ class _HeroToggleButtonGroupState extends State<HeroToggleButtonGroup>
     return 0;
   }
 
+  /// The enclosing toolbar, resolved in [build].
+  HeroToolbarScope? _toolbar;
+
+  Axis get _orientation =>
+      widget.orientation ?? _toolbar?.orientation ?? Axis.horizontal;
+
   KeyEventResult _handleKey(FocusNode node, KeyEvent event) {
     if (event is! KeyDownEvent && event is! KeyRepeatEvent) {
       return KeyEventResult.ignored;
     }
+    // Inside a toolbar the arrow keys move across the whole toolbar.
+    if (_toolbar != null) return KeyEventResult.ignored;
     final LogicalKeyboardKey key = event.logicalKey;
     final bool rtl = Directionality.of(context) == TextDirection.rtl;
-    final int? delta = switch (widget.orientation) {
+    final int? delta = switch (_orientation) {
       Axis.horizontal when key == LogicalKeyboardKey.arrowRight => rtl ? -1 : 1,
       Axis.horizontal when key == LogicalKeyboardKey.arrowLeft => rtl ? 1 : -1,
       Axis.vertical when key == LogicalKeyboardKey.arrowDown => 1,
@@ -200,7 +215,9 @@ class _HeroToggleButtonGroupState extends State<HeroToggleButtonGroup>
   Widget build(BuildContext context) {
     final HeroThemeData theme = HeroTheme.of(context);
     final int count = widget.children.length;
-    final bool horizontal = widget.orientation == Axis.horizontal;
+    _toolbar = HeroToolbarScope.maybeOf(context);
+    final Axis orientation = _orientation;
+    final bool horizontal = orientation == Axis.horizontal;
     final List<Widget> items = <Widget>[
       for (int i = 0; i < count; i++)
         if (widget.fullWidth && horizontal)
@@ -218,7 +235,7 @@ class _HeroToggleButtonGroupState extends State<HeroToggleButtonGroup>
             child: widget.children[i],
           ),
     ];
-    final double gap = widget.isDetached ? theme.spacing(1) : 0;
+    final double gap = widget.gap ?? (widget.isDetached ? theme.spacing(1) : 0);
     Widget result = horizontal
         ? Row(
             mainAxisSize: widget.fullWidth
@@ -238,7 +255,7 @@ class _HeroToggleButtonGroupState extends State<HeroToggleButtonGroup>
       selectionMode: widget.selectionMode,
       size: widget.size,
       isDisabled: widget.isDisabled,
-      orientation: widget.orientation,
+      orientation: orientation,
       isDetached: widget.isDetached,
       fullWidth: widget.fullWidth,
       rovingIndex: _rovingIndex,

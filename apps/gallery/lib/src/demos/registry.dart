@@ -30,6 +30,7 @@ import 'text_area_demo.dart';
 import 'text_field_demo.dart';
 import 'toggle_button_demo.dart';
 import 'toggle_button_group_demo.dart';
+import 'toolbar_demo.dart';
 import 'typography_demo.dart';
 
 /// Every component demo, keyed by catalog slug.
@@ -63,5 +64,6 @@ final Map<String, ComponentDemo> demoRegistry = <String, ComponentDemo>{
   textFieldDemo.slug: textFieldDemo,
   toggleButtonDemo.slug: toggleButtonDemo,
   toggleButtonGroupDemo.slug: toggleButtonGroupDemo,
+  toolbarDemo.slug: toolbarDemo,
   typographyDemo.slug: typographyDemo,
 };

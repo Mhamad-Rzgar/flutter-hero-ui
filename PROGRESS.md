@@ -9,7 +9,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 ## Summary
 
 <!-- summary:start -->
-**38 of 164 slices done**, 0 in progress.
+**39 of 164 slices done**, 0 in progress.
 <!-- summary:end -->
 
 
@@ -62,7 +62,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 | C25 | Alert | `HeroAlert` | ✅ Done |
 | C26 | ScrollShadow | `HeroScrollShadow` | ⬜ Planned |
 | C27 | EmptyState | `HeroEmptyState` | ⬜ Planned |
-| C28 | Toolbar | `HeroToolbar` | ⬜ Planned |
+| C28 | Toolbar | `HeroToolbar` | ✅ Done |
 
 ## Forms
 

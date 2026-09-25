@@ -7,6 +7,7 @@ import 'package:flutter/widgets.dart';
 
 import '../../foundation/foundation.dart';
 import '../button/button.dart';
+import '../toolbar/toolbar_scope.dart';
 import 'button_group_scope.dart';
 
 export 'button_group_scope.dart';
@@ -43,7 +44,7 @@ class HeroButtonGroup extends StatelessWidget {
     required this.children,
     this.variant,
     this.size,
-    this.orientation = Axis.horizontal,
+    this.orientation,
     this.fullWidth = false,
     this.isDisabled = false,
     this.semanticLabel,
@@ -58,8 +59,9 @@ class HeroButtonGroup extends StatelessWidget {
   /// The size of every button that does not set its own.
   final HeroSize? size;
 
-  /// Whether the buttons are laid out in a row or a column.
-  final Axis orientation;
+  /// Whether the buttons are laid out in a row or a column; defaults to the
+  /// orientation of the enclosing `HeroToolbar`, then horizontal.
+  final Axis? orientation;
 
   /// Whether the group fills a bounded width; its buttons share it equally
   /// in a row and stretch in a column.
@@ -83,6 +85,10 @@ class HeroButtonGroup extends StatelessWidget {
       items.add((child, separated));
       separated = false;
     }
+    final Axis orientation =
+        this.orientation ??
+        HeroToolbarScope.maybeOf(context)?.orientation ??
+        Axis.horizontal;
     final bool horizontal = orientation == Axis.horizontal;
     return Semantics(
       container: true,
@@ -131,13 +137,7 @@ class HeroButtonGroup extends StatelessWidget {
         EnumProperty<HeroButtonVariant>('variant', variant, defaultValue: null),
       )
       ..add(EnumProperty<HeroSize>('size', size, defaultValue: null))
-      ..add(
-        EnumProperty<Axis>(
-          'orientation',
-          orientation,
-          defaultValue: Axis.horizontal,
-        ),
-      )
+      ..add(EnumProperty<Axis>('orientation', orientation, defaultValue: null))
       ..add(FlagProperty('fullWidth', value: fullWidth, ifTrue: 'full width'))
       ..add(FlagProperty('isDisabled', value: isDisabled, ifTrue: 'disabled'));
   }

@@ -187,7 +187,7 @@ with `HeroDropdown` and `HeroChip`.
 | `children` | `List<Widget>` | required | Buttons, optionally with `HeroButtonGroupSeparator`s between them. |
 | `variant` | `HeroButtonVariant?` | `null` | Variant of buttons that do not set one. |
 | `size` | `HeroSize?` | `null` | Size of buttons that do not set one. |
-| `orientation` | `Axis` | `Axis.horizontal` | Row or column. |
+| `orientation` | `Axis?` | toolbar's, then `horizontal` | Row or column; inside a `HeroToolbar` it follows the toolbar. |
 | `fullWidth` | `bool` | `false` | Fill a bounded width. |
 | `isDisabled` | `bool` | `false` | Disable buttons that do not set `isDisabled`. |
 | `semanticLabel` | `String?` | `null` | Accessibility label of the group. |
