@@ -6,7 +6,6 @@ import 'dart:math' as math;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:intl/intl.dart';
 
 import '../../foundation/foundation.dart';
 import 'range_format.dart';

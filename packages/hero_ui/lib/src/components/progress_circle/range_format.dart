@@ -2,6 +2,10 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 
+// The formats of range components are intl number formats; re-exported so
+// callers do not need their own intl import.
+export 'package:intl/intl.dart' show NumberFormat;
+
 /// Value formatting shared by HeroUI's range components (progress circles,
 /// meters and sliders), the counterpart of React Aria's number formatter.
 ///

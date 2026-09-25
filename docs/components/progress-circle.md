@@ -188,9 +188,9 @@ HeroProgressCircle(
 ## Value formatting
 
 The announced value text is a whole percentage of the range ("60%"), like React Aria's default
-`formatOptions: {style: 'percent'}`. Pass an `intl` `NumberFormat` as `numberFormat` to change
-it: a percent format formats the fraction, any other format the value itself
-(`NumberFormat.simpleCurrency(name: 'USD')` announces "$750.00" for 750). `valueLabel`
+`formatOptions: {style: 'percent'}`. Pass an intl `NumberFormat` (re-exported by hero_ui) as
+`numberFormat` to change it: a percent format formats the fraction, any other format the value
+itself (`NumberFormat.simpleCurrency(name: 'USD')` announces "$750.00" for 750). `valueLabel`
 replaces the text entirely. `HeroRangeFormat` exposes the same helpers for custom content.
 
 ## Accessibility

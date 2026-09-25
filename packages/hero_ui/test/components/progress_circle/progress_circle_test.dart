@@ -3,7 +3,6 @@ import 'dart:ui' show SemanticsRole;
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hero_ui/hero_ui.dart';
-import 'package:intl/intl.dart' show NumberFormat;
 
 import '../../helpers/hero_test_app.dart';
 

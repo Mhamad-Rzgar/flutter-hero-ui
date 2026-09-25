@@ -16,6 +16,7 @@ import 'input_demo.dart';
 import 'kbd_demo.dart';
 import 'label_demo.dart';
 import 'link_demo.dart';
+import 'meter_demo.dart';
 import 'pagination_demo.dart';
 import 'progress_circle_demo.dart';
 import 'separator_demo.dart';
@@ -46,6 +47,7 @@ final Map<String, ComponentDemo> demoRegistry = <String, ComponentDemo>{
   kbdDemo.slug: kbdDemo,
   labelDemo.slug: labelDemo,
   linkDemo.slug: linkDemo,
+  meterDemo.slug: meterDemo,
   paginationDemo.slug: paginationDemo,
   progressCircleDemo.slug: progressCircleDemo,
   separatorDemo.slug: separatorDemo,
