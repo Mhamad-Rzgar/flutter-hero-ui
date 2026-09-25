@@ -34,6 +34,7 @@ export 'slider/slider.dart';
 export 'spinner/spinner.dart';
 export 'surface/surface.dart';
 export 'tabs/tabs.dart';
+export 'tag_group/tag_group.dart';
 export 'text_area/text_area.dart';
 export 'text_field/text_field.dart';
 export 'toggle_button/toggle_button.dart';
