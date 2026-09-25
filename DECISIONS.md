@@ -228,3 +228,16 @@ Newest entries are appended at the end of each section.
 - **ColorArea** defaults to HSB saturation × brightness and claims pointer gestures so dragging
   never scrolls the page. A controlled `HeroColorField` set to null is cleared; channel mode
   shows plain numbers.
+- **ListBox focus model.** The list is a single focus node with a virtually focused item (like
+  `aria-activedescendant`); `onAction` also fires in selection modes; the root `variant` is the
+  default for items. The checkmark animates over 300 ms with `cubic-bezier(.4,0,.2,1)` — what
+  browsers actually render, since HeroUI's 250 ms rule never matches because of CSS nesting.
+- **Shared collection foundations**: `HeroSelectionManager`, `HeroTypeahead` and
+  `HeroCollection` back ListBox and every picker; `HeroCollapsible` animates Accordion and
+  Disclosure panels.
+- **Disclosure triggers** use `HeroDisclosureTrigger.builder` in place of HeroUI's
+  `slot="trigger"` buttons.
+- **Tag remove buttons** get their 24 px touch target from the tag's hit test; an empty
+  `HeroErrorMessage` renders nothing (HeroUI renders an empty padded span).
+- **Brand logos** in docs examples are replaced by neutral icons.
+- **Icon data.** Gravity UI icons are painted without their full-square clip paths.
