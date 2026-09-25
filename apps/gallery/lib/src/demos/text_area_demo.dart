@@ -119,6 +119,35 @@ SizedBox(
 )''',
     ),
     DemoExample(
+      title: 'In Surface',
+      description:
+          'Inside a Surface, use the secondary variant for the lower emphasis '
+          'field suited to surface backgrounds.',
+      builder: (BuildContext context) {
+        final HeroThemeData theme = HeroTheme.of(context);
+        return HeroSurface(
+          borderRadius: BorderRadius.circular(theme.radii.xl3),
+          padding: EdgeInsets.all(theme.spacing(6)),
+          child: const HeroTextArea(
+            fullWidth: true,
+            placeholder: 'Describe your product',
+            variant: HeroFieldVariant.secondary,
+          ),
+        );
+      },
+      code: '''
+final HeroThemeData theme = HeroTheme.of(context);
+HeroSurface(
+  borderRadius: BorderRadius.circular(theme.radii.xl3),
+  padding: EdgeInsets.all(theme.spacing(6)),
+  child: const HeroTextArea(
+    fullWidth: true,
+    placeholder: 'Describe your product',
+    variant: HeroFieldVariant.secondary,
+  ),
+)''',
+    ),
+    DemoExample(
       title: 'Full Width',
       builder: (BuildContext context) => const SizedBox(
         width: 400,

@@ -15,6 +15,7 @@ import 'label_demo.dart';
 import 'link_demo.dart';
 import 'separator_demo.dart';
 import 'spinner_demo.dart';
+import 'surface_demo.dart';
 import 'text_area_demo.dart';
 import 'typography_demo.dart';
 
@@ -34,6 +35,7 @@ final Map<String, ComponentDemo> demoRegistry = <String, ComponentDemo>{
   linkDemo.slug: linkDemo,
   separatorDemo.slug: separatorDemo,
   spinnerDemo.slug: spinnerDemo,
+  surfaceDemo.slug: surfaceDemo,
   textAreaDemo.slug: textAreaDemo,
   typographyDemo.slug: typographyDemo,
 };

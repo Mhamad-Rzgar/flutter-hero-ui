@@ -14,5 +14,6 @@ export 'label/label.dart';
 export 'link/link.dart';
 export 'separator/separator.dart';
 export 'spinner/spinner.dart';
+export 'surface/surface.dart';
 export 'text_area/text_area.dart';
 export 'typography/typography.dart';
