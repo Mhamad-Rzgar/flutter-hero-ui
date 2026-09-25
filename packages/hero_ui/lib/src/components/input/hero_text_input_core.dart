@@ -253,6 +253,22 @@ class _HeroTextInputCoreState extends State<HeroTextInputCore> {
 
   bool get _ownsFormField => _scope?.controller == null;
 
+  /// The own type, or the field's type while the input keeps the default.
+  HeroInputType get _type => widget.type != HeroInputType.text
+      ? widget.type
+      : (_scope?.inputType ?? HeroInputType.text);
+
+  HeroTextConstraints get _constraints => HeroTextConstraints(
+    isRequired: widget.isRequired || (_scope?.isRequired ?? false),
+    type: _type,
+    minLength: widget.minLength,
+    pattern: widget.pattern,
+    min: widget.min,
+    max: widget.max,
+    step: widget.step,
+    messages: widget.validationMessages,
+  );
+
   @override
   void initState() {
     super.initState();
@@ -284,6 +300,7 @@ class _HeroTextInputCoreState extends State<HeroTextInputCore> {
 
   @override
   void dispose() {
+    if (!_ownsFormField) _scope?.onInputConstraintsChanged?.call(null);
     _listenedController?.removeListener(_handleTextChanged);
     _listenedFocusNode?.removeListener(_handleFocusChanged);
     _ownController?.dispose();
@@ -337,9 +354,7 @@ class _HeroTextInputCoreState extends State<HeroTextInputCore> {
     widget.onSubmitted?.call(value);
     if (!mounted || widget.isMultiline) return;
     final TextInputAction action =
-        widget.textInputAction ??
-        widget.type.textInputAction ??
-        TextInputAction.done;
+        widget.textInputAction ?? _type.textInputAction ?? TextInputAction.done;
     if (!_implicitSubmitActions.contains(action)) return;
     context.findAncestorStateOfType<HeroFormState>()?.submit();
   }
@@ -362,23 +377,16 @@ class _HeroTextInputCoreState extends State<HeroTextInputCore> {
     widget.onChanged?.call(text);
   }
 
-  String? _validate(String? value) {
-    final String? native = HeroTextConstraints(
-      isRequired: widget.isRequired || (_scope?.isRequired ?? false),
-      type: widget.type,
-      minLength: widget.minLength,
-      pattern: widget.pattern,
-      min: widget.min,
-      max: widget.max,
-      step: widget.step,
-      messages: widget.validationMessages,
-    ).validate(value);
-    return native ?? widget.validator?.call(value);
-  }
+  String? _validate(String? value) =>
+      _constraints.validate(value) ?? widget.validator?.call(value);
 
   @override
   Widget build(BuildContext context) {
-    if (!_ownsFormField) return _buildField(context, hasError: false);
+    if (!_ownsFormField) {
+      // The field root owns the form state and validates these constraints.
+      _scope?.onInputConstraintsChanged?.call(_constraints);
+      return _buildField(context, hasError: false);
+    }
     return _HeroTextFormField(
       key: _fieldKey,
       initialValue: _controller.text,
@@ -399,8 +407,8 @@ class _HeroTextInputCoreState extends State<HeroTextInputCore> {
     final bool disabled = _isDisabled;
     final bool invalid =
         widget.isInvalid || (scope?.isInvalid ?? false) || hasError;
-    final bool suggestions =
-        widget.autocorrect ?? !widget.type.disablesSuggestions;
+    final HeroInputType type = _type;
+    final bool suggestions = widget.autocorrect ?? !type.disablesSuggestions;
     final int? maxLength = widget.maxLength;
     final bool multiline = widget.isMultiline;
     final bool expands = multiline && widget.height != null;
@@ -417,11 +425,10 @@ class _HeroTextInputCoreState extends State<HeroTextInputCore> {
       textAlign: widget.textAlign,
       keyboardType:
           widget.keyboardType ??
-          (multiline ? TextInputType.multiline : widget.type.keyboardType),
-      textInputAction: widget.textInputAction ?? widget.type.textInputAction,
+          (multiline ? TextInputType.multiline : type.keyboardType),
+      textInputAction: widget.textInputAction ?? type.textInputAction,
       textCapitalization: widget.textCapitalization,
-      obscureText:
-          !multiline && (widget.obscureText ?? widget.type.obscuresText),
+      obscureText: !multiline && (widget.obscureText ?? type.obscuresText),
       autocorrect: suggestions,
       enableSuggestions: suggestions,
       maxLines: expands ? null : widget.maxLines,
@@ -433,7 +440,7 @@ class _HeroTextInputCoreState extends State<HeroTextInputCore> {
       isRequired: widget.isRequired || (scope?.isRequired ?? false),
       autofocus: widget.autofocus,
       inputFormatters: <TextInputFormatter>[
-        ...widget.type.inputFormatters,
+        ...type.inputFormatters,
         ...?widget.inputFormatters,
         if (maxLength != null) LengthLimitingTextInputFormatter(maxLength),
       ],
@@ -445,7 +452,7 @@ class _HeroTextInputCoreState extends State<HeroTextInputCore> {
       scrollController: widget.scrollController,
       semanticLabel: widget.semanticLabel ?? scope?.semanticLabel,
       semanticHint: scope?.semanticHint,
-      semanticsInputType: widget.type.semanticsInputType,
+      semanticsInputType: type.semanticsInputType,
     );
 
     Widget field = widget.decorated

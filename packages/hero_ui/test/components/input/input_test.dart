@@ -472,6 +472,49 @@ void main() {
       );
     });
 
+    testWidgets('takes the scope type and reports its constraints', (
+      WidgetTester tester,
+    ) async {
+      final TextEditingController controller = TextEditingController();
+      addTearDown(controller.dispose);
+      final List<HeroTextConstraints?> reported = <HeroTextConstraints?>[];
+      Widget build({required bool withInput}) => HeroFieldScope(
+        controller: controller,
+        inputType: HeroInputType.password,
+        isRequired: true,
+        onInputConstraintsChanged: reported.add,
+        child: withInput
+            ? const HeroInput(minLength: 4)
+            : const SizedBox.shrink(),
+      );
+      await pumpHero(tester, build(withInput: true));
+      expect(_editable(tester).obscureText, isTrue);
+      expect(
+        reported.last,
+        const HeroTextConstraints(
+          isRequired: true,
+          type: HeroInputType.password,
+          minLength: 4,
+        ),
+      );
+      await tester.pumpWidget(heroTestApp(build(withInput: false)));
+      expect(reported.last, isNull);
+    });
+
+    testWidgets('an explicit type wins over the scope type', (
+      WidgetTester tester,
+    ) async {
+      await pumpHero(
+        tester,
+        const HeroFieldScope(
+          inputType: HeroInputType.password,
+          child: HeroInput(type: HeroInputType.email),
+        ),
+      );
+      expect(_editable(tester).obscureText, isFalse);
+      expect(_editable(tester).keyboardType, TextInputType.emailAddress);
+    });
+
     testWidgets('own variant wins over the scope', (WidgetTester tester) async {
       await pumpHero(
         tester,

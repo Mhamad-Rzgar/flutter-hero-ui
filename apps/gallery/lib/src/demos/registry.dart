@@ -23,6 +23,7 @@ import 'spinner_demo.dart';
 import 'surface_demo.dart';
 import 'tabs_demo.dart';
 import 'text_area_demo.dart';
+import 'text_field_demo.dart';
 import 'toggle_button_demo.dart';
 import 'toggle_button_group_demo.dart';
 import 'typography_demo.dart';
@@ -51,6 +52,7 @@ final Map<String, ComponentDemo> demoRegistry = <String, ComponentDemo>{
   surfaceDemo.slug: surfaceDemo,
   tabsDemo.slug: tabsDemo,
   textAreaDemo.slug: textAreaDemo,
+  textFieldDemo.slug: textFieldDemo,
   toggleButtonDemo.slug: toggleButtonDemo,
   toggleButtonGroupDemo.slug: toggleButtonGroupDemo,
   typographyDemo.slug: typographyDemo,

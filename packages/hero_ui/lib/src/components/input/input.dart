@@ -31,8 +31,9 @@ export 'hero_text_selection.dart';
 /// [autovalidateMode] work as in Flutter, and the native constraints
 /// ([isRequired], [type], [minLength], [pattern], [min], [max], [step]) are
 /// validated like in a browser. Inside a field root that publishes a
-/// [HeroFieldScope] with a controller (a TextField), the root owns the form
-/// state instead and the input inherits its variant and states.
+/// [HeroFieldScope] with a controller (a `HeroTextField`), the root owns the
+/// form state instead (and validates the input's constraints) and the input
+/// inherits its variant, type and states.
 ///
 /// ```dart
 /// HeroInput(
@@ -118,6 +119,8 @@ class HeroInput extends StatelessWidget {
   final String? placeholder;
 
   /// The input type (`type`): keyboard, obscuring and type validation.
+  /// Inside a field (a `HeroTextField`) the default [HeroInputType.text]
+  /// takes the field's type.
   final HeroInputType type;
 
   /// Visual variant; null inherits from the enclosing field, then primary.

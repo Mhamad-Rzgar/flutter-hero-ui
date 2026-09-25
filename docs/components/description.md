@@ -59,6 +59,22 @@ Column(
 )
 ```
 
+### Integration with TextField
+
+```dart
+HeroTextField(
+  type: HeroInputType.email,
+  children: const <Widget>[
+    HeroLabel.text('Email'),
+    HeroInput(placeholder: 'Enter your email'),
+    HeroDescription.text("We'll never share your email"),
+  ],
+)
+```
+
+Inside a `HeroTextField` the label and description are linked to the input
+automatically and announced with it.
+
 ### Customization
 
 `style` is merged over the description style (like `className`).

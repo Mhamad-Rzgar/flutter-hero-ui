@@ -22,6 +22,7 @@ export 'spinner/spinner.dart';
 export 'surface/surface.dart';
 export 'tabs/tabs.dart';
 export 'text_area/text_area.dart';
+export 'text_field/text_field.dart';
 export 'toggle_button/toggle_button.dart';
 export 'toggle_button_group/toggle_button_group.dart';
 export 'typography/typography.dart';

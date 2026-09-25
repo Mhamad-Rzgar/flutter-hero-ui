@@ -119,6 +119,9 @@ class HeroValidationMessages {
   /// The number is not a multiple of the step (`stepMismatch`).
   String get stepMismatch => 'Please enter a valid value.';
 
+  /// A field marked invalid without a message (`customError`).
+  String get invalidValue => 'Invalid value.';
+
   static String _format(num value) =>
       value == value.roundToDouble() ? value.toInt().toString() : '$value';
 }

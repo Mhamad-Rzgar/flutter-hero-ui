@@ -13,25 +13,25 @@ import 'package:hero_ui/hero_ui.dart';
 ## Usage
 
 ```dart
-final bool invalid = username.isNotEmpty && username.length < 3;
-
-Column(
-  crossAxisAlignment: CrossAxisAlignment.start,
-  spacing: 4,
-  children: <Widget>[
-    HeroLabel.text('Username', isInvalid: invalid),
-    HeroInput(isInvalid: invalid, placeholder: 'Enter username'),
-    HeroFieldError.text(
-      'Username must be at least 3 characters',
-      isInvalid: invalid,
-    ),
-  ],
+SizedBox(
+  width: 256,
+  child: HeroTextField(
+    isInvalid: username.isNotEmpty && username.length < 3,
+    value: username,
+    onChanged: (String value) => setState(() => username = value),
+    children: const <Widget>[
+      HeroLabel.text('Username'),
+      HeroInput(placeholder: 'Enter username'),
+      HeroFieldError.text('Username must be at least 3 characters'),
+    ],
+  ),
 )
 ```
 
 The error is only rendered while its field is invalid. Inside a field root
-(any `HeroFieldScope`) it follows the field's validation state; `isInvalid`
-overrides it.
+(`HeroTextField`, or any `HeroFieldScope`) it follows the field's validation
+state; `isInvalid` overrides it, which also lets it sit next to a standalone
+control.
 
 ## Anatomy
 
@@ -56,12 +56,58 @@ When there is nothing to show, nothing is rendered.
 
 ## Examples
 
-### With dynamic messages
+### Basic validation
 
 ```dart
-HeroFieldError(
-  builder: (BuildContext context, HeroValidationResult validation) =>
-      Text(validation.validationErrors.join(', ')),
+final bool isInvalid = value.isNotEmpty && value.length < 3;
+
+HeroTextField(
+  isInvalid: isInvalid,
+  value: value,
+  onChanged: (String v) => setState(() => value = v),
+  children: const <Widget>[
+    HeroLabel.text('Username'),
+    HeroInput(placeholder: 'Enter username'),
+    HeroFieldError.text('Username must be at least 3 characters'),
+  ],
+)
+```
+
+### With dynamic messages
+
+With no content, the error shows the field's messages (validator results,
+built-in constraint messages or server errors); a builder renders them.
+
+```dart
+HeroTextField(
+  type: HeroInputType.password,
+  validationBehavior: HeroValidationBehavior.aria,
+  validator: (String? value) =>
+      (value ?? '').length < 8 ? 'At least 8 characters' : null,
+  children: <Widget>[
+    const HeroLabel.text('Password'),
+    const HeroInput(),
+    HeroFieldError(
+      builder: (BuildContext context, HeroValidationResult validation) =>
+          Text(validation.validationErrors.join(', ')),
+    ),
+  ],
+)
+```
+
+### Custom validation logic
+
+```dart
+HeroTextField(
+  type: HeroInputType.email,
+  isInvalid: email.isNotEmpty && !email.contains('@'),
+  value: email,
+  onChanged: (String value) => setState(() => email = value),
+  children: const <Widget>[
+    HeroLabel.text('Email'),
+    HeroInput(),
+    HeroFieldError.text('Email must include @ symbol'),
+  ],
 )
 ```
 
@@ -69,11 +115,9 @@ HeroFieldError(
 
 ```dart
 HeroFieldError(
-  builder: (BuildContext context, HeroValidationResult validation) => Column(
+  child: Column(
     crossAxisAlignment: CrossAxisAlignment.start,
-    children: <Widget>[
-      for (final String error in validation.validationErrors) Text(error),
-    ],
+    children: <Widget>[for (final String error in errors) Text(error)],
   ),
 )
 ```
@@ -93,8 +137,8 @@ const HeroFieldError.text(
 ## Accessibility
 
 - The error is a live region, so it is announced when it appears.
-- It is read as text in the field; `HeroFieldScope.semanticHint` lets a field
-  root also describe its control with the message (`aria-describedby`).
+- Inside a `HeroTextField` the message also describes the input
+  (`aria-describedby`), so it is read when the input is focused.
 
 ## API
 

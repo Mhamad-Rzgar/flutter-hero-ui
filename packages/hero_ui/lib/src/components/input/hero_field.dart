@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../foundation/foundation.dart';
+import 'hero_text_constraints.dart';
 
 /// The visual variant shared by HeroUI's form fields (`primary | secondary`).
 ///
@@ -86,6 +87,8 @@ class HeroFieldScope extends InheritedWidget {
     this.onLabelPressed,
     this.semanticLabel,
     this.semanticHint,
+    this.inputType,
+    this.onInputConstraintsChanged,
   });
 
   /// Variant inherited by inputs that do not set their own.
@@ -140,6 +143,16 @@ class HeroFieldScope extends InheritedWidget {
   /// error text).
   final String? semanticHint;
 
+  /// The input type of the field (a TextField's `type`). An input inside the
+  /// field that keeps the default [HeroInputType.text] uses it.
+  final HeroInputType? inputType;
+
+  /// Receives the native constraints (`isRequired`, `type`, `minLength`,
+  /// `pattern`, `min`, `max`, `step`) of the input inside a field that owns
+  /// the form state, so the field root validates them; null when the input
+  /// goes away.
+  final ValueSetter<HeroTextConstraints?>? onInputConstraintsChanged;
+
   /// Whether labels show the required asterisk.
   bool get requiredIndicatorVisible => showRequiredIndicator ?? isRequired;
 
@@ -168,7 +181,9 @@ class HeroFieldScope extends InheritedWidget {
       controller != oldWidget.controller ||
       onLabelPressed != oldWidget.onLabelPressed ||
       semanticLabel != oldWidget.semanticLabel ||
-      semanticHint != oldWidget.semanticHint;
+      semanticHint != oldWidget.semanticHint ||
+      inputType != oldWidget.inputType ||
+      onInputConstraintsChanged != oldWidget.onInputConstraintsChanged;
 }
 
 /// Per-instance visual overrides of a field (the Flutter counterpart of the

@@ -14,10 +14,10 @@ typedef HeroFieldErrorBuilder =
 /// The validation message of a form field (HeroUI `FieldError`): `text-xs`
 /// in `--danger` with 4 px horizontal padding, wrapping long messages.
 ///
-/// It is only rendered while the field is invalid. Inside a field root (any
-/// [HeroFieldScope]) that is the field's validation state; [isInvalid]
-/// overrides it, which also lets the error be used next to a standalone
-/// control.
+/// It is only rendered while the field is invalid. Inside a field root
+/// (`HeroTextField`, or any [HeroFieldScope]) that is the field's validation
+/// state; [isInvalid] overrides it, which also lets the error be used next to
+/// a standalone control.
 ///
 /// The content is, in order of precedence, the text of [HeroFieldError.text],
 /// [builder] (called with the field's [HeroValidationResult]), [child], or
@@ -25,18 +25,14 @@ typedef HeroFieldErrorBuilder =
 /// to show, nothing is rendered.
 ///
 /// ```dart
-/// final bool invalid = username.isNotEmpty && username.length < 3;
-///
-/// Column(
-///   crossAxisAlignment: CrossAxisAlignment.start,
-///   spacing: 4,
-///   children: <Widget>[
-///     HeroLabel.text('Username', isInvalid: invalid),
-///     HeroInput(isInvalid: invalid, placeholder: 'Enter username'),
-///     HeroFieldError.text(
-///       'Username must be at least 3 characters',
-///       isInvalid: invalid,
-///     ),
+/// HeroTextField(
+///   isInvalid: username.isNotEmpty && username.length < 3,
+///   value: username,
+///   onChanged: (String value) => setState(() => username = value),
+///   children: const <Widget>[
+///     HeroLabel.text('Username'),
+///     HeroInput(placeholder: 'Enter username'),
+///     HeroFieldError.text('Username must be at least 3 characters'),
 ///   ],
 /// )
 /// ```

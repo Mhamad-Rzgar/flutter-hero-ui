@@ -22,7 +22,7 @@ const HeroTextArea(
 ```
 
 For labels, descriptions and errors, compose it with `HeroLabel` and
-`HeroDescription` (and, when it lands, `HeroTextField`).
+`HeroDescription`, or use [`HeroTextField`](text-field.md).
 
 ## Anatomy
 

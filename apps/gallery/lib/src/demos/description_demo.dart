@@ -89,6 +89,29 @@ Column(
 )''',
     ),
     DemoExample(
+      title: 'Integration with TextField',
+      description:
+          'Inside a HeroTextField the label and description are linked to '
+          'the input and announced with it.',
+      builder: (BuildContext context) => const HeroTextField(
+        type: HeroInputType.email,
+        children: <Widget>[
+          HeroLabel.text('Email'),
+          HeroInput(placeholder: 'Enter your email'),
+          HeroDescription.text("We'll never share your email"),
+        ],
+      ),
+      code: '''
+HeroTextField(
+  type: HeroInputType.email,
+  children: const <Widget>[
+    HeroLabel.text('Email'),
+    HeroInput(placeholder: 'Enter your email'),
+    HeroDescription.text("We'll never share your email"),
+  ],
+)''',
+    ),
+    DemoExample(
       title: 'Customization',
       description: 'A description with relaxed leading and wide tracking.',
       builder: (BuildContext context) {

@@ -52,3 +52,4 @@ All notable changes to this repository. Package changelogs live in
 - `HeroBreadcrumbs` and `HeroBreadcrumbsItem`.
 - `HeroFieldError` and `HeroValidationResult`.
 - `HeroForm` with native and aria validation behaviour (`HeroValidationBehavior`), server errors, submit and reset, and `HeroButton.type`.
+- `HeroTextField` (convenience and composed forms, `FormField<String>` validation) and `HeroFieldLayout`.

@@ -15,34 +15,57 @@ import 'package:hero_ui/hero_ui.dart';
 ```dart
 HeroForm(
   onSubmit: (Map<String, Object?> data) => debugPrint('$data'),
-  child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    spacing: 16,
-    children: <Widget>[
-      const HeroInput(
-        name: 'email',
-        semanticLabel: 'Email',
-        type: HeroInputType.email,
-        isRequired: true,
-        placeholder: 'john@example.com',
-      ),
-      Row(
-        mainAxisSize: MainAxisSize.min,
-        spacing: 8,
-        children: <Widget>[
-          HeroButton(
-            type: HeroButtonType.submit,
-            startContent: const HeroIcon(HeroIcons.check),
-            child: const Text('Submit'),
-          ),
-          const HeroButton(
-            type: HeroButtonType.reset,
-            variant: HeroButtonVariant.secondary,
-            child: Text('Reset'),
-          ),
-        ],
-      ),
-    ],
+  child: SizedBox(
+    width: 384,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      spacing: 16,
+      children: <Widget>[
+        HeroTextField(
+          name: 'email',
+          type: HeroInputType.email,
+          isRequired: true,
+          validator: (String? value) => emailPattern.hasMatch(value ?? '')
+              ? null
+              : 'Please enter a valid email address',
+          children: const <Widget>[
+            HeroLabel.text('Email'),
+            HeroInput(placeholder: 'john@example.com'),
+            HeroFieldError(),
+          ],
+        ),
+        HeroTextField(
+          name: 'password',
+          type: HeroInputType.password,
+          isRequired: true,
+          minLength: 8,
+          validator: validatePassword,
+          children: const <Widget>[
+            HeroLabel.text('Password'),
+            HeroInput(placeholder: 'Enter your password'),
+            HeroDescription.text(
+              'Must be at least 8 characters with 1 uppercase and 1 number',
+            ),
+            HeroFieldError(),
+          ],
+        ),
+        const Row(
+          spacing: 8,
+          children: <Widget>[
+            HeroButton(
+              type: HeroButtonType.submit,
+              startContent: HeroIcon(HeroIcons.check),
+              child: Text('Submit'),
+            ),
+            HeroButton(
+              type: HeroButtonType.reset,
+              variant: HeroButtonVariant.secondary,
+              child: Text('Reset'),
+            ),
+          ],
+        ),
+      ],
+    ),
   ),
 )
 ```
@@ -61,8 +84,8 @@ HeroForm(
 )
 ```
 
-`HeroForm` wraps a Flutter `Form`: every field inside it (`HeroInput`,
-`HeroTextArea`, or any `FormField`) registers with it. The form has no styles
+`HeroForm` wraps a Flutter `Form`: every field inside it (`HeroTextField`,
+`HeroInput`, `HeroTextArea`, or any `FormField`) registers with it. The form has no styles
 of its own; lay it out with its child.
 
 ## Validation behavior
@@ -98,15 +121,48 @@ every field's initial value, clears the errors and calls `onReset`.
 
 ## Examples
 
-### Handling the submitted data
+### Render function
+
+React renders the form through a custom element (`render`). In Flutter the
+form is composed like any other widget; wrap or replace its child instead.
+
+### Customization
+
+The form has no look of its own; style its child:
 
 ```dart
 HeroForm(
-  onSubmit: (Map<String, Object?> data) {
-    // {email: jane@example.com, password: ...}
-    api.signUp(data['email']! as String, data['password']! as String);
-  },
-  child: ...,
+  onSubmit: submit,
+  child: Container(
+    width: 320,
+    padding: EdgeInsets.all(theme.spacing(4)),
+    decoration: ShapeDecoration(
+      color: theme.colors.surface,
+      shape: theme.shapeAll(
+        theme.radii.xl,
+        side: BorderSide(color: theme.colors.border.withValues(alpha: 0.8)),
+      ),
+      shadows: theme.shadows.surface.boxShadows,
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      spacing: theme.spacing(3),
+      children: const <Widget>[
+        HeroTextField(
+          name: 'email',
+          type: HeroInputType.email,
+          isRequired: true,
+          label: 'Work email',
+          placeholder: 'you@company.com',
+        ),
+        HeroButton(
+          type: HeroButtonType.submit,
+          fullWidth: true,
+          child: Text('Continue'),
+        ),
+      ],
+    ),
+  ),
 )
 ```
 
@@ -117,7 +173,10 @@ HeroForm(
   validationErrors: const <String, List<String>>{
     'username': <String>['This username is already taken.'],
   },
-  child: ...,
+  child: const HeroTextField(
+    name: 'username',
+    label: 'Username',
+  ),
 )
 ```
 

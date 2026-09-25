@@ -21,7 +21,7 @@ const HeroInput(
 ```
 
 For labels, descriptions and error messages around an input, compose it with
-`HeroLabel` and `HeroDescription` (and, when it lands, `HeroTextField`).
+`HeroLabel` and `HeroDescription`, or use [`HeroTextField`](text-field.md).
 
 ## Anatomy
 
