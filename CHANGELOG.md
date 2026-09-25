@@ -64,3 +64,4 @@ All notable changes to this repository. Package changelogs live in
 - `HeroColorArea`: two-dimensional gradients for every channel pair, keyboard support, hue preserved at zero saturation.
 - `HeroColorField` and the color input group: hex or channel entry with stepping and form validation.
 - `HeroColorPicker` with trigger and popover; bound children share one color value.
+- `HeroEmptyState`: the "No results found" placeholder for empty collections.
