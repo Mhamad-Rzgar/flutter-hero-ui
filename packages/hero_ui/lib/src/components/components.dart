@@ -43,6 +43,7 @@ export 'popover/popover.dart';
 export 'progress_circle/progress_circle.dart';
 export 'radio_group/radio_group.dart';
 export 'scroll_shadow/scroll_shadow.dart';
+export 'search_field/search_field.dart';
 export 'separator/separator.dart';
 export 'skeleton/skeleton.dart';
 export 'slider/slider.dart';

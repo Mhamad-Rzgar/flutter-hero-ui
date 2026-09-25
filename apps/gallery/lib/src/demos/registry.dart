@@ -42,6 +42,7 @@ import 'popover_demo.dart';
 import 'progress_circle_demo.dart';
 import 'radio_group_demo.dart';
 import 'scroll_shadow_demo.dart';
+import 'search_field_demo.dart';
 import 'separator_demo.dart';
 import 'skeleton_demo.dart';
 import 'slider_demo.dart';
@@ -102,6 +103,7 @@ final Map<String, ComponentDemo> demoRegistry = <String, ComponentDemo>{
   progressCircleDemo.slug: progressCircleDemo,
   radioGroupDemo.slug: radioGroupDemo,
   scrollShadowDemo.slug: scrollShadowDemo,
+  searchFieldDemo.slug: searchFieldDemo,
   separatorDemo.slug: separatorDemo,
   skeletonDemo.slug: skeletonDemo,
   sliderDemo.slug: sliderDemo,
