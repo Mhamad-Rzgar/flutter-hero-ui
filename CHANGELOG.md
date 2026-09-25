@@ -36,3 +36,4 @@ All notable changes to this repository. Package changelogs live in
 - `HeroKbd`, `HeroKbdAbbr`, `HeroKbdContent` and the `HeroKbdKey` symbol map.
 - `HeroLink`, `HeroLinkIcon` and `HeroLinkHandler`; link semantics in `HeroInteractable`.
 - `HeroChip` and `HeroChipLabel` with every variant, color and size.
+- `HeroAvatar`, `HeroAvatarImage`, `HeroAvatarFallback` and `HeroAvatarScope` with image loading and fallbacks.

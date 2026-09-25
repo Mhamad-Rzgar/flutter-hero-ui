@@ -9,7 +9,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 ## Summary
 
 <!-- summary:start -->
-**17 of 164 slices done**, 0 in progress.
+**18 of 164 slices done**, 0 in progress.
 <!-- summary:end -->
 
 
@@ -50,7 +50,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 | --- | --- | --- | --- |
 | C14 | Badge | `HeroBadge` | ⬜ Planned |
 | C15 | Chip | `HeroChip` | ✅ Done |
-| C16 | Avatar | `HeroAvatar` | ⬜ Planned |
+| C16 | Avatar | `HeroAvatar` | ✅ Done |
 | C17 | AvatarGroup | `HeroAvatarGroup` | ⬜ Planned |
 | C18 | Skeleton | `HeroSkeleton` | ⬜ Planned |
 | C19 | ProgressBar | `HeroProgressBar` | ⬜ Planned |
