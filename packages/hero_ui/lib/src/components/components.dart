@@ -44,6 +44,7 @@ export 'tabs/tabs.dart';
 export 'tag_group/tag_group.dart';
 export 'text_area/text_area.dart';
 export 'text_field/text_field.dart';
+export 'toast/toast.dart';
 export 'toggle_button/toggle_button.dart';
 export 'toggle_button_group/toggle_button_group.dart';
 export 'toolbar/toolbar.dart';

@@ -9,7 +9,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 ## Summary
 
 <!-- summary:start -->
-**55 of 164 slices done**, 0 in progress.
+**56 of 164 slices done**, 0 in progress.
 <!-- summary:end -->
 
 
@@ -92,7 +92,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 | C45 | Modal | `HeroModal` | ✅ Done |
 | C46 | AlertDialog | `HeroAlertDialog` | ✅ Done |
 | C47 | Drawer | `HeroDrawer` | ✅ Done |
-| C48 | Toast | `HeroToast` | ⬜ Planned |
+| C48 | Toast | `HeroToast` | ✅ Done |
 
 ## Collections & navigation
 

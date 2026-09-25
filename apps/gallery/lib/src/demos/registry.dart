@@ -43,6 +43,7 @@ import 'tabs_demo.dart';
 import 'tag_group_demo.dart';
 import 'text_area_demo.dart';
 import 'text_field_demo.dart';
+import 'toast_demo.dart';
 import 'toggle_button_demo.dart';
 import 'toggle_button_group_demo.dart';
 import 'toolbar_demo.dart';
@@ -92,6 +93,7 @@ final Map<String, ComponentDemo> demoRegistry = <String, ComponentDemo>{
   tagGroupDemo.slug: tagGroupDemo,
   textAreaDemo.slug: textAreaDemo,
   textFieldDemo.slug: textFieldDemo,
+  toastDemo.slug: toastDemo,
   toggleButtonDemo.slug: toggleButtonDemo,
   toggleButtonGroupDemo.slug: toggleButtonGroupDemo,
   toolbarDemo.slug: toolbarDemo,
