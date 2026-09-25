@@ -277,6 +277,15 @@ class _HeroAnchoredOverlayState extends State<HeroAnchoredOverlay>
 
   void _handleStatus(AnimationStatus status) {
     if (status == AnimationStatus.dismissed && !widget.isOpen) {
+      // A zero exit duration (reduced motion) completes while the owner
+      // rebuilds, and the portal can only hide outside of the build phase.
+      if (SchedulerBinding.instance.schedulerPhase ==
+          SchedulerPhase.persistentCallbacks) {
+        SchedulerBinding.instance.addPostFrameCallback((_) {
+          if (mounted) _handleStatus(_controller.status);
+        });
+        return;
+      }
       if (_portal.isShowing) _portal.hide();
       _geometry.value = null;
       widget.onClosed?.call();

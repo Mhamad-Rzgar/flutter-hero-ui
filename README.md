@@ -68,7 +68,7 @@ HeroUI → Flutter API mapping are in [PLAN.md](PLAN.md). Component docs are in
 [docs/components](docs/components).
 
 <!-- coverage:start -->
-**56 of 164 slices done**, 0 in progress.
+**57 of 164 slices done**, 0 in progress.
 
 | Area | Done | Total |
 | --- | --- | --- |
@@ -76,7 +76,7 @@ HeroUI → Flutter API mapping are in [PLAN.md](PLAN.md). Component docs are in
 | Buttons & typography | 13 | 13 |
 | Data display | 12 | 15 |
 | Forms | 5 | 14 |
-| Overlays | 4 | 6 |
+| Overlays | 5 | 6 |
 | Collections & navigation | 8 | 13 |
 | Date & time | 0 | 6 |
 | Color | 6 | 6 |

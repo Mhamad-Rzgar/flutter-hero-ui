@@ -104,4 +104,26 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.byKey(const Key('overlay')), findsNothing);
   });
+
+  testWidgets('closes without an exit transition under reduced motion', (
+    WidgetTester tester,
+  ) async {
+    await pumpHero(
+      tester,
+      const _Harness(),
+      theme: HeroThemeData.light().copyWith(
+        motion: const HeroMotion(reduceMotion: true),
+      ),
+    );
+    await tester.tap(find.byKey(const Key('trigger')));
+    await tester.pump();
+    await tester.pump();
+    expect(find.byKey(const Key('overlay')), findsOneWidget);
+    await tester.sendKeyEvent(LogicalKeyboardKey.escape);
+    await tester.pump();
+    expect(tester.takeException(), isNull);
+    // The portal hides right after the frame that closed it.
+    await tester.pump();
+    expect(find.byKey(const Key('overlay')), findsNothing);
+  });
 }

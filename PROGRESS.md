@@ -9,7 +9,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 ## Summary
 
 <!-- summary:start -->
-**56 of 164 slices done**, 0 in progress.
+**57 of 164 slices done**, 0 in progress.
 <!-- summary:end -->
 
 
@@ -87,7 +87,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 
 | # | Slice | Flutter API | Status |
 | --- | --- | --- | --- |
-| C43 | Tooltip | `HeroTooltip` | ⬜ Planned |
+| C43 | Tooltip | `HeroTooltip` | ✅ Done |
 | C44 | Popover | `HeroPopover` | ⬜ Planned |
 | C45 | Modal | `HeroModal` | ✅ Done |
 | C46 | AlertDialog | `HeroAlertDialog` | ✅ Done |

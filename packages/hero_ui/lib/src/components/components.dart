@@ -48,4 +48,5 @@ export 'toast/toast.dart';
 export 'toggle_button/toggle_button.dart';
 export 'toggle_button_group/toggle_button_group.dart';
 export 'toolbar/toolbar.dart';
+export 'tooltip/tooltip.dart';
 export 'typography/typography.dart';
