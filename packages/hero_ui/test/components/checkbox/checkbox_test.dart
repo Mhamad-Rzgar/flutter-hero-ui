@@ -254,6 +254,7 @@ void main() {
       await pumpHero(
         tester,
         HeroCheckbox(
+          isRequired: true,
           onChanged: changes.add,
           children: const <Widget>[
             HeroCheckboxContent(
@@ -269,7 +270,14 @@ void main() {
       await tester.pumpAndSettle();
       expect(changes, <bool>[true]);
       // Labels inside a checkbox never show the required asterisk.
-      expect(find.textContaining('*', findRichText: true), findsNothing);
+      expect(
+        find.byWidgetPredicate(
+          (Widget w) =>
+              w is RichText &&
+              w.text.toPlainText(includeSemanticsLabels: false).contains('*'),
+        ),
+        findsNothing,
+      );
     });
 
     testWidgets('disabled ignores input, dims and is not focusable', (

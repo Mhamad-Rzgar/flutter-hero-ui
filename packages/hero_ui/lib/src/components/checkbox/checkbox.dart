@@ -16,8 +16,10 @@ import '../form/form.dart';
 import '../input/hero_field.dart';
 import '../input/hero_text_constraints.dart';
 import '../text_field/hero_field_layout.dart';
+import 'checkbox_group_scope.dart';
 import 'toggle_field.dart';
 
+export 'checkbox_group_scope.dart';
 export 'toggle_field.dart'
     show
         HeroInlineFlexRow,
@@ -299,12 +301,21 @@ class _HeroCheckboxState extends State<HeroCheckbox> {
       widget.isSelected ?? widget.defaultSelected;
   FocusNode? _ownFocusNode;
   bool _hovered = false;
+  HeroCheckboxGroupScope? _group;
 
   FocusNode get _focusNode =>
       widget.focusNode ??
       (_ownFocusNode ??= FocusNode(debugLabel: 'HeroCheckbox'));
 
-  bool get _effectiveSelected => widget.isSelected ?? _selected;
+  /// The group that owns this checkbox's selection, if any.
+  HeroCheckboxGroupScope? get _owningGroup =>
+      widget.value == null ? null : _group;
+
+  bool get _effectiveSelected {
+    final HeroCheckboxGroupScope? group = _owningGroup;
+    if (group != null) return group.isSelected(widget.value!);
+    return widget.isSelected ?? _selected;
+  }
 
   @override
   void dispose() {
@@ -313,9 +324,15 @@ class _HeroCheckboxState extends State<HeroCheckbox> {
   }
 
   void _toggle() {
-    final bool next = !_effectiveSelected;
-    if (widget.isSelected == null) setState(() => _selected = next);
-    _fieldKey.currentState?.didChange(next);
+    final HeroCheckboxGroupScope? group = _owningGroup;
+    final bool next;
+    if (group != null) {
+      next = group.toggle(widget.value!);
+    } else {
+      next = !_effectiveSelected;
+      if (widget.isSelected == null) setState(() => _selected = next);
+      _fieldKey.currentState?.didChange(next);
+    }
     widget.onChanged?.call(next);
   }
 
@@ -334,7 +351,28 @@ class _HeroCheckboxState extends State<HeroCheckbox> {
 
   @override
   Widget build(BuildContext context) {
+    _group = HeroCheckboxGroupScope.maybeOf(context);
+    final HeroCheckboxGroupScope? group = _owningGroup;
+    assert(
+      _group == null || widget.value != null,
+      'A HeroCheckbox inside a HeroCheckboxGroup needs a value.',
+    );
     final bool selected = _effectiveSelected;
+    if (group != null) {
+      // The group is the form field; its validation applies to every item.
+      final bool invalid = widget.isInvalid ?? group.isInvalid;
+      return Padding(
+        padding: group.itemMargin,
+        child: _buildField(
+          context,
+          selected,
+          invalid
+              ? HeroValidationResult.invalid(group.validationErrors)
+              : HeroValidationResult.valid,
+          group,
+        ),
+      );
+    }
     return HeroValidatedField<bool>(
       key: _fieldKey,
       value: selected,
@@ -354,7 +392,7 @@ class _HeroCheckboxState extends State<HeroCheckbox> {
       onSaved: widget.onSaved,
       autovalidateMode: widget.autovalidateMode,
       builder: (BuildContext context, HeroValidationResult validation) =>
-          _buildField(context, selected, validation),
+          _buildField(context, selected, validation, null),
     );
   }
 
@@ -362,17 +400,21 @@ class _HeroCheckboxState extends State<HeroCheckbox> {
     BuildContext context,
     bool selected,
     HeroValidationResult validation,
+    HeroCheckboxGroupScope? group,
   ) {
     final HeroThemeData theme = HeroTheme.of(context);
-    final bool disabled = widget.isDisabled;
-    final bool readOnly = widget.isReadOnly;
+    final bool disabled = widget.isDisabled || (group?.isDisabled ?? false);
+    final bool readOnly = widget.isReadOnly || (group?.isReadOnly ?? false);
+    final bool required = widget.isRequired || (group?.isRequired ?? false);
+    final HeroFieldVariant variant =
+        widget.variant ?? group?.variant ?? HeroFieldVariant.primary;
     final HeroCheckboxState state = HeroCheckboxState(
       isSelected: selected,
       isIndeterminate: widget.isIndeterminate,
       isDisabled: disabled,
       isReadOnly: readOnly,
       isInvalid: validation.isInvalid,
-      isRequired: widget.isRequired,
+      isRequired: required,
     );
     final List<Widget> parts =
         widget.builder?.call(context, state) ??
@@ -407,7 +449,7 @@ class _HeroCheckboxState extends State<HeroCheckbox> {
     );
     return HeroCheckboxScope(
       state: state,
-      variant: widget.variant ?? HeroFieldVariant.primary,
+      variant: variant,
       isHovered: _hovered && !disabled,
       onToggle: toggle,
       focusNode: _focusNode,
@@ -415,11 +457,11 @@ class _HeroCheckboxState extends State<HeroCheckbox> {
       semanticLabel: widget.semanticLabel,
       semanticHint: hint,
       child: HeroFieldScope(
-        variant: widget.variant ?? HeroFieldVariant.primary,
+        variant: variant,
         isDisabled: disabled,
         isInvalid: validation.isInvalid,
         validationErrors: validation.validationErrors,
-        isRequired: widget.isRequired,
+        isRequired: required,
         isReadOnly: readOnly,
         showRequiredIndicator: false,
         focusNode: _focusNode,
@@ -445,7 +487,8 @@ class _HeroCheckboxState extends State<HeroCheckbox> {
       if (description != null) HeroDescription.text(description),
       if (errorMessage != null)
         HeroFieldError.text(errorMessage)
-      else
+      // Inside a group the group shows the validation messages.
+      else if (_owningGroup == null)
         const HeroFieldError(),
     ];
   }
