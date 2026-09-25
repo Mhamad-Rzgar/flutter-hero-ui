@@ -9,7 +9,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 ## Summary
 
 <!-- summary:start -->
-**44 of 164 slices done**, 0 in progress.
+**45 of 164 slices done**, 0 in progress.
 <!-- summary:end -->
 
 
@@ -132,7 +132,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 | C70 | ColorArea | `HeroColorArea` | ✅ Done |
 | C71 | ColorField | `HeroColorField` | ✅ Done |
 | C72 | ColorSwatchPicker | `HeroColorSwatchPicker` | ✅ Done |
-| C73 | ColorPicker | `HeroColorPicker` | ⬜ Planned |
+| C73 | ColorPicker | `HeroColorPicker` | ✅ Done |
 
 ## Pro foundations
 
