@@ -9,7 +9,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 ## Summary
 
 <!-- summary:start -->
-**50 of 164 slices done**, 0 in progress.
+**51 of 164 slices done**, 0 in progress.
 <!-- summary:end -->
 
 
@@ -106,7 +106,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 | C54 | TagGroup | `HeroTagGroup, HeroTag` | ✅ Done |
 | C55 | Tabs | `HeroTabs` | ✅ Done |
 | C56 | Accordion | `HeroAccordion` | ✅ Done |
-| C57 | Disclosure | `HeroDisclosure` | ⬜ Planned |
+| C57 | Disclosure | `HeroDisclosure` | ✅ Done |
 | C58 | DisclosureGroup | `HeroDisclosureGroup` | ⬜ Planned |
 | C59 | Breadcrumbs | `HeroBreadcrumbs` | ✅ Done |
 | C60 | Pagination | `HeroPagination` | ✅ Done |

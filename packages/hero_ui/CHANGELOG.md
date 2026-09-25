@@ -53,3 +53,4 @@
 - `HeroTagGroup` and `HeroTag` with sizes, variants, selection, remove buttons and keyboard support.
 - `HeroErrorMessage` for non-form components, and `errorMessage` on `HeroTagGroup`.
 - `HeroAccordion` with items, triggers and animated panels on the shared `HeroCollapsible`.
+- `HeroDisclosure` with heading, trigger and animated content.
