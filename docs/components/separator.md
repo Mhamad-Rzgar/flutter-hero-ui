@@ -83,6 +83,28 @@ Column(
 )
 ```
 
+### With surface
+
+Match the separator variant to the surface it sits on.
+
+```dart
+HeroSurface(
+  variant: HeroSurfaceVariant.secondary,
+  constraints: const BoxConstraints(minWidth: 320),
+  borderRadius: BorderRadius.circular(theme.radii.xl3),
+  padding: EdgeInsets.all(theme.spacing(6)),
+  child: const Column(
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    spacing: 12,
+    children: <Widget>[
+      Text('Secondary Surface'),
+      HeroSeparator(variant: HeroSeparatorVariant.secondary),
+      Text('Surface Content'),
+    ],
+  ),
+)
+```
+
 ### Vertical
 
 ```dart

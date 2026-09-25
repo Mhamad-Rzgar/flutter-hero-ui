@@ -9,6 +9,7 @@ export 'badge/badge.dart';
 export 'breadcrumbs/breadcrumbs.dart';
 export 'button/button.dart';
 export 'button_group/button_group.dart';
+export 'card/card.dart';
 export 'chip/chip.dart';
 export 'close_button/close_button.dart';
 export 'color/color.dart';

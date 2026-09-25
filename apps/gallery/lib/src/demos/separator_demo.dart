@@ -126,6 +126,69 @@ ConstrainedBox(
 )''',
     ),
     DemoExample(
+      title: 'With Surface',
+      description:
+          'Match the separator variant to the surface it sits on: default on '
+          'default and transparent surfaces, secondary on secondary and '
+          'tertiary on tertiary.',
+      builder: (BuildContext context) => const Column(
+        mainAxisSize: MainAxisSize.min,
+        spacing: 32,
+        children: <Widget>[
+          _SurfaceWithSeparator(
+            variant: HeroSurfaceVariant.standard,
+            title: 'Default Surface',
+          ),
+          _SurfaceWithSeparator(
+            variant: HeroSurfaceVariant.secondary,
+            separator: HeroSeparatorVariant.secondary,
+            title: 'Secondary Surface',
+          ),
+          _SurfaceWithSeparator(
+            variant: HeroSurfaceVariant.tertiary,
+            separator: HeroSeparatorVariant.tertiary,
+            title: 'Tertiary Surface',
+          ),
+          _SurfaceWithSeparator(
+            variant: HeroSurfaceVariant.transparent,
+            title: 'Transparent Surface',
+          ),
+        ],
+      ),
+      code: '''
+final HeroThemeData theme = HeroTheme.of(context);
+HeroSurface(
+  variant: HeroSurfaceVariant.secondary,
+  constraints: const BoxConstraints(minWidth: 320),
+  borderRadius: BorderRadius.circular(theme.radii.xl3),
+  padding: EdgeInsets.all(theme.spacing(6)),
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    spacing: 12,
+    children: <Widget>[
+      Text(
+        'Secondary Surface',
+        style: theme.typography
+            .style(HeroFontSize.base, weight: HeroTypography.semibold)
+            .copyWith(color: theme.colors.foreground),
+      ),
+      const HeroSeparator(variant: HeroSeparatorVariant.secondary),
+      Text(
+        'Surface Content',
+        style: theme.typography.sm.copyWith(color: theme.colors.muted),
+      ),
+    ],
+  ),
+)
+
+// The transparent surface gets a border instead of a background.
+HeroSurface(
+  variant: HeroSurfaceVariant.transparent,
+  border: BorderSide(color: theme.colors.border, width: theme.borderWidth),
+  // ...
+)''',
+    ),
+    DemoExample(
       title: 'Vertical',
       builder: (BuildContext context) => const _LinksRow(),
       code: '''
@@ -498,6 +561,58 @@ class _WithContent extends StatelessWidget {
               ),
           ],
         ],
+      ),
+    );
+  }
+}
+
+/// A rounded, padded surface with a heading, a separator of the matching
+/// variant and a line of text (HeroUI's `separator-with-surface`).
+class _SurfaceWithSeparator extends StatelessWidget {
+  const _SurfaceWithSeparator({
+    required this.variant,
+    required this.title,
+    this.separator = HeroSeparatorVariant.standard,
+  });
+
+  final HeroSurfaceVariant variant;
+  final HeroSeparatorVariant separator;
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    final HeroThemeData theme = HeroTheme.of(context);
+    return HeroSurface(
+      variant: variant,
+      constraints: const BoxConstraints(minWidth: 320),
+      borderRadius: BorderRadius.circular(theme.radii.xl3),
+      padding: EdgeInsets.all(theme.spacing(6)),
+      border: variant == HeroSurfaceVariant.transparent
+          ? BorderSide(color: theme.colors.border, width: theme.borderWidth)
+          : null,
+      child: IntrinsicWidth(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          spacing: theme.spacing(3),
+          children: <Widget>[
+            Text(
+              title,
+              style: _text(
+                theme,
+                HeroFontSize.base,
+                weight: HeroTypography.semibold,
+              ),
+            ),
+            HeroSeparator(variant: separator),
+            Text(
+              'Surface Content',
+              style: _text(
+                theme,
+                HeroFontSize.sm,
+              ).copyWith(color: theme.colors.muted),
+            ),
+          ],
+        ),
       ),
     );
   }
