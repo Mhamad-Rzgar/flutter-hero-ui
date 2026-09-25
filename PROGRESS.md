@@ -9,7 +9,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 ## Summary
 
 <!-- summary:start -->
-**19 of 164 slices done**, 0 in progress.
+**20 of 164 slices done**, 0 in progress.
 <!-- summary:end -->
 
 
@@ -48,7 +48,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 
 | # | Slice | Flutter API | Status |
 | --- | --- | --- | --- |
-| C14 | Badge | `HeroBadge` | ⬜ Planned |
+| C14 | Badge | `HeroBadge` | ✅ Done |
 | C15 | Chip | `HeroChip` | ✅ Done |
 | C16 | Avatar | `HeroAvatar` | ✅ Done |
 | C17 | AvatarGroup | `HeroAvatarGroup` | ✅ Done |

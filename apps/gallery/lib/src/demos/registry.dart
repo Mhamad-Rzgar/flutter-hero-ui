@@ -3,6 +3,7 @@
 import '../demo.dart';
 import 'avatar_demo.dart';
 import 'avatar_group_demo.dart';
+import 'badge_demo.dart';
 import 'button_demo.dart';
 import 'button_group_demo.dart';
 import 'chip_demo.dart';
@@ -17,6 +18,7 @@ import 'typography_demo.dart';
 final Map<String, ComponentDemo> demoRegistry = <String, ComponentDemo>{
   avatarDemo.slug: avatarDemo,
   avatarGroupDemo.slug: avatarGroupDemo,
+  badgeDemo.slug: badgeDemo,
   buttonDemo.slug: buttonDemo,
   buttonGroupDemo.slug: buttonGroupDemo,
   chipDemo.slug: chipDemo,

@@ -38,3 +38,4 @@ All notable changes to this repository. Package changelogs live in
 - `HeroChip` and `HeroChipLabel` with every variant, color and size.
 - `HeroAvatar`, `HeroAvatarImage`, `HeroAvatarFallback` and `HeroAvatarScope` with image loading and fallbacks.
 - `HeroAvatarGroup` (clip and ring overlap, grid layout, max count) and `HeroAvatarGroupCount`.
+- `HeroBadge`, `HeroBadgeAnchor` and `HeroBadgeLabel`.
