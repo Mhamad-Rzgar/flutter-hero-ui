@@ -118,7 +118,7 @@ Slices are ordered so that every dependency lands before its dependents. Status 
 | # | Slice | Flutter API | Depends on |
 | --- | --- | --- | --- |
 | C01 | Spinner | `HeroSpinner` | F3 |
-| C02 | Typography | `HeroTypographyText` | F1 |
+| C02 | Typography | `HeroText` | F1 |
 | C03 | Label | `HeroLabel` | F1 |
 | C04 | Description | `HeroDescription` | F1 |
 | C05 | FieldError | `HeroFieldError` | F1 |

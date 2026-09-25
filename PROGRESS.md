@@ -31,7 +31,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 | # | Slice | Flutter API | Status |
 | --- | --- | --- | --- |
 | C01 | Spinner | `HeroSpinner` | ✅ Done |
-| C02 | Typography | `HeroTypographyText` | ✅ Done |
+| C02 | Typography | `HeroText` | ✅ Done |
 | C03 | Label | `HeroLabel` | ⬜ Planned |
 | C04 | Description | `HeroDescription` | ⬜ Planned |
 | C05 | FieldError | `HeroFieldError` | ⬜ Planned |
