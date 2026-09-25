@@ -20,6 +20,7 @@ export 'pagination/pagination.dart';
 export 'progress_circle/progress_circle.dart';
 export 'separator/separator.dart';
 export 'skeleton/skeleton.dart';
+export 'slider/slider.dart';
 export 'spinner/spinner.dart';
 export 'surface/surface.dart';
 export 'tabs/tabs.dart';

@@ -9,7 +9,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 ## Summary
 
 <!-- summary:start -->
-**36 of 164 slices done**, 0 in progress.
+**37 of 164 slices done**, 0 in progress.
 <!-- summary:end -->
 
 
@@ -79,7 +79,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 | C37 | CheckboxGroup | `HeroCheckboxGroup` | ⬜ Planned |
 | C38 | RadioGroup | `HeroRadioGroup, HeroRadio` | ⬜ Planned |
 | C39 | Switch | `HeroSwitch, HeroSwitchGroup` | ⬜ Planned |
-| C40 | Slider | `HeroSlider` | ⬜ Planned |
+| C40 | Slider | `HeroSlider` | ✅ Done |
 | C41 | Fieldset | `HeroFieldset` | ⬜ Planned |
 | C42 | Form | `HeroForm` | ✅ Done |
 

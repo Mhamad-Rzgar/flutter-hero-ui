@@ -55,3 +55,4 @@ All notable changes to this repository. Package changelogs live in
 - `HeroTextField` (convenience and composed forms, `FormField<String>` validation) and `HeroFieldLayout`.
 - `HeroProgressCircle`: determinate and indeterminate circular progress with composable track and fill circles.
 - `HeroMeter`: label, output, track and fill with sizes, colors and intl value formatting.
+- `HeroSlider`: single and range thumbs, vertical orientation, keyboard, RTL and `FormField` / `HeroForm` integration.

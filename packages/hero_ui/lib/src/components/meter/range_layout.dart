@@ -53,8 +53,8 @@ class HeroRangeLayout extends StatelessWidget {
     final double gap = this.gap ?? theme.spacing(1);
     final Widget? label = this.label;
     final Widget? output = this.output;
-    return HeroFullWidth(
-      fallbackWidth: fallbackWidth ?? theme.spacing(64),
+    return HeroFillExtent(
+      fallback: fallbackWidth ?? theme.spacing(64),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -83,52 +83,88 @@ class HeroRangeLayout extends StatelessWidget {
   }
 }
 
-/// Sizes [child] to the full incoming width (`w-full`), or to
-/// [fallbackWidth] when the width is unbounded.
-class HeroFullWidth extends SingleChildRenderObjectWidget {
-  /// Creates a full-width box.
-  const HeroFullWidth({
+/// Sizes [child] to the full incoming extent along [axis] (`w-full` or
+/// `h-full`), or to [fallback] when that extent is unbounded.
+class HeroFillExtent extends SingleChildRenderObjectWidget {
+  /// Creates a box that fills [axis].
+  const HeroFillExtent({
     super.key,
-    required this.fallbackWidth,
+    this.axis = Axis.horizontal,
+    required this.fallback,
     required Widget super.child,
   });
 
-  /// The width used when the incoming width is unbounded.
-  final double fallbackWidth;
+  /// The axis to fill.
+  final Axis axis;
+
+  /// The extent used when the incoming extent is unbounded.
+  final double fallback;
 
   @override
   RenderObject createRenderObject(BuildContext context) =>
-      _RenderHeroFullWidth(fallbackWidth);
+      _RenderHeroFillExtent(axis, fallback);
 
   @override
   void updateRenderObject(BuildContext context, RenderObject renderObject) {
-    (renderObject as _RenderHeroFullWidth).fallbackWidth = fallbackWidth;
+    (renderObject as _RenderHeroFillExtent)
+      ..axis = axis
+      ..fallback = fallback;
   }
 }
 
-class _RenderHeroFullWidth extends RenderProxyBox {
-  _RenderHeroFullWidth(this._fallbackWidth);
+class _RenderHeroFillExtent extends RenderProxyBox {
+  _RenderHeroFillExtent(this._axis, this._fallback);
 
-  double get fallbackWidth => _fallbackWidth;
-  double _fallbackWidth;
-  set fallbackWidth(double value) {
-    if (value == _fallbackWidth) return;
-    _fallbackWidth = value;
+  Axis get axis => _axis;
+  Axis _axis;
+  set axis(Axis value) {
+    if (value == _axis) return;
+    _axis = value;
+    markNeedsLayout();
+  }
+
+  double get fallback => _fallback;
+  double _fallback;
+  set fallback(double value) {
+    if (value == _fallback) return;
+    _fallback = value;
     markNeedsLayout();
   }
 
   BoxConstraints _childConstraints(BoxConstraints constraints) {
-    final double width = constraints.hasBoundedWidth
-        ? constraints.maxWidth
-        : math.max(constraints.minWidth, _fallbackWidth);
-    return constraints.copyWith(minWidth: width, maxWidth: width);
+    switch (_axis) {
+      case Axis.horizontal:
+        final double width = constraints.hasBoundedWidth
+            ? constraints.maxWidth
+            : math.max(constraints.minWidth, _fallback);
+        return constraints.copyWith(minWidth: width, maxWidth: width);
+      case Axis.vertical:
+        final double height = constraints.hasBoundedHeight
+            ? constraints.maxHeight
+            : math.max(constraints.minHeight, _fallback);
+        return constraints.copyWith(minHeight: height, maxHeight: height);
+    }
   }
 
   @override
-  double computeMinIntrinsicWidth(double height) => _fallbackWidth;
+  double computeMinIntrinsicWidth(double height) => _axis == Axis.horizontal
+      ? _fallback
+      : super.computeMinIntrinsicWidth(height);
 
   @override
-  double computeMaxIntrinsicWidth(double height) => _fallbackWidth;
+  double computeMaxIntrinsicWidth(double height) => _axis == Axis.horizontal
+      ? _fallback
+      : super.computeMaxIntrinsicWidth(height);
+
+  @override
+  double computeMinIntrinsicHeight(double width) => _axis == Axis.vertical
+      ? _fallback
+      : super.computeMinIntrinsicHeight(width);
+
+  @override
+  double computeMaxIntrinsicHeight(double width) => _axis == Axis.vertical
+      ? _fallback
+      : super.computeMaxIntrinsicHeight(width);
 
   @override
   Size computeDryLayout(covariant BoxConstraints constraints) {

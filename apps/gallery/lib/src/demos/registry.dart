@@ -21,6 +21,7 @@ import 'pagination_demo.dart';
 import 'progress_circle_demo.dart';
 import 'separator_demo.dart';
 import 'skeleton_demo.dart';
+import 'slider_demo.dart';
 import 'spinner_demo.dart';
 import 'surface_demo.dart';
 import 'tabs_demo.dart';
@@ -52,6 +53,7 @@ final Map<String, ComponentDemo> demoRegistry = <String, ComponentDemo>{
   progressCircleDemo.slug: progressCircleDemo,
   separatorDemo.slug: separatorDemo,
   skeletonDemo.slug: skeletonDemo,
+  sliderDemo.slug: sliderDemo,
   spinnerDemo.slug: spinnerDemo,
   surfaceDemo.slug: surfaceDemo,
   tabsDemo.slug: tabsDemo,
