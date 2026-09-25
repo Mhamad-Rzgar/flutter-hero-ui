@@ -17,6 +17,7 @@ import 'separator_demo.dart';
 import 'skeleton_demo.dart';
 import 'spinner_demo.dart';
 import 'surface_demo.dart';
+import 'tabs_demo.dart';
 import 'text_area_demo.dart';
 import 'toggle_button_demo.dart';
 import 'toggle_button_group_demo.dart';
@@ -40,6 +41,7 @@ final Map<String, ComponentDemo> demoRegistry = <String, ComponentDemo>{
   skeletonDemo.slug: skeletonDemo,
   spinnerDemo.slug: spinnerDemo,
   surfaceDemo.slug: surfaceDemo,
+  tabsDemo.slug: tabsDemo,
   textAreaDemo.slug: textAreaDemo,
   toggleButtonDemo.slug: toggleButtonDemo,
   toggleButtonGroupDemo.slug: toggleButtonGroupDemo,
