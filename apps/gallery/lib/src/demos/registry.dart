@@ -15,6 +15,7 @@ import 'label_demo.dart';
 import 'link_demo.dart';
 import 'separator_demo.dart';
 import 'spinner_demo.dart';
+import 'text_area_demo.dart';
 import 'typography_demo.dart';
 
 /// Every component demo, keyed by catalog slug.
@@ -33,5 +34,6 @@ final Map<String, ComponentDemo> demoRegistry = <String, ComponentDemo>{
   linkDemo.slug: linkDemo,
   separatorDemo.slug: separatorDemo,
   spinnerDemo.slug: spinnerDemo,
+  textAreaDemo.slug: textAreaDemo,
   typographyDemo.slug: typographyDemo,
 };

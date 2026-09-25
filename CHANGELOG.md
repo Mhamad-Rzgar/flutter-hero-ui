@@ -42,3 +42,4 @@ All notable changes to this repository. Package changelogs live in
 - `HeroInput`: single-line text input with field tokens, focus and invalid rings, `Form` integration and browser-style validation, plus the shared field primitives (`HeroFieldScope`, `HeroFieldBox`, `HeroTextInputCore`).
 - `HeroLabel`: required asterisk, disabled and invalid states; tapping it focuses its control.
 - `HeroDescription`: muted helper text, hidden while its field is invalid.
+- `HeroTextArea`: rows, explicit height and an optional vertical resize grip.

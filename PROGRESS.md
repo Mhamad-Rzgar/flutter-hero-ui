@@ -9,7 +9,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 ## Summary
 
 <!-- summary:start -->
-**23 of 164 slices done**, 0 in progress.
+**24 of 164 slices done**, 0 in progress.
 <!-- summary:end -->
 
 
@@ -69,7 +69,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 | # | Slice | Flutter API | Status |
 | --- | --- | --- | --- |
 | C29 | Input | `HeroInput` | ✅ Done |
-| C30 | TextArea | `HeroTextArea` | ⬜ Planned |
+| C30 | TextArea | `HeroTextArea` | ✅ Done |
 | C31 | InputGroup | `HeroInputGroup` | ⬜ Planned |
 | C32 | TextField | `HeroTextField` | ⬜ Planned |
 | C33 | SearchField | `HeroSearchField` | ⬜ Planned |

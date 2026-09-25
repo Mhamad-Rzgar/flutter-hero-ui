@@ -390,9 +390,11 @@ class HeroEditableTextState extends State<HeroEditableText>
       ?widget.semanticHint,
     ].where((String s) => s.isNotEmpty).join('\n').nullIfEmpty;
 
+    // The text-field flags, value and multi-line state come from the
+    // EditableText and merge into this node; setting them here as well would
+    // split the field into two nodes.
     return Semantics(
       container: true,
-      textField: true,
       enabled: enabled,
       label: widget.semanticLabel,
       hint: hint,
