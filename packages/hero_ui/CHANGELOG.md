@@ -45,3 +45,4 @@
 - `HeroColorSwatch` (five sizes, circle and square, alpha checkerboard) and the shared color model (`HeroColorValue`, channels and ranges, parsing and formatting, `heroColorName`).
 - `HeroColorSwatchPicker` with sizes, shapes, grid and stack layouts, selection indicator and roving keyboard focus.
 - `HeroColorSlider` for all eight channels with gradient track, both orientations and keyboard support.
+- `HeroColorArea`: two-dimensional gradients for every channel pair, keyboard support, hue preserved at zero saturation.
