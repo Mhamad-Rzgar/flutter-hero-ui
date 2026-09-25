@@ -30,3 +30,4 @@ All notable changes to this repository. Package changelogs live in
 - `HeroSpinner`: two-arc gradient ring in four sizes and five colors, static under reduced motion.
 - `HeroButton`: seven variants (including `dangerSoft`), three sizes with touch and desktop heights, icon-only, full width, pending spinner, disabled state and `HeroButtonStyle` overrides.
 - `HeroButtonGroup` and `HeroButtonGroupSeparator`: attached horizontal or vertical groups with shared borders, separators, full width and group-wide props.
+- `HeroCloseButton`: the 24 px dismiss button with custom icon and style overrides.
