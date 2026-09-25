@@ -66,3 +66,4 @@
 - `HeroCheckbox` with content, control and indicator parts, checkmark-draw and indeterminate animations, variants, invalid, read-only and form validation.
 - `HeroCheckboxGroup` (`FormField<Set<String>>`) with shared states and validation.
 - `HeroRadioGroup` and `HeroRadio`: one Tab stop, arrow keys that select and wrap, orientation and `FormField<String>` validation.
+- `HeroSwitch` (three sizes, thumb icons, label position, drag to toggle, `FormField<bool>`) and `HeroSwitchGroup`.

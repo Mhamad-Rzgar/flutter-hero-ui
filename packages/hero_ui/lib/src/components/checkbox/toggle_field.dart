@@ -75,6 +75,8 @@ class HeroToggleFieldContent extends StatelessWidget {
     this.autofocus = false,
     this.canRequestFocus = true,
     this.onFocusChanged,
+    this.onPressStart,
+    this.onPressEnd,
     this.shortcuts,
     this.semanticLabel,
     this.semanticHint,
@@ -112,6 +114,12 @@ class HeroToggleFieldContent extends StatelessWidget {
 
   /// Called when the content gains or loses focus.
   final ValueChanged<bool>? onFocusChanged;
+
+  /// Called when a press starts.
+  final VoidCallback? onPressStart;
+
+  /// Called when a press ends, activated or not.
+  final VoidCallback? onPressEnd;
 
   /// Extra keyboard shortcuts active while the content has focus.
   final Map<ShortcutActivator, Intent>? shortcuts;
@@ -152,6 +160,8 @@ class HeroToggleFieldContent extends StatelessWidget {
       autofocus: autofocus,
       canRequestFocus: canRequestFocus,
       onFocusChanged: onFocusChanged,
+      onPressStart: onPressStart,
+      onPressEnd: onPressEnd,
       isButton: false,
       semanticsLabel: semanticLabel,
       semanticsHint: semanticHint,
