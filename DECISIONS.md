@@ -241,3 +241,16 @@ Newest entries are appended at the end of each section.
   `HeroErrorMessage` renders nothing (HeroUI renders an empty padded span).
 - **Brand logos** in docs examples are replaced by neutral icons.
 - **Icon data.** Gravity UI icons are painted without their full-square clip paths.
+- **Modal-level overlays** (Modal, AlertDialog, Drawer) share one Navigator route. Escape and
+  the system back gesture both follow `isKeyboardDismissDisabled`. `HeroButton(slot:
+  HeroButtonSlot.close)` closes the enclosing dialog through `HeroDialogScope`.
+- **Drawer** swaps left and right placements in RTL; a drag only dismisses when the fling
+  points toward the drawer's edge (HeroUI's distance and velocity thresholds).
+- **Toast queue.** The first toast region on screen renders the queue; `HeroToast.show` adds a
+  region to the root overlay when none exists.
+- **Tooltip on touch** opens with a long press and closes on the next tap. Its content does not
+  use `SemanticsRole.tooltip`, which Flutter does not implement yet; `showArrow` draws the
+  arrow and `HeroPopoverArrow` can be placed anywhere in popover content. Tooltip and popover
+  content scrolls when there is not enough room.
+- **Reduced motion.** With a zero exit duration an anchored overlay hides its portal after the
+  frame instead of during build.
