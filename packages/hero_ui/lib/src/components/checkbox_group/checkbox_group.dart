@@ -127,6 +127,7 @@ class HeroCheckboxGroup extends StatefulWidget {
     this.autovalidateMode,
     this.spacing,
     this.itemMargin,
+    this.fullWidth = false,
     this.semanticLabel,
   });
 
@@ -197,6 +198,10 @@ class HeroCheckboxGroup extends StatefulWidget {
   /// Space around every checkbox; defaults to a 16 px top margin (`mt-4`).
   final EdgeInsetsGeometry? itemMargin;
 
+  /// Whether the group fills the available width (`w-full`); otherwise it
+  /// is as wide as its widest part.
+  final bool fullWidth;
+
   /// Accessibility label of the group; defaults to the label text.
   final String? semanticLabel;
 
@@ -261,11 +266,11 @@ class _HeroCheckboxGroupState extends State<HeroCheckboxGroup> {
       key: _fieldKey,
       value: value,
       name: widget.name,
-      formValue: (Set<String> v) => v.isEmpty ? null : v.toList(),
+      formValue: (Set<String>? v) => v == null || v.isEmpty ? null : v.toList(),
       onReset: _handleReset,
       isDisabled: widget.isDisabled,
       isRequired: widget.isRequired,
-      isValueMissing: (Set<String> v) => v.isEmpty,
+      isValueMissing: (Set<String>? v) => v == null || v.isEmpty,
       valueMissingMessage: widget.validationMessages.checkboxValueMissing,
       isInvalid: widget.isInvalid,
       errorMessage: widget.errorMessage,
@@ -331,7 +336,11 @@ class _HeroCheckboxGroupState extends State<HeroCheckboxGroup> {
           explicitChildNodes: true,
           label: semanticLabel,
           hint: hint,
-          child: HeroFieldLayout(spacing: widget.spacing ?? 0, children: parts),
+          child: HeroFieldLayout(
+            spacing: widget.spacing ?? 0,
+            fullWidth: widget.fullWidth,
+            children: parts,
+          ),
         ),
       ),
     );

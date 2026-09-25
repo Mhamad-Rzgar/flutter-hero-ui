@@ -307,6 +307,7 @@ their own.
 | `autovalidateMode` | `AutovalidateMode?` | `disabled` | Native: show errors before a change. |
 | `spacing` | `double?` | `0` | Gap between the parts. |
 | `itemMargin` | `EdgeInsetsGeometry?` | 16 px top | Space around every checkbox. |
+| `fullWidth` | `bool` | `false` | Fill the available width. |
 | `semanticLabel` | `String?` | label text | Accessibility label. |
 
 ### HeroCheckboxGroupState

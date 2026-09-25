@@ -39,6 +39,7 @@ export 'modal/modal.dart';
 export 'pagination/pagination.dart';
 export 'popover/popover.dart';
 export 'progress_circle/progress_circle.dart';
+export 'radio_group/radio_group.dart';
 export 'scroll_shadow/scroll_shadow.dart';
 export 'separator/separator.dart';
 export 'skeleton/skeleton.dart';

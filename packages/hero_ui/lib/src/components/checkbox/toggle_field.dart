@@ -643,8 +643,8 @@ class HeroValidatedField<T> extends StatefulWidget {
     this.autovalidateMode,
   });
 
-  /// The current value of the field.
-  final T value;
+  /// The current value of the field (null when there is none).
+  final T? value;
 
   /// Builds the field from the displayed validation.
   final HeroValidatedFieldBuilder builder;
@@ -654,7 +654,7 @@ class HeroValidatedField<T> extends StatefulWidget {
 
   /// The value submitted for [value]; null leaves the field out of the
   /// data (an unchecked checkbox). Defaults to the value itself.
-  final Object? Function(T value)? formValue;
+  final Object? Function(T? value)? formValue;
 
   /// Called when the enclosing form is reset.
   final VoidCallback? onReset;
@@ -666,7 +666,7 @@ class HeroValidatedField<T> extends StatefulWidget {
   final bool isRequired;
 
   /// Whether [value] counts as missing for [isRequired].
-  final bool Function(T value)? isValueMissing;
+  final bool Function(T? value)? isValueMissing;
 
   /// The message of a missing required value; defaults to
   /// [HeroValidationMessages.valueMissing].
@@ -704,7 +704,7 @@ class HeroValidatedField<T> extends StatefulWidget {
 class HeroValidatedFieldState<T> extends State<HeroValidatedField<T>> {
   final GlobalKey<_HeroValidatedFormFieldState<T>> _fieldKey =
       GlobalKey<_HeroValidatedFormFieldState<T>>();
-  late final T _initialValue = widget.value;
+  late final T? _initialValue = widget.value;
 
   /// Whether the native behaviour shows the validation (after a change or a
   /// form validation).
@@ -720,7 +720,7 @@ class HeroValidatedFieldState<T> extends State<HeroValidatedField<T>> {
 
   /// Reports that the user changed the value to [value]: commits the
   /// validation, clears server errors and notifies the form.
-  void didChange(T value) {
+  void didChange(T? value) {
     _committed = true;
     _serverErrorsCleared = true;
     _fieldKey.currentState?.didChange(value);
@@ -732,7 +732,7 @@ class HeroValidatedFieldState<T> extends State<HeroValidatedField<T>> {
     _fieldKey.currentState?.syncValue(widget.value);
   }
 
-  HeroValidationResult _clientValidation(T value) {
+  HeroValidationResult _clientValidation(T? value) {
     final String? error = widget.validator?.call(value);
     if (error != null) return HeroValidationResult.invalid(<String>[error]);
     if (_behavior == HeroValidationBehavior.aria) {
@@ -758,7 +758,7 @@ class HeroValidatedFieldState<T> extends State<HeroValidatedField<T>> {
   }
 
   void _handleSaved(T? _) {
-    final T value = widget.value;
+    final T? value = widget.value;
     widget.onSaved?.call(value);
     final String? name = widget.name;
     if (name == null || widget.isDisabled) return;
@@ -867,7 +867,7 @@ class _HeroValidatedFormFieldState<T> extends FormFieldState<T> {
   }
 
   /// Updates the value without notifying the form (a controlled update).
-  void syncValue(T value) {
+  void syncValue(T? value) {
     if (this.value != value) setValue(value);
   }
 }
