@@ -18,9 +18,50 @@ enum HeroFieldVariant {
   secondary,
 }
 
+/// The validation state of a field (React Aria's `ValidationResult`): whether
+/// it is invalid and the messages explaining why.
+///
+/// A field can be invalid without messages (for example when it is marked
+/// invalid explicitly); `HeroFieldError` then shows its own content only.
+@immutable
+class HeroValidationResult {
+  /// Creates a validation result.
+  const HeroValidationResult({
+    this.isInvalid = false,
+    this.validationErrors = const <String>[],
+  });
+
+  /// Creates an invalid result with the given [validationErrors].
+  const HeroValidationResult.invalid([this.validationErrors = const <String>[]])
+    : isInvalid = true;
+
+  /// A valid result without messages.
+  static const HeroValidationResult valid = HeroValidationResult();
+
+  /// Whether the value is invalid.
+  final bool isInvalid;
+
+  /// The validation messages, in the order they were produced.
+  final List<String> validationErrors;
+
+  @override
+  bool operator ==(Object other) =>
+      other is HeroValidationResult &&
+      other.isInvalid == isInvalid &&
+      listEquals(other.validationErrors, validationErrors);
+
+  @override
+  int get hashCode => Object.hash(isInvalid, Object.hashAll(validationErrors));
+
+  @override
+  String toString() => isInvalid
+      ? 'HeroValidationResult.invalid($validationErrors)'
+      : 'HeroValidationResult.valid';
+}
+
 /// Shares the state of a field root (TextField, SearchField, Checkbox, ...)
 /// with the parts rendered inside it (`HeroLabel`, `HeroDescription`,
-/// `HeroInput`, ...).
+/// `HeroInput`, `HeroFieldError`, ...).
 ///
 /// This is the counterpart of HeroUI's `data-*` ancestor selectors
 /// (`[data-disabled] .label`, `[data-invalid] .label`,
@@ -34,6 +75,7 @@ class HeroFieldScope extends InheritedWidget {
     this.variant,
     this.isDisabled = false,
     this.isInvalid = false,
+    this.validationErrors = const <String>[],
     this.isRequired = false,
     this.isReadOnly = false,
     this.showRequiredIndicator,
@@ -54,6 +96,11 @@ class HeroFieldScope extends InheritedWidget {
 
   /// Whether the field is invalid.
   final bool isInvalid;
+
+  /// The messages explaining why the field is invalid (validator results,
+  /// built-in constraint messages or server errors). Shown by
+  /// `HeroFieldError` while [isInvalid] is true.
+  final List<String> validationErrors;
 
   /// Whether the field is required.
   final bool isRequired;
@@ -96,6 +143,12 @@ class HeroFieldScope extends InheritedWidget {
   /// Whether labels show the required asterisk.
   bool get requiredIndicatorVisible => showRequiredIndicator ?? isRequired;
 
+  /// The field's validation state ([isInvalid] and [validationErrors]).
+  HeroValidationResult get validation => HeroValidationResult(
+    isInvalid: isInvalid,
+    validationErrors: validationErrors,
+  );
+
   /// The closest field scope, or null outside a field.
   static HeroFieldScope? maybeOf(BuildContext context) =>
       context.dependOnInheritedWidgetOfExactType<HeroFieldScope>();
@@ -105,6 +158,7 @@ class HeroFieldScope extends InheritedWidget {
       variant != oldWidget.variant ||
       isDisabled != oldWidget.isDisabled ||
       isInvalid != oldWidget.isInvalid ||
+      !listEquals(validationErrors, oldWidget.validationErrors) ||
       isRequired != oldWidget.isRequired ||
       isReadOnly != oldWidget.isReadOnly ||
       showRequiredIndicator != oldWidget.showRequiredIndicator ||

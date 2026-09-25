@@ -34,3 +34,4 @@
 - `HeroTabs` with `HeroTabListContainer`, `HeroTabList`, `HeroTab`, `HeroTabIndicator`, `HeroTabSeparator` and `HeroTabPanel`: sliding indicator, overflow scrolling with fades and chevrons, variants, alignment, orientation and keyboard navigation.
 - `HeroPagination` with its parts and the `heroPaginationRange` helper.
 - `HeroBreadcrumbs` and `HeroBreadcrumbsItem`.
+- `HeroFieldError` and `HeroValidationResult`.
