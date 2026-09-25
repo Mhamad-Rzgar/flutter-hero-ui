@@ -254,3 +254,10 @@ Newest entries are appended at the end of each section.
   content scrolls when there is not enough room.
 - **Reduced motion.** With a zero exit duration an anchored overlay hides its portal after the
   frame instead of during build.
+- **Card layout** follows CSS blocks: the card and its parts fill the offered width and fall
+  back to their content width when unbounded; `mt-auto` maps to `spaceBetween` and `flex-1`
+  content to `Expanded`. HeroUI has no pressable card, only a docs pattern: `href` gives link
+  semantics and `onPressed` button semantics, both with a focus ring and 0.97 press scale.
+- **ScrollShadow** recomputes its fades on every scroll frame like HeroUI's CSS; in RTL the
+  scrollbar gutter follows Flutter's scrollbar to the left. Overflowing content without
+  focusable children can take Tab focus and scroll with the keyboard.
