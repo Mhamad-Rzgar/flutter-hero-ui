@@ -45,13 +45,15 @@ HeroTagGroup(
 | `Tag` | `HeroTag` |
 | `Tag.RemoveButton` | `HeroTagRemoveButton` (automatic with `onRemove`) |
 | `Description` | `description` (or a `HeroDescription` in `children`) |
+| `ErrorMessage` | `errorMessage` (or a `HeroErrorMessage` in `children`) |
 | `EmptyState` (`renderEmptyState`) | `HeroTagGroupList.emptyStateBuilder` |
 
 Size, variant and the disabled state are set on the group and inherited by the tags.
 
 ## Styles
 
-- **Group:** column with a 4 px gap; descriptions get 4 px padding.
+- **Group:** column with a 4 px gap (`spacing`); descriptions and error messages get 4 px
+  padding.
 - **List:** wraps with a 6 px gap between tags and lines.
 - **Tag:** row with a 4 px gap, `font-medium`, 12 px icons in the text color.
 
@@ -136,6 +138,33 @@ HeroTagGroup(
   selectedKeys: selected,
   onSelectionChanged: (Set<Object> keys) => setState(() => selected = keys),
   children: <Widget>[HeroTagGroupList(children: tags)],
+)
+```
+
+### With error message
+
+```dart
+Set<Object> selected = <Object>{};
+
+HeroTagGroup(
+  label: 'Amenities',
+  description: selected.isEmpty
+      ? 'Select at least one category'
+      : 'Selected: ${selected.join(', ')}',
+  errorMessage:
+      selected.isEmpty ? 'Please select at least one category' : null,
+  selectionMode: HeroSelectionMode.multiple,
+  selectedKeys: selected,
+  onSelectionChanged: (Set<Object> keys) => setState(() => selected = keys),
+  children: const <Widget>[
+    HeroTagGroupList(
+      children: <Widget>[
+        HeroTag(id: 'laundry', label: 'Laundry'),
+        HeroTag(id: 'fitness', label: 'Fitness center'),
+        HeroTag(id: 'parking', label: 'Parking'),
+      ],
+    ),
+  ],
 )
 ```
 
@@ -258,6 +287,8 @@ HeroTag(
 | `children` | `List<Widget>` | required | The parts: a `HeroTagGroupList` and other content. |
 | `label` | `String?` | `null` | Label above the parts; labels the list. |
 | `description` | `String?` | `null` | Description below the parts. |
+| `errorMessage` | `String?` | `null` | Error below the description (`HeroErrorMessage`). |
+| `spacing` | `double?` | 4 | Gap between the parts. |
 | `selectionMode` | `HeroSelectionMode` | `none` | `none`, `single` or `multiple`. |
 | `selectedKeys` | `Set<Object>?` | `null` | Controlled selection. |
 | `defaultSelectedKeys` | `Set<Object>?` | `null` | Initial selection when uncontrolled. |

@@ -67,3 +67,4 @@ All notable changes to this repository. Package changelogs live in
 - `HeroEmptyState`: the "No results found" placeholder for empty collections.
 - `HeroListBox` with `HeroListBoxItem`, `HeroListBoxSection`, `HeroHeader` and a load-more item: selection, keyboard navigation, typeahead, virtual focus and virtualised rendering, on the shared `HeroSelectionManager`, `HeroTypeahead` and `HeroCollection`.
 - `HeroTagGroup` and `HeroTag` with sizes, variants, selection, remove buttons and keyboard support.
+- `HeroErrorMessage` for non-form components, and `errorMessage` on `HeroTagGroup`.

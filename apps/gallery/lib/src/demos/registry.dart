@@ -17,6 +17,7 @@ import 'color_slider_demo.dart';
 import 'color_swatch_demo.dart';
 import 'color_swatch_picker_demo.dart';
 import 'description_demo.dart';
+import 'error_message_demo.dart';
 import 'field_error_demo.dart';
 import 'form_demo.dart';
 import 'input_demo.dart';
@@ -59,6 +60,7 @@ final Map<String, ComponentDemo> demoRegistry = <String, ComponentDemo>{
   colorSwatchDemo.slug: colorSwatchDemo,
   colorSwatchPickerDemo.slug: colorSwatchPickerDemo,
   descriptionDemo.slug: descriptionDemo,
+  errorMessageDemo.slug: errorMessageDemo,
   fieldErrorDemo.slug: fieldErrorDemo,
   formDemo.slug: formDemo,
   inputDemo.slug: inputDemo,

@@ -11,6 +11,7 @@ import '../../foundation/foundation.dart';
 import '../button/button.dart';
 import '../close_button/close_button.dart';
 import '../description/description.dart';
+import '../error_message/error_message.dart';
 import '../label/label.dart';
 
 part 'tag.dart';
@@ -30,7 +31,8 @@ enum HeroTagVariant {
 /// removal.
 ///
 /// Compose it like HeroUI: an optional [label], a [HeroTagGroupList] of
-/// tags and an optional [description]. The group owns the selection
+/// tags, an optional [description] and an optional [errorMessage]. The
+/// group owns the selection
 /// ([selectedKeys] + [onSelectionChanged], or [defaultSelectedKeys]) and
 /// passes [size], [variant] and [isDisabled] to its tags.
 ///
@@ -66,6 +68,8 @@ class HeroTagGroup extends StatefulWidget {
     required this.children,
     this.label,
     this.description,
+    this.errorMessage,
+    this.spacing,
     this.selectionMode = HeroSelectionMode.none,
     this.selectedKeys,
     this.defaultSelectedKeys,
@@ -80,8 +84,9 @@ class HeroTagGroup extends StatefulWidget {
   });
 
   /// The parts: a [HeroTagGroupList] and optionally a [HeroLabel],
-  /// [HeroDescription]s or other content, laid out in a column with a 4 px
-  /// gap.
+  /// [HeroDescription]s, [HeroErrorMessage]s or other content, laid out in a
+  /// column with a 4 px gap. Descriptions and error messages get 4 px of
+  /// padding.
   final List<Widget> children;
 
   /// Label text shown above the parts, as a [HeroLabel]; it also labels the
@@ -90,6 +95,13 @@ class HeroTagGroup extends StatefulWidget {
 
   /// Description text shown below the parts, as a [HeroDescription].
   final String? description;
+
+  /// Error text shown below the description, as a [HeroErrorMessage]; null
+  /// or empty shows nothing.
+  final String? errorMessage;
+
+  /// Gap between the parts; 4 (`gap-1`) by default.
+  final double? spacing;
 
   /// Whether tags can be selected, and how many.
   final HeroSelectionMode selectionMode;
@@ -203,6 +215,7 @@ class _HeroTagGroupState extends State<HeroTagGroup> {
     final HeroThemeData theme = HeroTheme.of(context);
     final String? label = widget.label;
     final String? description = widget.description;
+    final String? errorMessage = widget.errorMessage;
     return _HeroTagGroupScope(
       state: this,
       selectedKeys: _effectiveSelected,
@@ -216,20 +229,25 @@ class _HeroTagGroupState extends State<HeroTagGroup> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: theme.spacing(1),
+        spacing: widget.spacing ?? theme.spacing(1),
         children: <Widget>[
           if (label != null) HeroLabel.text(label),
           for (final Widget child in widget.children) _padSlot(theme, child),
           if (description != null)
             _padSlot(theme, HeroDescription.text(description)),
+          if (errorMessage != null && errorMessage.isNotEmpty)
+            _padSlot(theme, HeroErrorMessage.text(errorMessage)),
         ],
       ),
     );
   }
 
-  // `.tag-group [data-slot="description"]` has `p-1`.
+  // `.tag-group [data-slot="description"]` and
+  // `[data-slot="error-message"]` have `p-1`.
   static Widget _padSlot(HeroThemeData theme, Widget child) =>
-      child is HeroDescription
+      child is HeroDescription ||
+          (child is HeroErrorMessage &&
+              (child.child != null || (child.data?.isNotEmpty ?? false)))
       ? Padding(padding: EdgeInsets.all(theme.spacing(1)), child: child)
       : child;
 }

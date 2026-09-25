@@ -9,7 +9,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 ## Summary
 
 <!-- summary:start -->
-**48 of 164 slices done**, 0 in progress.
+**49 of 164 slices done**, 0 in progress.
 <!-- summary:end -->
 
 
@@ -35,7 +35,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 | C03 | Label | `HeroLabel` | ✅ Done |
 | C04 | Description | `HeroDescription` | ✅ Done |
 | C05 | FieldError | `HeroFieldError` | ✅ Done |
-| C06 | ErrorMessage | `HeroErrorMessage` | ⬜ Planned |
+| C06 | ErrorMessage | `HeroErrorMessage` | ✅ Done |
 | C07 | Button | `HeroButton` | ✅ Done |
 | C08 | CloseButton | `HeroCloseButton` | ✅ Done |
 | C09 | ButtonGroup | `HeroButtonGroup` | ✅ Done |

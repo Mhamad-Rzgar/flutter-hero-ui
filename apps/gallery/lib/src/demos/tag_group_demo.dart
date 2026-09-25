@@ -280,6 +280,35 @@ HeroTagGroup(
 )''',
     ),
     DemoExample(
+      title: 'With Error Message',
+      builder: (BuildContext context) => const _Amenities(),
+      code: '''
+Set<Object> selected = <Object>{};
+
+HeroTagGroup(
+  label: 'Amenities',
+  description: selected.isEmpty
+      ? 'Select at least one category'
+      : 'Selected: \${selected.join(', ')}',
+  errorMessage:
+      selected.isEmpty ? 'Please select at least one category' : null,
+  selectionMode: HeroSelectionMode.multiple,
+  selectedKeys: selected,
+  onSelectionChanged: (Set<Object> keys) => setState(() => selected = keys),
+  children: const <Widget>[
+    HeroTagGroupList(
+      children: <Widget>[
+        HeroTag(id: 'laundry', label: 'Laundry'),
+        HeroTag(id: 'fitness', label: 'Fitness center'),
+        HeroTag(id: 'parking', label: 'Parking'),
+        HeroTag(id: 'pool', label: 'Swimming pool'),
+        HeroTag(id: 'breakfast', label: 'Breakfast'),
+      ],
+    ),
+  ],
+)''',
+    ),
+    DemoExample(
       title: 'With List Data',
       builder: (BuildContext context) => const _TeamMembers(),
       code: '''
@@ -631,6 +660,44 @@ class _ControlledTagsState extends State<_ControlledTags> {
       onSelectionChanged: (Set<Object> keys) =>
           setState(() => _selected = keys),
       children: <Widget>[HeroTagGroupList(children: _categoryTags())],
+    );
+  }
+}
+
+class _Amenities extends StatefulWidget {
+  const _Amenities();
+
+  @override
+  State<_Amenities> createState() => _AmenitiesState();
+}
+
+class _AmenitiesState extends State<_Amenities> {
+  Set<Object> _selected = <Object>{};
+
+  @override
+  Widget build(BuildContext context) {
+    final bool invalid = _selected.isEmpty;
+    return HeroTagGroup(
+      label: 'Amenities',
+      description: invalid
+          ? 'Select at least one category'
+          : 'Selected: ${_selected.join(', ')}',
+      errorMessage: invalid ? 'Please select at least one category' : null,
+      selectionMode: HeroSelectionMode.multiple,
+      selectedKeys: _selected,
+      onSelectionChanged: (Set<Object> keys) =>
+          setState(() => _selected = keys),
+      children: const <Widget>[
+        HeroTagGroupList(
+          children: <Widget>[
+            HeroTag(id: 'laundry', label: 'Laundry'),
+            HeroTag(id: 'fitness', label: 'Fitness center'),
+            HeroTag(id: 'parking', label: 'Parking'),
+            HeroTag(id: 'pool', label: 'Swimming pool'),
+            HeroTag(id: 'breakfast', label: 'Breakfast'),
+          ],
+        ),
+      ],
     );
   }
 }

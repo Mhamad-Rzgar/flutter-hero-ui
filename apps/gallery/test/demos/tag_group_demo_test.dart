@@ -17,6 +17,7 @@ void main() {
       'Disabled',
       'Selection Modes',
       'Controlled',
+      'With Error Message',
       'With List Data',
       'With Prefix',
       'With Remove Button',
@@ -27,6 +28,11 @@ void main() {
     await tester.tap(find.text('Gaming').at(11));
     await tester.pumpAndSettle();
     expect(find.text('Selected: news, travel, gaming'), findsOneWidget);
+    expect(find.text('Please select at least one category'), findsOneWidget);
+    await tester.tap(find.text('Parking'));
+    await tester.pumpAndSettle();
+    expect(find.text('Please select at least one category'), findsNothing);
+    expect(find.text('Selected: parking'), findsOneWidget);
     // Removing every framework shows the empty state.
     for (int i = 0; i < 4; i++) {
       await tester.tap(find.byType(HeroTagRemoveButton).last);

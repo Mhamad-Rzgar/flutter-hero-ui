@@ -18,6 +18,7 @@ export 'color_swatch/color_swatch.dart';
 export 'color_swatch_picker/color_swatch_picker.dart';
 export 'description/description.dart';
 export 'empty_state/empty_state.dart';
+export 'error_message/error_message.dart';
 export 'field_error/field_error.dart';
 export 'form/form.dart';
 export 'input/input.dart';
