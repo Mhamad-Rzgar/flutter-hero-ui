@@ -21,3 +21,4 @@
 - `HeroLink`, `HeroLinkIcon` and `HeroLinkHandler`; link semantics in `HeroInteractable`.
 - `HeroChip` and `HeroChipLabel` with every variant, color and size.
 - `HeroAvatar`, `HeroAvatarImage`, `HeroAvatarFallback` and `HeroAvatarScope` with image loading and fallbacks.
+- `HeroAvatarGroup` (clip and ring overlap, grid layout, max count) and `HeroAvatarGroupCount`.

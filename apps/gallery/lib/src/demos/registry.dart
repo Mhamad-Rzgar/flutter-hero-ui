@@ -2,6 +2,7 @@
 
 import '../demo.dart';
 import 'avatar_demo.dart';
+import 'avatar_group_demo.dart';
 import 'button_demo.dart';
 import 'button_group_demo.dart';
 import 'chip_demo.dart';
@@ -15,6 +16,7 @@ import 'typography_demo.dart';
 /// Every component demo, keyed by catalog slug.
 final Map<String, ComponentDemo> demoRegistry = <String, ComponentDemo>{
   avatarDemo.slug: avatarDemo,
+  avatarGroupDemo.slug: avatarGroupDemo,
   buttonDemo.slug: buttonDemo,
   buttonGroupDemo.slug: buttonGroupDemo,
   chipDemo.slug: chipDemo,
