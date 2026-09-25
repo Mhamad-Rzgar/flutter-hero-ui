@@ -9,6 +9,8 @@ export 'button/button.dart';
 export 'button_group/button_group.dart';
 export 'chip/chip.dart';
 export 'close_button/close_button.dart';
+export 'color/color.dart';
+export 'color_swatch/color_swatch.dart';
 export 'description/description.dart';
 export 'field_error/field_error.dart';
 export 'form/form.dart';

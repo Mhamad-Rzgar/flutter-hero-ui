@@ -9,7 +9,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 ## Summary
 
 <!-- summary:start -->
-**39 of 164 slices done**, 0 in progress.
+**40 of 164 slices done**, 0 in progress.
 <!-- summary:end -->
 
 
@@ -127,7 +127,7 @@ Legend: ✅ Done · 🚧 In progress · ⬜ Planned
 
 | # | Slice | Flutter API | Status |
 | --- | --- | --- | --- |
-| C68 | ColorSwatch | `HeroColorSwatch` | ⬜ Planned |
+| C68 | ColorSwatch | `HeroColorSwatch` | ✅ Done |
 | C69 | ColorSlider | `HeroColorSlider` | ⬜ Planned |
 | C70 | ColorArea | `HeroColorArea` | ⬜ Planned |
 | C71 | ColorField | `HeroColorField` | ⬜ Planned |

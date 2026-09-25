@@ -42,3 +42,4 @@
 - `HeroSlider`: single and range thumbs, vertical orientation, keyboard, RTL and `FormField` / `HeroForm` integration.
 - `HeroAlert`: status alerts with default icons, indicator, content, title, description, actions and a live-region option.
 - `HeroToolbar`: a single Tab stop with arrow, Home and End navigation and the attached pill style; button and toggle groups follow the toolbar orientation.
+- `HeroColorSwatch` (five sizes, circle and square, alpha checkerboard) and the shared color model (`HeroColorValue`, channels and ranges, parsing and formatting, `heroColorName`).
