@@ -261,3 +261,11 @@ Newest entries are appended at the end of each section.
 - **ScrollShadow** recomputes its fades on every scroll frame like HeroUI's CSS; in RTL the
   scrollbar gutter follows Flutter's scrollbar to the left. Overflowing content without
   focusable children can take Tab focus and scroll with the keyboard.
+- **Checkbox, Radio and Switch** toggle with Space only, like native inputs (Enter does
+  nothing), and hovering anywhere over the field highlights the control like
+  `.checkbox:hover`. Custom colors win over built-in hover colors because Tailwind utilities
+  sit in a later cascade layer. Small radio controls keep `rounded-lg`, as in HeroUI.
+- **Switch drag (iOS).** The switch thumb follows a horizontal drag and toggles past the middle
+  or on a fling; HeroUI has no drag.
+- **Grouped checkbox values** submit as a list in selection order; an empty selection is
+  omitted.
