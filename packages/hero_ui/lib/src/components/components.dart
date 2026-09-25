@@ -10,6 +10,7 @@ export 'chip/chip.dart';
 export 'close_button/close_button.dart';
 export 'description/description.dart';
 export 'field_error/field_error.dart';
+export 'form/form.dart';
 export 'input/input.dart';
 export 'kbd/kbd.dart';
 export 'label/label.dart';

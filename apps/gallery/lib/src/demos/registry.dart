@@ -11,6 +11,7 @@ import 'chip_demo.dart';
 import 'close_button_demo.dart';
 import 'description_demo.dart';
 import 'field_error_demo.dart';
+import 'form_demo.dart';
 import 'input_demo.dart';
 import 'kbd_demo.dart';
 import 'label_demo.dart';
@@ -38,6 +39,7 @@ final Map<String, ComponentDemo> demoRegistry = <String, ComponentDemo>{
   closeButtonDemo.slug: closeButtonDemo,
   descriptionDemo.slug: descriptionDemo,
   fieldErrorDemo.slug: fieldErrorDemo,
+  formDemo.slug: formDemo,
   inputDemo.slug: inputDemo,
   kbdDemo.slug: kbdDemo,
   labelDemo.slug: labelDemo,

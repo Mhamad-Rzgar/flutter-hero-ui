@@ -2,6 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../foundation/foundation.dart';
+import '../form/form.dart';
 import 'hero_editable_text.dart';
 import 'hero_field.dart';
 import 'hero_text_constraints.dart';
@@ -16,7 +17,10 @@ import 'hero_text_constraints.dart';
 /// * the controlled [value] / uncontrolled [defaultValue] model;
 /// * registration with the nearest `Form` as a `FormField<String>`, with
 ///   the native constraints of [HeroTextConstraints] followed by
-///   [validator];
+///   [validator], and a [name]d value in the data a [HeroForm] submits;
+/// * a browser's implicit submission: Enter (or the done, go, send or
+///   search keyboard action) in a single-line input submits the enclosing
+///   [HeroForm];
 /// * the field look: a [HeroFieldBox] around a [HeroEditableText] (or only
 ///   the editable text when [decorated] is false, for inputs inside a
 ///   composite field that paints its own box).
@@ -143,7 +147,7 @@ class HeroTextInputCore extends StatefulWidget {
   /// Forces the invalid look (`aria-invalid`).
   final bool isInvalid;
 
-  /// The name of the value when a form collects its fields (`name`).
+  /// The name of the value in the data a [HeroForm] submits (`name`).
   final String? name;
 
   /// Autofill hints (`autoComplete`), see `AutofillHints`.
@@ -319,6 +323,36 @@ class _HeroTextInputCoreState extends State<HeroTextInputCore> {
     widget.onFocusChanged?.call(_focusNode.hasFocus);
   }
 
+  void _handleSaved(String? value) {
+    widget.onSaved?.call(value);
+    final String? name = widget.name;
+    if (name == null || _isDisabled) return;
+    context.findAncestorStateOfType<HeroFormState>()?.addValue(
+      name,
+      value ?? '',
+    );
+  }
+
+  void _handleSubmitted(String value) {
+    widget.onSubmitted?.call(value);
+    if (!mounted || widget.isMultiline) return;
+    final TextInputAction action =
+        widget.textInputAction ??
+        widget.type.textInputAction ??
+        TextInputAction.done;
+    if (!_implicitSubmitActions.contains(action)) return;
+    context.findAncestorStateOfType<HeroFormState>()?.submit();
+  }
+
+  /// Keyboard actions that submit the enclosing form, like Enter or the
+  /// "Go" key in a browser form.
+  static const Set<TextInputAction> _implicitSubmitActions = <TextInputAction>{
+    TextInputAction.done,
+    TextInputAction.go,
+    TextInputAction.send,
+    TextInputAction.search,
+  };
+
   void _handleReset() {
     final String text = widget.value ?? _initialText;
     if (_controller.text == text) return;
@@ -349,7 +383,7 @@ class _HeroTextInputCoreState extends State<HeroTextInputCore> {
       key: _fieldKey,
       initialValue: _controller.text,
       validator: _validate,
-      onSaved: widget.onSaved,
+      onSaved: _handleSaved,
       onReset: _handleReset,
       autovalidateMode: widget.autovalidateMode,
       enabled: !_isDisabled,
@@ -405,7 +439,7 @@ class _HeroTextInputCoreState extends State<HeroTextInputCore> {
       ],
       autofillHints: widget.autofillHints,
       onChanged: widget.onChanged,
-      onSubmitted: widget.onSubmitted,
+      onSubmitted: _handleSubmitted,
       onEditingComplete: widget.onEditingComplete,
       onTap: widget.onTap,
       scrollController: widget.scrollController,

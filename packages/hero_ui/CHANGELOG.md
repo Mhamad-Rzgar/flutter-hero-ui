@@ -35,3 +35,4 @@
 - `HeroPagination` with its parts and the `heroPaginationRange` helper.
 - `HeroBreadcrumbs` and `HeroBreadcrumbsItem`.
 - `HeroFieldError` and `HeroValidationResult`.
+- `HeroForm` with native and aria validation behaviour (`HeroValidationBehavior`), server errors, submit and reset, and `HeroButton.type`.

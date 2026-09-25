@@ -191,6 +191,20 @@ HeroButton(
 
 When `builder` is set, it renders the pending state itself (no automatic spinner).
 
+### Form buttons
+
+`type` makes a button submit or reset the enclosing [`HeroForm`](form.md), like
+HTML's `type="submit"` / `type="reset"`; `onPressed` still runs first.
+
+```dart
+HeroButton(type: HeroButtonType.submit, child: const Text('Submit'))
+HeroButton(
+  type: HeroButtonType.reset,
+  variant: HeroButtonVariant.secondary,
+  child: const Text('Reset'),
+)
+```
+
 ### Custom variants and styles
 
 `HeroButtonStyle` overrides colors per state, shape, geometry and text, the Flutter
@@ -249,6 +263,7 @@ Completely custom buttons (gradients, ripples) are composed from `HeroInteractab
 | `isDisabled` | `bool?` | `false` | Disable the button. |
 | `isPending` | `bool` | `false` | Loading state. |
 | `isIconOnly` | `bool` | `false` | Square button with only an icon. |
+| `type` | `HeroButtonType` | `button` | `submit` / `reset` also submit / reset the enclosing `HeroForm`. |
 | `onPressed` | `VoidCallback?` | `null` | Called on activation. |
 | `onPressStart` | `VoidCallback?` | `null` | Called when a press starts. |
 | `onPressEnd` | `VoidCallback?` | `null` | Called when a press ends. |

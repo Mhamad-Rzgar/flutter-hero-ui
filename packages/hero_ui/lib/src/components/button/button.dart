@@ -8,6 +8,7 @@ import 'package:flutter/widgets.dart';
 
 import '../../foundation/foundation.dart';
 import '../button_group/button_group_scope.dart';
+import '../form/form.dart';
 import '../spinner/spinner.dart';
 import 'button_content.dart';
 import 'button_metrics.dart';
@@ -86,6 +87,20 @@ enum HeroButtonVariant {
   }
 }
 
+/// What a [HeroButton] does inside a [HeroForm] (the HTML button `type`).
+enum HeroButtonType {
+  /// A plain button (`type="button"`), the default.
+  button,
+
+  /// Submits the enclosing [HeroForm] after [HeroButton.onPressed]
+  /// (`type="submit"`).
+  submit,
+
+  /// Resets the enclosing [HeroForm] after [HeroButton.onPressed]
+  /// (`type="reset"`).
+  reset,
+}
+
 /// The render props of a [HeroButton]: `isHovered`, `isPressed`,
 /// `isFocused`, `isFocusVisible`, `isDisabled` and `isPending`.
 typedef HeroButtonState = HeroInteractionState;
@@ -116,6 +131,8 @@ typedef HeroButtonWidgetBuilder =
 ///   shows a small spinner in the start slot (in place of the icon of an
 ///   icon-only button). Use [builder] to render the pending state yourself.
 /// * [isDisabled]: 50% opacity, not focusable, no presses.
+/// * [type]: [HeroButtonType.submit] submits and [HeroButtonType.reset]
+///   resets the enclosing [HeroForm] when pressed.
 ///
 /// The button reacts to hover (mouse), press (scales to 0.97 and switches
 /// to the pressed fill), keyboard focus (focus ring) and activates on tap,
@@ -143,6 +160,7 @@ class HeroButton extends StatelessWidget {
     this.isDisabled,
     this.isPending = false,
     this.isIconOnly = false,
+    this.type = HeroButtonType.button,
     this.focusNode,
     this.autofocus = false,
     this.semanticLabel,
@@ -197,6 +215,10 @@ class HeroButton extends StatelessWidget {
 
   /// Whether the button only contains an icon (square, no padding).
   final bool isIconOnly;
+
+  /// Whether pressing the button also submits or resets the enclosing
+  /// [HeroForm] (`type`).
+  final HeroButtonType type;
 
   /// An optional focus node.
   final FocusNode? focusNode;
@@ -265,7 +287,9 @@ class HeroButton extends StatelessWidget {
         style?.pressedScale ?? (group != null ? 1 : metrics.pressedScale);
 
     return HeroInteractable(
-      onPressed: onPressed,
+      onPressed: type == HeroButtonType.button
+          ? onPressed
+          : () => _pressFormButton(context),
       onPressStart: onPressStart,
       onPressEnd: onPressEnd,
       onHoverChanged: onHoverChanged,
@@ -351,12 +375,35 @@ class HeroButton extends StatelessWidget {
     );
   }
 
+  /// Runs [onPressed], then submits or resets the enclosing form.
+  void _pressFormButton(BuildContext context) {
+    onPressed?.call();
+    if (!context.mounted) return;
+    final HeroFormState? form = context
+        .findAncestorStateOfType<HeroFormState>();
+    switch (type) {
+      case HeroButtonType.submit:
+        form?.submit();
+      case HeroButtonType.reset:
+        form?.reset();
+      case HeroButtonType.button:
+        break;
+    }
+  }
+
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
       ..add(
         EnumProperty<HeroButtonVariant>('variant', variant, defaultValue: null),
+      )
+      ..add(
+        EnumProperty<HeroButtonType>(
+          'type',
+          type,
+          defaultValue: HeroButtonType.button,
+        ),
       )
       ..add(EnumProperty<HeroSize>('size', size, defaultValue: null))
       ..add(FlagProperty('fullWidth', value: fullWidth, ifTrue: 'full width'))
