@@ -28,3 +28,4 @@
 - `HeroDescription`: muted helper text, hidden while its field is invalid.
 - `HeroTextArea`: rows, explicit height and an optional vertical resize grip.
 - `HeroSurface` and `HeroSurfaceScope` with the four surface variants.
+- `HeroSkeleton` and `HeroSkeletonGroup`: shimmer, pulse or no animation, with a synchronised group shimmer.

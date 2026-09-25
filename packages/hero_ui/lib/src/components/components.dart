@@ -13,6 +13,7 @@ export 'kbd/kbd.dart';
 export 'label/label.dart';
 export 'link/link.dart';
 export 'separator/separator.dart';
+export 'skeleton/skeleton.dart';
 export 'spinner/spinner.dart';
 export 'surface/surface.dart';
 export 'text_area/text_area.dart';

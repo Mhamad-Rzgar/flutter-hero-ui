@@ -2,14 +2,16 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hero_ui/hero_ui.dart';
 import 'package:hero_ui_gallery/src/demo.dart';
-import 'package:hero_ui_gallery/src/demos/text_area_demo.dart';
+import 'package:hero_ui_gallery/src/demos/skeleton_demo.dart';
 
 void main() {
-  testWidgets('text area demo examples build', (WidgetTester tester) async {
+  testWidgets('skeleton demo examples build and animate', (
+    WidgetTester tester,
+  ) async {
     tester.view.physicalSize = const Size(390, 844);
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.reset);
-    final ComponentDemo demo = textAreaDemo;
+    final ComponentDemo demo = skeletonDemo;
     await tester.pumpWidget(
       HeroApp(
         // A Column builds every example (a ListView would skip those
@@ -33,8 +35,11 @@ void main() {
         ),
       ),
     );
-    await tester.pumpAndSettle();
+    // The skeletons animate forever, so pump frames instead of settling.
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 700));
     expect(tester.takeException(), isNull);
-    expect(find.byType(HeroTextArea), findsWidgets);
+    expect(find.byType(HeroSkeleton), findsWidgets);
+    await tester.pumpWidget(const SizedBox.shrink());
   });
 }

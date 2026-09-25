@@ -12,20 +12,24 @@ void main() {
     final ComponentDemo demo = inputDemo;
     await tester.pumpWidget(
       HeroApp(
-        home: ListView(
-          children: <Widget>[
-            Builder(
-              builder: (BuildContext context) => demo.playground!.builder(
-                context,
-                PlaygroundValues(<String, Object>{
-                  for (final PlaygroundControl c in demo.playground!.controls)
-                    c.name: c.initialValue,
-                }),
+        // A Column builds every example (a ListView would skip those
+        // outside the viewport).
+        home: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Builder(
+                builder: (BuildContext context) => demo.playground!.builder(
+                  context,
+                  PlaygroundValues(<String, Object>{
+                    for (final PlaygroundControl c in demo.playground!.controls)
+                      c.name: c.initialValue,
+                  }),
+                ),
               ),
-            ),
-            for (final DemoExample example in demo.examples)
-              Center(child: Builder(builder: example.builder)),
-          ],
+              for (final DemoExample example in demo.examples)
+                Center(child: Builder(builder: example.builder)),
+            ],
+          ),
         ),
       ),
     );
