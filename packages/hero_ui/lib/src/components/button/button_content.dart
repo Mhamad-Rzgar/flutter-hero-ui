@@ -17,7 +17,9 @@ import '../../foundation/foundation.dart';
 ///   edges and the neighbouring text (HeroUI applies it to every `svg`);
 /// * the label shrinks (so a single-line label ellipsizes) when the width
 ///   is bounded, and keeps its natural width when it is not;
-/// * with [expand] the row fills a bounded width (`w-full`).
+/// * with [expand] the row fills a bounded width (`w-full`);
+/// * its natural size is rounded up to whole pixels, like the browser's
+///   pixel snapping, so neighbouring buttons meet without a seam.
 ///
 /// Start and end follow the ambient [Directionality].
 class HeroButtonContent extends StatelessWidget {
@@ -264,8 +266,8 @@ class _RenderHeroButtonContent extends RenderBox
       Size(
         _expand && constraints.hasBoundedWidth
             ? constraints.maxWidth
-            : contentWidth,
-        contentHeight,
+            : _snap(contentWidth),
+        _snap(contentHeight),
       ),
     );
 
@@ -335,6 +337,10 @@ class _RenderHeroButtonContent extends RenderBox
     return distance + (label.parentData! as BoxParentData).offset.dy;
   }
 
+  /// Rounds a natural extent up to a whole logical pixel.
+  static double _snap(double extent) =>
+      math.max(0, (extent - 1e-6).ceilToDouble());
+
   double _intrinsicWidth(double height, {required bool max}) {
     double width = _gap * _gapCount;
     for (final _Slot slot in _Slot.values) {
@@ -345,7 +351,7 @@ class _RenderHeroButtonContent extends RenderBox
           : child.getMinIntrinsicWidth(height);
       width += math.max(0, childWidth - 2 * _insetOf(slot));
     }
-    return width;
+    return _snap(width);
   }
 
   double _intrinsicHeight({required bool max}) {
@@ -358,7 +364,7 @@ class _RenderHeroButtonContent extends RenderBox
             : child.getMinIntrinsicHeight(double.infinity),
       );
     }
-    return height;
+    return _snap(height);
   }
 
   @override

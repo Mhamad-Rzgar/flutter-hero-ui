@@ -723,7 +723,7 @@ void main() {
       expect(tester.getSize(_button()).height, 52);
       expect(
         tester.getSize(_button()).width,
-        tester.getSize(find.text('Custom')).width + 80,
+        tester.getSize(find.text('Custom')).width.ceilToDouble() + 80,
       );
       expect(_textColor(tester, 'Custom'), const Color(0xFFFFFFFF));
       final RoundedSuperellipseBorder shape =

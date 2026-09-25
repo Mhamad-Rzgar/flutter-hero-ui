@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../foundation/foundation.dart';
+import '../button_group/button_group_scope.dart';
 import '../spinner/spinner.dart';
 import 'button_content.dart';
 import 'button_metrics.dart';
@@ -119,6 +120,10 @@ typedef HeroButtonWidgetBuilder =
 /// The button reacts to hover (mouse), press (scales to 0.97 and switches
 /// to the pressed fill), keyboard focus (focus ring) and activates on tap,
 /// Enter and Space.
+///
+/// Inside a `HeroButtonGroup`, [variant], [size], [isDisabled] and
+/// [fullWidth] default to the group's values, only the group's outer
+/// corners are rounded and pressing does not scale.
 class HeroButton extends StatelessWidget {
   /// Creates a button.
   const HeroButton({
@@ -172,17 +177,19 @@ class HeroButton extends StatelessWidget {
   /// Called when the button gains or loses focus (`onFocusChange`).
   final ValueChanged<bool>? onFocusChanged;
 
-  /// The visual style; defaults to [HeroButtonVariant.primary].
+  /// The visual style; defaults to the group's variant, then
+  /// [HeroButtonVariant.primary].
   final HeroButtonVariant? variant;
 
-  /// The size; defaults to [HeroSize.md].
+  /// The size; defaults to the group's size, then [HeroSize.md].
   final HeroSize? size;
 
-  /// Whether the button fills a bounded width (`w-full`); defaults to
-  /// false.
+  /// Whether the button fills a bounded width (`w-full`); defaults to the
+  /// group's value, then false.
   final bool? fullWidth;
 
-  /// Whether the button is disabled; defaults to false.
+  /// Whether the button is disabled; defaults to the group's value, then
+  /// false. `false` re-enables a button inside a disabled group.
   final bool? isDisabled;
 
   /// Whether the button is in a loading state.
@@ -212,11 +219,15 @@ class HeroButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final HeroThemeData theme = HeroTheme.of(context);
     final HeroButtonStyle? style = this.style;
-    final HeroButtonVariant variant = this.variant ?? HeroButtonVariant.primary;
-    final bool disabled = isDisabled ?? false;
+    final HeroButtonGroupScope? group = HeroButtonGroupScope.maybeOf(context);
+    final HeroGroupPosition? position = group?.position;
+    final HeroButtonVariant variant =
+        this.variant ?? group?.variant ?? HeroButtonVariant.primary;
+    final bool disabled = isDisabled ?? group?.isDisabled ?? false;
+    final bool expand = fullWidth ?? group?.fullWidth ?? false;
     final HeroButtonMetrics metrics = HeroButtonMetrics.of(
       context,
-      size ?? HeroSize.md,
+      size ?? group?.size ?? HeroSize.md,
     );
     final HeroVariantStyle colors = variant.resolve(
       theme.colors,
@@ -226,9 +237,10 @@ class HeroButton extends StatelessWidget {
     final TextDirection direction = Directionality.of(context);
 
     final BorderRadius radius =
-        (style?.borderRadius ?? BorderRadius.circular(metrics.radius)).resolve(
-          direction,
-        );
+        (style?.borderRadius ??
+                position?.borderRadius(metrics.radius) ??
+                BorderRadius.circular(metrics.radius))
+            .resolve(direction);
     final BorderSide side =
         style?.side ??
         (colors.borderColor == null
@@ -236,7 +248,8 @@ class HeroButton extends StatelessWidget {
             : BorderSide(color: colors.borderColor!, width: theme.borderWidth));
     final EdgeInsets borderWidths = side.style == BorderStyle.none
         ? EdgeInsets.zero
-        : EdgeInsets.all(side.width);
+        : (position?.borderWidths(side.width).resolve(direction) ??
+              EdgeInsets.all(side.width));
     final EdgeInsetsGeometry padding =
         style?.padding ??
         (isIconOnly
@@ -247,6 +260,9 @@ class HeroButton extends StatelessWidget {
     final double height = style?.height ?? metrics.height;
     final OutlinedBorder shape = theme.shape(radius);
     final TextStyle textStyle = metrics.textStyle.merge(style?.textStyle);
+    // Buttons in a group do not scale when pressed (`transform: none`).
+    final double pressedScale =
+        style?.pressedScale ?? (group != null ? 1 : metrics.pressedScale);
 
     return HeroInteractable(
       onPressed: onPressed,
@@ -283,7 +299,7 @@ class HeroButton extends StatelessWidget {
           endContent: endContent,
           gap: metrics.gap,
           iconInset: metrics.iconInset,
-          expand: fullWidth ?? false,
+          expand: expand,
         );
         content = IconTheme(
           data: IconThemeData(
@@ -298,6 +314,10 @@ class HeroButton extends StatelessWidget {
             child: content,
           ),
         );
+        if (group != null) {
+          // Buttons inside this button's content are not part of the group.
+          content = HeroButtonGroupScope.reset(child: content);
+        }
         content = ConstrainedBox(
           constraints: BoxConstraints(
             minHeight: height,
@@ -312,11 +332,15 @@ class HeroButton extends StatelessWidget {
           side: side,
           borderWidths: borderWidths,
           shadows: style?.shadows,
+          separator: group != null && group.hasSeparator
+              ? position!.orientation
+              : null,
+          separatorColor: foreground,
           child: content,
         );
         return HeroPressScale(
           pressed: state.isPressed,
-          scale: style?.pressedScale ?? metrics.pressedScale,
+          scale: pressedScale,
           child: HeroFocusRing(
             visible: state.isFocusVisible,
             shape: shape,
@@ -356,6 +380,11 @@ class HeroButton extends StatelessWidget {
 /// [borderWidths] sets the outline width per side; a zero side is not
 /// drawn, which button groups use to merge neighbouring outlines. Inner
 /// corners are reduced by the adjacent widths like CSS borders.
+///
+/// [separator] paints a button group separator (`ButtonGroup.Separator`):
+/// a 1 px line in [separatorColor] at 15% opacity, half as long as the
+/// button, 1 px before its start edge (horizontal groups) or top edge
+/// (vertical groups).
 class HeroButtonSurface extends StatelessWidget {
   /// Creates a button surface.
   const HeroButtonSurface({
@@ -367,6 +396,8 @@ class HeroButtonSurface extends StatelessWidget {
     this.side = BorderSide.none,
     this.borderWidths = EdgeInsets.zero,
     this.shadows,
+    this.separator,
+    this.separatorColor,
   });
 
   /// The fill color.
@@ -387,6 +418,13 @@ class HeroButtonSurface extends StatelessWidget {
   /// Shadows painted behind the surface.
   final List<BoxShadow>? shadows;
 
+  /// The group orientation of a separator to paint, or null for none.
+  final Axis? separator;
+
+  /// The separator color before its 15% opacity; defaults to the ambient
+  /// text color (`bg-current`).
+  final Color? separatorColor;
+
   /// The content.
   final Widget child;
 
@@ -397,12 +435,24 @@ class HeroButtonSurface extends StatelessWidget {
         side.style != BorderStyle.none &&
         side.color.a > 0 &&
         borderWidths != EdgeInsets.zero;
-    final CustomPainter? border = bordered
-        ? _HeroButtonBorderPainter(
+    final Color separatorBase =
+        separatorColor ??
+        DefaultTextStyle.of(context).style.color ??
+        theme.colors.foreground;
+    final CustomPainter? chrome = bordered || separator != null
+        ? _HeroButtonChromePainter(
             outer: shape,
-            inner: theme.shape(_innerRadius(borderRadius, borderWidths)),
+            inner: bordered
+                ? theme.shape(_innerRadius(borderRadius, borderWidths))
+                : null,
             widths: borderWidths,
-            color: side.color,
+            borderColor: side.color,
+            separator: separator,
+            separatorColor: separatorBase.withValues(
+              alpha: separatorBase.a * 0.15,
+            ),
+            separatorRadius: theme.radii.sm,
+            textDirection: Directionality.of(context),
           )
         : null;
     return TweenAnimationBuilder<Color?>(
@@ -417,7 +467,7 @@ class HeroButtonSurface extends StatelessWidget {
             shape: shape,
             shadows: shadows,
           ),
-          child: CustomPaint(foregroundPainter: border, child: child),
+          child: CustomPaint(foregroundPainter: chrome, child: child),
         );
       },
     );
@@ -435,40 +485,82 @@ class HeroButtonSurface extends StatelessWidget {
   }
 }
 
-/// Paints the band between the outer shape and the inner shape inset by
-/// per-side widths.
-class _HeroButtonBorderPainter extends CustomPainter {
-  const _HeroButtonBorderPainter({
+/// Paints the outline band between the outer shape and the inner shape
+/// inset by per-side widths, and the group separator.
+class _HeroButtonChromePainter extends CustomPainter {
+  const _HeroButtonChromePainter({
     required this.outer,
     required this.inner,
     required this.widths,
-    required this.color,
+    required this.borderColor,
+    required this.separator,
+    required this.separatorColor,
+    required this.separatorRadius,
+    required this.textDirection,
   });
 
   final ShapeBorder outer;
-  final ShapeBorder inner;
+  final ShapeBorder? inner;
   final EdgeInsets widths;
-  final Color color;
+  final Color borderColor;
+  final Axis? separator;
+  final Color separatorColor;
+  final double separatorRadius;
+  final TextDirection textDirection;
 
   @override
   void paint(Canvas canvas, Size size) {
     final Rect rect = Offset.zero & size;
-    canvas.drawPath(
-      Path.combine(
-        PathOperation.difference,
-        outer.getOuterPath(rect),
-        inner.getOuterPath(widths.deflateRect(rect)),
-      ),
-      Paint()
-        ..color = color
-        ..isAntiAlias = true,
-    );
+    final ShapeBorder? inner = this.inner;
+    if (inner != null) {
+      canvas.drawPath(
+        Path.combine(
+          PathOperation.difference,
+          outer.getOuterPath(rect),
+          inner.getOuterPath(widths.deflateRect(rect)),
+        ),
+        Paint()
+          ..color = borderColor
+          ..isAntiAlias = true,
+      );
+    }
+    final Axis? separator = this.separator;
+    if (separator != null) {
+      // Positioned against the padding box like HeroUI's absolutely
+      // positioned span: `inset-inline-start: -1px; top: 25%; width: 1px;
+      // height: 50%` (transposed in vertical groups).
+      final Rect box = widths.deflateRect(rect);
+      final Rect line = switch (separator) {
+        Axis.horizontal => Rect.fromLTWH(
+          textDirection == TextDirection.ltr ? box.left - 1 : box.right,
+          box.top + box.height * 0.25,
+          1,
+          box.height * 0.5,
+        ),
+        Axis.vertical => Rect.fromLTWH(
+          textDirection == TextDirection.ltr
+              ? box.left + box.width * 0.25
+              : box.right - box.width * 0.75,
+          box.top - 1,
+          box.width * 0.5,
+          1,
+        ),
+      };
+      canvas.drawRRect(
+        RRect.fromRectAndRadius(line, Radius.circular(separatorRadius)),
+        Paint()..color = separatorColor,
+      );
+    }
   }
 
   @override
-  bool shouldRepaint(_HeroButtonBorderPainter oldDelegate) =>
+  bool shouldRepaint(_HeroButtonChromePainter oldDelegate) =>
       oldDelegate.outer != outer ||
       oldDelegate.inner != inner ||
       oldDelegate.widths != widths ||
-      oldDelegate.color != color;
+      oldDelegate.borderColor != borderColor ||
+      oldDelegate.separator != separator ||
+      oldDelegate.separatorColor != separatorColor ||
+      oldDelegate.separatorRadius != separatorRadius ||
+      oldDelegate.textDirection != textDirection;
 }
