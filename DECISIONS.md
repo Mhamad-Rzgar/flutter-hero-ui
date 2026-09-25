@@ -141,3 +141,20 @@ Newest entries are appended at the end of each section.
 - Calendar navigation buttons use radius 16 while RangeCalendar uses 12 in the source; both are
   reproduced as-is.
 - FieldError text inside Checkbox, Radio and Switch is muted, not danger-colored, as in the CSS.
+
+## Components
+
+- **Button: automatic pending spinner.** A pending `HeroButton` shows a small `HeroSpinner` in
+  its start slot automatically (HeroUI v3 leaves the spinner to the caller); a custom
+  `builder` opts out.
+- **ButtonGroup separators** are `HeroButtonGroupSeparator` children placed between buttons
+  (HeroUI renders the separator inside the following button); the next button draws the
+  divider.
+- **ButtonGroup props reach wrapped buttons.** Buttons inside a wrapper child (such as a
+  dropdown trigger) inherit the group's props through an inherited scope; React only passes
+  them to direct children.
+- **Pixel snapping.** Buttons and groups snap to whole logical pixels like browsers do, so
+  attached buttons meet without an anti-aliasing seam. A lone outline button inside a group
+  drops its side borders exactly as HeroUI's CSS does.
+- **Pending and disabled semantics.** Pending controls are announced as not enabled;
+  disabled controls are not announced as focusable.
