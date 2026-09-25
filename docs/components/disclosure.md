@@ -27,6 +27,7 @@ HeroDisclosure(
               HeroButton(
                 variant: HeroButtonVariant.secondary,
                 onPressed: state.toggle,
+                isDisabled: state.isDisabled,
                 startContent: const HeroIcon(HeroIcons.qrCode),
                 endContent: const HeroDisclosureIndicator(),
                 child: const Text('Preview HeroUI Native'),
@@ -54,7 +55,7 @@ HeroDisclosure(
 | `Disclosure` | `HeroDisclosure` |
 | `Disclosure.Heading` | `HeroDisclosureHeading` |
 | `Disclosure.Trigger` | `HeroDisclosureTrigger` |
-| `<Button slot="trigger">` | `HeroDisclosureTrigger.builder` returning a `HeroButton` whose `onPressed` is `state.toggle` |
+| `<Button slot="trigger">` | `HeroDisclosureTrigger.builder` returning a `HeroButton` with `onPressed: state.toggle` and `isDisabled: state.isDisabled` |
 | `Disclosure.Indicator` | `HeroDisclosureIndicator` |
 | `Disclosure.Content` | `HeroDisclosureContent` |
 | `Disclosure.Body` | `HeroDisclosureBody` |
@@ -125,6 +126,7 @@ HeroDisclosureTrigger.builder(
 - Pressing the trigger, Enter or Space toggles the content. `isExpanded` +
   `onExpandedChanged` control it; `defaultExpanded` sets the initial state.
 - Disabled disclosures ignore toggles.
+- Inside a `HeroDisclosureGroup` the group decides the expansion by `id`.
 - Collapsed content is removed from focus traversal and semantics; under reduced motion it
   opens and closes instantly.
 

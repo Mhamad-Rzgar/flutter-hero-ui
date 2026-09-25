@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../foundation/foundation.dart';
+import '../disclosure_group/disclosure_group.dart';
 
 /// The state of a [HeroDisclosure], handed to builders and returned by
 /// [HeroDisclosure.of] (HeroUI's `isExpanded` / `isDisabled` render props
@@ -83,7 +84,8 @@ typedef HeroDisclosureWidgetBuilder =
 /// ```
 ///
 /// Expansion is controlled ([isExpanded] + [onExpandedChanged]) or
-/// uncontrolled ([defaultExpanded]). The content opens and closes with
+/// uncontrolled ([defaultExpanded]); inside a [HeroDisclosureGroup] the
+/// group decides, by [id]. The content opens and closes with
 /// HeroUI's height and opacity transition (200 ms) and the indicator turns
 /// over (250 ms). Collapsed content is removed from focus traversal and
 /// semantics.
@@ -108,10 +110,11 @@ class HeroDisclosure extends StatefulWidget {
   /// (HeroUI's render-function children).
   final HeroDisclosureWidgetBuilder? builder;
 
-  /// Identifies the disclosure inside a disclosure group.
+  /// Identifies the disclosure inside a [HeroDisclosureGroup] (required
+  /// there).
   final Object? id;
 
-  /// Controlled expansion.
+  /// Controlled expansion; ignored inside a [HeroDisclosureGroup].
   final bool? isExpanded;
 
   /// Initial expansion when uncontrolled.
@@ -120,7 +123,8 @@ class HeroDisclosure extends StatefulWidget {
   /// Called with the new expansion state when the trigger toggles it.
   final ValueChanged<bool>? onExpandedChanged;
 
-  /// Whether the trigger ignores presses.
+  /// Whether the trigger ignores presses (also when the enclosing
+  /// [HeroDisclosureGroup] is disabled).
   final bool isDisabled;
 
   /// The state of the nearest enclosing [HeroDisclosure].
@@ -159,20 +163,41 @@ class HeroDisclosure extends StatefulWidget {
 
 class _HeroDisclosureWidgetState extends State<HeroDisclosure> {
   late bool _expanded = widget.defaultExpanded;
+  HeroDisclosureGroupScope? _group;
 
-  bool get _effectiveExpanded => widget.isExpanded ?? _expanded;
+  // Inside a group the disclosure is identified by its id (React Aria
+  // generates one when missing; here the state object stands in for it).
+  Object get _id => widget.id ?? this;
+
+  bool get _effectiveExpanded {
+    final HeroDisclosureGroupScope? group = _group;
+    if (group != null) return group.expandedKeys.contains(_id);
+    return widget.isExpanded ?? _expanded;
+  }
+
+  bool get _disabled => widget.isDisabled || (_group?.isDisabled ?? false);
 
   void _set(bool expanded) {
-    if (widget.isDisabled || expanded == _effectiveExpanded) return;
-    if (widget.isExpanded == null) setState(() => _expanded = expanded);
+    if (_disabled || expanded == _effectiveExpanded) return;
+    final HeroDisclosureGroupScope? group = _group;
+    if (group != null) {
+      group.onToggle(_id);
+    } else if (widget.isExpanded == null) {
+      setState(() => _expanded = expanded);
+    }
     widget.onExpandedChanged?.call(expanded);
   }
 
   @override
   Widget build(BuildContext context) {
+    _group = HeroDisclosureGroupScope.maybeOf(context);
+    assert(
+      _group == null || widget.id != null,
+      'A HeroDisclosure inside a HeroDisclosureGroup needs an id.',
+    );
     final HeroDisclosureState state = HeroDisclosureState(
       isExpanded: _effectiveExpanded,
-      isDisabled: widget.isDisabled,
+      isDisabled: _disabled,
       onToggle: () => _set(!_effectiveExpanded),
       onSetExpanded: _set,
     );
@@ -230,7 +255,8 @@ class HeroDisclosureHeading extends StatelessWidget {
 /// included) with a focus ring for keyboard focus and 50% opacity when
 /// disabled, without any fill of its own. [HeroDisclosureTrigger.builder]
 /// makes another control the trigger instead, usually a [HeroButton] whose
-/// `onPressed` is the state's [HeroDisclosureState.toggle] (HeroUI's
+/// `onPressed` is the state's [HeroDisclosureState.toggle] and whose
+/// `isDisabled` is [HeroDisclosureState.isDisabled] (HeroUI's
 /// `<Button slot="trigger">`). Either way the trigger is announced as a
 /// button with an expanded state.
 class HeroDisclosureTrigger extends StatelessWidget {

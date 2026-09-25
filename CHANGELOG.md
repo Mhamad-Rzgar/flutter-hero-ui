@@ -70,3 +70,4 @@ All notable changes to this repository. Package changelogs live in
 - `HeroErrorMessage` for non-form components, and `errorMessage` on `HeroTagGroup`.
 - `HeroAccordion` with items, triggers and animated panels on the shared `HeroCollapsible`.
 - `HeroDisclosure` with heading, trigger and animated content.
+- `HeroDisclosureGroup` with coordinated expansion and group keyboard navigation.

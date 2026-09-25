@@ -231,13 +231,11 @@ HeroAccordion(
       builder: (BuildContext context) => const _ControlledAccordion(),
       code: '''
 Set<Object> expandedKeys = <Object>{'getting-started'};
-final List<String> itemIds = <String>[
-  'getting-started',
-  'core-concepts',
-  'advanced-usage',
-];
-// The first expanded item, else the first item.
-final int current = itemIds.indexWhere(expandedKeys.contains);
+final HeroDisclosureGroupNavigation navigation = HeroDisclosureGroupNavigation(
+  expandedKeys: expandedKeys,
+  itemIds: const <Object>['getting-started', 'core-concepts', 'advanced-usage'],
+  onExpandedChanged: (Set<Object> keys) => setState(() => expandedKeys = keys),
+);
 
 Row(
   children: <Widget>[
@@ -248,9 +246,8 @@ Row(
       size: HeroSize.sm,
       variant: HeroButtonVariant.secondary,
       semanticLabel: 'Previous item',
-      isDisabled: current <= 0,
-      onPressed: () =>
-          setState(() => expandedKeys = <Object>{itemIds[current - 1]}),
+      isDisabled: navigation.isPrevDisabled,
+      onPressed: navigation.previous,
       child: const HeroIcon(HeroIcons.chevronUp),
     ),
     // Next item alike.
@@ -554,24 +551,20 @@ class _ControlledAccordion extends StatefulWidget {
 class _ControlledAccordionState extends State<_ControlledAccordion> {
   Set<Object> _expanded = <Object>{'getting-started'};
 
-  static final List<String> _ids = <String>[
+  static final List<Object> _ids = <Object>[
     for (final (String id, String _, String _) in _guides.take(3)) id,
   ];
-
-  // The first expanded item, else the first item
-  // (`useDisclosureGroupNavigation`).
-  int get _current {
-    final int index = _ids.indexWhere(_expanded.contains);
-    return index < 0 ? 0 : index;
-  }
-
-  void _go(int delta) =>
-      setState(() => _expanded = <Object>{_ids[_current + delta]});
 
   @override
   Widget build(BuildContext context) {
     final HeroThemeData theme = HeroTheme.of(context);
-    final int current = _current;
+    final HeroDisclosureGroupNavigation navigation =
+        HeroDisclosureGroupNavigation(
+          expandedKeys: _expanded,
+          itemIds: _ids,
+          onExpandedChanged: (Set<Object> keys) =>
+              setState(() => _expanded = keys),
+        );
     return _medium(
       Column(
         mainAxisSize: MainAxisSize.min,
@@ -607,8 +600,8 @@ class _ControlledAccordionState extends State<_ControlledAccordion> {
                     size: HeroSize.sm,
                     variant: HeroButtonVariant.secondary,
                     semanticLabel: 'Previous item',
-                    isDisabled: current <= 0,
-                    onPressed: () => _go(-1),
+                    isDisabled: navigation.isPrevDisabled,
+                    onPressed: navigation.previous,
                     child: const HeroIcon(HeroIcons.chevronUp),
                   ),
                   HeroButton(
@@ -616,8 +609,8 @@ class _ControlledAccordionState extends State<_ControlledAccordion> {
                     size: HeroSize.sm,
                     variant: HeroButtonVariant.secondary,
                     semanticLabel: 'Next item',
-                    isDisabled: current >= _ids.length - 1,
-                    onPressed: () => _go(1),
+                    isDisabled: navigation.isNextDisabled,
+                    onPressed: navigation.next,
                     child: const HeroIcon(HeroIcons.chevronDown),
                   ),
                 ],
