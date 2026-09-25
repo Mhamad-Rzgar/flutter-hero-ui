@@ -40,3 +40,4 @@
 - `HeroProgressCircle`: determinate and indeterminate circular progress with composable track and fill circles.
 - `HeroMeter`: label, output, track and fill with sizes, colors and intl value formatting.
 - `HeroSlider`: single and range thumbs, vertical orientation, keyboard, RTL and `FormField` / `HeroForm` integration.
+- `HeroAlert`: status alerts with default icons, indicator, content, title, description, actions and a live-region option.
