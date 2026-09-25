@@ -269,3 +269,11 @@ Newest entries are appended at the end of each section.
   or on a fling; HeroUI has no drag.
 - **Grouped checkbox values** submit as a list in selection order; an empty selection is
   omitted.
+- **Disabled propagation.** `HeroDisabledScope` (set by `HeroFieldset` and others) disables
+  every hero_ui control below it, like a disabled `<fieldset>`. The legend has no gap after
+  it, like a browser `<legend>`.
+- **SearchField** passes Escape on to its parents when the field is already empty.
+- **NumberField** unit names are English only; `NaN` means an empty controlled field.
+- **InputOTP** switches the keyboard to text when the pattern allows letters (HeroUI always
+  requests numeric input); an active invalid slot shows a 2 px danger ring; only the slots dim
+  when disabled, as in the source.
