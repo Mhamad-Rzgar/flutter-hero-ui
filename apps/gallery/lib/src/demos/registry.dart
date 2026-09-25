@@ -21,6 +21,7 @@ import 'color_swatch_picker_demo.dart';
 import 'description_demo.dart';
 import 'disclosure_demo.dart';
 import 'disclosure_group_demo.dart';
+import 'drawer_demo.dart';
 import 'error_message_demo.dart';
 import 'field_error_demo.dart';
 import 'form_demo.dart';
@@ -69,6 +70,7 @@ final Map<String, ComponentDemo> demoRegistry = <String, ComponentDemo>{
   descriptionDemo.slug: descriptionDemo,
   disclosureDemo.slug: disclosureDemo,
   disclosureGroupDemo.slug: disclosureGroupDemo,
+  drawerDemo.slug: drawerDemo,
   errorMessageDemo.slug: errorMessageDemo,
   fieldErrorDemo.slug: fieldErrorDemo,
   formDemo.slug: formDemo,
