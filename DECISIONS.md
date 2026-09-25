@@ -171,3 +171,15 @@ Newest entries are appended at the end of each section.
 - **Badge placement is physical** (`topRight` stays top-right in RTL), as in HeroUI's CSS.
 - **Gallery titles.** The untitled first docs example is titled "Usage" and the
   custom-styles example "Customization".
+- **Text input chrome.** The caret uses the text color (browser default); selection handles
+  use `--focus` and the selection highlight is `--focus` at 20%; the copy/paste menu is drawn
+  like a HeroUI popover (restyled Cupertino selection controls).
+- **Text fields show the focus ring for any focus**, not only keyboard focus, like browsers
+  treat `:focus-visible` on text inputs.
+- **Unsized inputs are 192 px wide**, the browser's default input width.
+- **Built-in validation messages** reproduce the browser's English messages and can be
+  replaced; a numeric `step` is only validated when set.
+- **TextArea** defaults to 2 rows (source, not docs), has no resize grip unless enabled and
+  capitalises sentences.
+- **Skeleton group shimmer** is painted on the skeletons only, not on the gaps; the docs'
+  `shadow-panel` class is undefined in HeroUI's CSS, so those examples have no shadow.
