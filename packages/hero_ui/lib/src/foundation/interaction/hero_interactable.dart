@@ -6,6 +6,8 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
+import 'hero_press_responder.dart';
+
 /// A snapshot of the interaction state of a [HeroInteractable].
 ///
 /// Mirrors the `data-*` state attributes React Aria sets on HeroUI
@@ -260,6 +262,7 @@ class _HeroInteractableState extends State<HeroInteractable> {
   bool _focusVisible = false;
   DateTime? _pressStartedAt;
   Timer? _releaseTimer;
+  HeroPressResponder? _responder;
 
   bool get _interactive => !widget.isDisabled && !widget.isPending;
 
@@ -339,6 +342,7 @@ class _HeroInteractableState extends State<HeroInteractable> {
   void _handleTap() {
     if (!_interactive) return;
     widget.onPressed?.call();
+    _responder?.onPressed?.call();
   }
 
   void _handleKeyboardActivate() {
@@ -350,6 +354,7 @@ class _HeroInteractableState extends State<HeroInteractable> {
       _release();
     }
     widget.onPressed?.call();
+    _responder?.onPressed?.call();
   }
 
   void _handleHover(bool value) {
@@ -372,6 +377,10 @@ class _HeroInteractableState extends State<HeroInteractable> {
 
   @override
   Widget build(BuildContext context) {
+    // A trigger slot (e.g. the first child of a modal) forwards presses.
+    final HeroPressResponder? responder = HeroPressResponder.maybeOf(context);
+    _responder = responder;
+    final bool pressable = widget.onPressed != null || responder != null;
     final HeroInteractionState state = HeroInteractionState(
       isHovered: _hovered && _interactive,
       isPressed: _pressed && _interactive,
@@ -383,6 +392,10 @@ class _HeroInteractableState extends State<HeroInteractable> {
     );
 
     Widget result = widget.builder(context, state, widget.child);
+    if (responder != null) {
+      // Pressables inside this one do not consume the responder.
+      result = HeroPressResponder.reset(child: result);
+    }
 
     result = GestureDetector(
       behavior: widget.behavior,
@@ -442,11 +455,12 @@ class _HeroInteractableState extends State<HeroInteractable> {
       focused: !widget.isDisabled && widget.canRequestFocus ? _focused : null,
       selected: widget.isToggle ? null : (widget.isSelected ? true : null),
       toggled: widget.isToggle ? widget.isSelected : null,
+      expanded: responder?.isExpanded,
       label: widget.semanticsLabel,
       hint: widget.semanticsHint,
       value: widget.semanticsValue,
       excludeSemantics: widget.excludeSemantics,
-      onTap: _interactive && widget.onPressed != null ? _handleTap : null,
+      onTap: _interactive && pressable ? _handleTap : null,
       onLongPress: _interactive && widget.onLongPress != null
           ? widget.onLongPress
           : null,

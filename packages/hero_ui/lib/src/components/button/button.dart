@@ -101,6 +101,14 @@ enum HeroButtonType {
   reset,
 }
 
+/// A special role of a [HeroButton] inside a composite component (HeroUI's
+/// `slot` prop).
+enum HeroButtonSlot {
+  /// Closes the enclosing dialog, modal, drawer or popover after
+  /// `onPressed` (`slot="close"`); see [HeroDialogScope].
+  close,
+}
+
 /// The render props of a [HeroButton]: `isHovered`, `isPressed`,
 /// `isFocused`, `isFocusVisible`, `isDisabled` and `isPending`.
 typedef HeroButtonState = HeroInteractionState;
@@ -165,6 +173,7 @@ class HeroButton extends StatelessWidget {
     this.autofocus = false,
     this.semanticLabel,
     this.style,
+    this.slot,
   });
 
   /// The label, usually a [Text] (or a [HeroIcon] when [isIconOnly]).
@@ -232,6 +241,10 @@ class HeroButton extends StatelessWidget {
   /// Overrides for colors, shape, geometry and text.
   final HeroButtonStyle? style;
 
+  /// A special role inside a composite component; [HeroButtonSlot.close]
+  /// closes the enclosing dialog after [onPressed].
+  final HeroButtonSlot? slot;
+
   static const Widget _pendingSpinner = HeroSpinner(
     size: HeroSpinnerSize.sm,
     color: HeroSpinnerColor.current,
@@ -286,9 +299,16 @@ class HeroButton extends StatelessWidget {
     final double pressedScale =
         style?.pressedScale ?? (group != null ? 1 : metrics.pressedScale);
 
+    final VoidCallback? handler = slot == HeroButtonSlot.close
+        ? () {
+            onPressed?.call();
+            HeroDialogScope.maybeOf(context)?.close();
+          }
+        : onPressed;
+
     return HeroInteractable(
       onPressed: type == HeroButtonType.button
-          ? onPressed
+          ? handler
           : () => _pressFormButton(context),
       onPressStart: onPressStart,
       onPressEnd: onPressEnd,
@@ -410,6 +430,7 @@ class HeroButton extends StatelessWidget {
       ..add(FlagProperty('isDisabled', value: isDisabled, ifTrue: 'disabled'))
       ..add(FlagProperty('isPending', value: isPending, ifTrue: 'pending'))
       ..add(FlagProperty('isIconOnly', value: isIconOnly, ifTrue: 'icon only'))
+      ..add(EnumProperty<HeroButtonSlot>('slot', slot, defaultValue: null))
       ..add(
         ObjectFlagProperty<VoidCallback>(
           'onPressed',

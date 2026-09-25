@@ -71,3 +71,4 @@ All notable changes to this repository. Package changelogs live in
 - `HeroAccordion` with items, triggers and animated panels on the shared `HeroCollapsible`.
 - `HeroDisclosure` with heading, trigger and animated content.
 - `HeroDisclosureGroup` with coordinated expansion and group keyboard navigation.
+- `HeroModal` with the shared modal route: backdrop variants, sizes, placements, scroll behaviour, mobile bottom sheet, focus trapping, declarative and imperative APIs; `HeroOverlayController`, `HeroDialogScope` and `HeroButton(slot: close)`.

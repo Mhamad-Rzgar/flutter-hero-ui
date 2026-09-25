@@ -30,6 +30,7 @@ export 'label/label.dart';
 export 'link/link.dart';
 export 'list_box/list_box.dart';
 export 'meter/meter.dart';
+export 'modal/modal.dart';
 export 'pagination/pagination.dart';
 export 'progress_circle/progress_circle.dart';
 export 'separator/separator.dart';
