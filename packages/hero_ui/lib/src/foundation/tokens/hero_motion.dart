@@ -39,6 +39,10 @@ class HeroMotion with Diagnosticable {
   /// One cycle of the text caret blink (`animate-caret-blink`, 1.2 s).
   static const Duration caretBlink = Duration(milliseconds: 1200);
 
+  /// One turn of an indeterminate progress circle (`progress-circle-spin`,
+  /// 1 s linear, the length of Tailwind's `animate-spin`).
+  static const Duration progressSpin = Duration(seconds: 1);
+
   /// CSS `ease` (`--ease-smooth`).
   static const Curve smooth = Cubic(0.25, 0.1, 0.25, 1);
 

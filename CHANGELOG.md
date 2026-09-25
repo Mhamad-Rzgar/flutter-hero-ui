@@ -53,3 +53,4 @@ All notable changes to this repository. Package changelogs live in
 - `HeroFieldError` and `HeroValidationResult`.
 - `HeroForm` with native and aria validation behaviour (`HeroValidationBehavior`), server errors, submit and reset, and `HeroButton.type`.
 - `HeroTextField` (convenience and composed forms, `FormField<String>` validation) and `HeroFieldLayout`.
+- `HeroProgressCircle`: determinate and indeterminate circular progress with composable track and fill circles.
