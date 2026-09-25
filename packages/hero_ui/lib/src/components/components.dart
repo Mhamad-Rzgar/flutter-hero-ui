@@ -10,6 +10,7 @@ export 'button_group/button_group.dart';
 export 'chip/chip.dart';
 export 'close_button/close_button.dart';
 export 'color/color.dart';
+export 'color_slider/color_slider.dart';
 export 'color_swatch/color_swatch.dart';
 export 'color_swatch_picker/color_swatch_picker.dart';
 export 'description/description.dart';
