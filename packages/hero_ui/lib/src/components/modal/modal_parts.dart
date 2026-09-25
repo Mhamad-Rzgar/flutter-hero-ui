@@ -612,8 +612,10 @@ class HeroModalBody extends HeroDialogPart {
 
 /// The actions row of a modal (`Modal.Footer`): end-aligned with 8 px gaps.
 ///
-/// Buttons with `fullWidth: true` share the row (`w-full`). Pass [child]
-/// for a custom layout, e.g. stacked buttons.
+/// Buttons with `fullWidth: true` share the row (`w-full`). When the
+/// actions do not fit on one line (long labels, large text) they stack
+/// vertically, end-aligned, like iOS alert actions. Pass [child] for a
+/// custom layout, e.g. stacked buttons.
 class HeroModalFooter extends HeroDialogPart {
   /// Creates a footer.
   const HeroModalFooter({
@@ -636,16 +638,27 @@ class HeroModalFooter extends HeroDialogPart {
     final Widget? child = this.child;
     if (child != null) return child;
     final HeroThemeData theme = HeroTheme.of(context);
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
+    final bool expands = children.any(
+      (Widget action) => action is HeroButton && (action.fullWidth ?? false),
+    );
+    if (expands) {
+      return Row(
+        spacing: theme.spacing(2),
+        children: <Widget>[
+          for (final Widget action in children)
+            if (action is HeroButton && (action.fullWidth ?? false))
+              Expanded(child: action)
+            else
+              action,
+        ],
+      );
+    }
+    return OverflowBar(
+      alignment: MainAxisAlignment.end,
       spacing: theme.spacing(2),
-      children: <Widget>[
-        for (final Widget action in children)
-          if (action is HeroButton && (action.fullWidth ?? false))
-            Expanded(child: action)
-          else
-            action,
-      ],
+      overflowSpacing: theme.spacing(2),
+      overflowAlignment: OverflowBarAlignment.end,
+      children: children,
     );
   }
 }

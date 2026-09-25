@@ -2,6 +2,7 @@
 
 export 'accordion/accordion.dart';
 export 'alert/alert.dart';
+export 'alert_dialog/alert_dialog.dart';
 export 'avatar/avatar.dart';
 export 'avatar_group/avatar_group.dart';
 export 'badge/badge.dart';

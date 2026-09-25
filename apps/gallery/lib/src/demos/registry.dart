@@ -3,6 +3,7 @@
 import '../demo.dart';
 import 'accordion_demo.dart';
 import 'alert_demo.dart';
+import 'alert_dialog_demo.dart';
 import 'avatar_demo.dart';
 import 'avatar_group_demo.dart';
 import 'badge_demo.dart';
@@ -50,6 +51,7 @@ import 'typography_demo.dart';
 final Map<String, ComponentDemo> demoRegistry = <String, ComponentDemo>{
   accordionDemo.slug: accordionDemo,
   alertDemo.slug: alertDemo,
+  alertDialogDemo.slug: alertDialogDemo,
   avatarDemo.slug: avatarDemo,
   avatarGroupDemo.slug: avatarGroupDemo,
   badgeDemo.slug: badgeDemo,

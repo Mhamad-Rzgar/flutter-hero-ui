@@ -694,17 +694,14 @@ void main() {
   });
 
   testWidgets('text scale 2 does not overflow', (WidgetTester tester) async {
-    await pumpHero(
-      tester,
-      MediaQuery(
-        data: const MediaQueryData(textScaler: TextScaler.linear(2)),
-        child: _modal(),
-      ),
-      surfaceSize: _phone,
-    );
+    tester.platformDispatcher.textScaleFactorTestValue = 2;
+    addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+    await pumpHero(tester, _modal(), surfaceSize: _phone);
     await _open(tester);
     expect(tester.takeException(), isNull);
     expect(find.text('Confirm').hitTestable(), findsOneWidget);
+    // The dialog text is scaled.
+    expect(tester.getSize(find.text('Welcome')).height, 48);
   });
 
   testWidgets('HeroModalTrigger opens the modal and shows press feedback', (

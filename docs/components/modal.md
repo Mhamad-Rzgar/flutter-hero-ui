@@ -422,7 +422,7 @@ result passed to `HeroModal.close(context, result)` (null when dismissed).
 | `HeroModalHeading` | `child`, `textAlign` | 16 px medium `foreground`; names the dialog. |
 | `HeroModalIcon` | `child`, `backgroundColor`, `foregroundColor` | 40 px circle, 20 px icon. |
 | `HeroModalBody` | `child` or `children`, `padding` (3) | 14 px `muted`, line height 1.43; scrolls inside. |
-| `HeroModalFooter` | `children` or `child` | End-aligned row, 8 px gaps; `fullWidth` buttons share the row. |
+| `HeroModalFooter` | `children` or `child` | End-aligned row, 8 px gaps; `fullWidth` buttons share the row; actions stack vertically when they do not fit. |
 | `HeroModalCloseTrigger` | `child`, `onPressed`, `semanticLabel` (`'Close'`) | `HeroCloseButton` at top 16 / end 16. |
 
 ### HeroOverlayController
